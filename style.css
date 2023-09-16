@@ -11,7 +11,7 @@
     "baixo baixo baixo";
   grid-template-columns: 0.5fr 3fr 0.5fr;
   grid-template-rows: 0.07fr 0.55fr 1fr;
-  height: 250vh;
+  height: auto;
   width: 99vw;
 }
 /* Parte do cabecalho */
@@ -427,4 +427,9 @@ input:focus {
 
 input::placeholder {
   color: #666262;
+}
+.container_geral{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
