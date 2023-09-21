@@ -11,7 +11,7 @@
     "baixo baixo baixo";
   grid-template-columns: 0.5fr 3fr 0.5fr;
   grid-template-rows: 0.07fr 0.55fr 1fr;
-  height: auto;
+  height: 20vh;
   width: 99vw;
 }
 /* Parte do cabecalho */
@@ -320,7 +320,6 @@
   transform: rotate(60deg);
   animation-iteration-count: 1;
 }
-
 .cabecalho {
   width: 100%;
   z-index: 3;
@@ -353,6 +352,7 @@
   display: flex;
   background-size: cover;
 }
+/*Onde é mostrado os dados da tabela do banco de dados*/
 .dados {
   display: flex;
   flex-direction: column;
@@ -360,16 +360,16 @@
   align-items: flex-start;
   margin-left: 5vh;
 }
-
+/*Aqui é o forms no qual será alterados os dados da tabela*/
 .alterar_dados {
   display: flex;
   background-size: cover;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-  margin-right: 5vh;
+  margin-right: 20vh;
 }
-
+/*Centraliza o texto*/
 .centered-text {
   justify-content: center;
   align-items: center;
@@ -377,7 +377,7 @@
   font-size: 15px;
   font-family: "Arial", sans-serif;
 }
-
+/*Botão alterar dados no forms*/
 .bt-altera_dados {
   cursor: pointer;
   margin: 0px 50px;
@@ -389,12 +389,17 @@
   background-color: #14213d;
   color: #e5e5e5;
 }
-
+/*Foto do perfil*/
 .foto {
-  width: 100px;
-  height: 100px;
+  width: 15vh;
+  height: 15vh;
   border-radius: 100%;
-  margin-left: 30px;
+  margin: 0 auto;
+  position: absolute;
+  padding-top: 10vh;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 label {
@@ -403,6 +408,7 @@ label {
   font-family: "Arial", sans-serif;
   display: inline-block;
 }
+/*Campos do formulário*/
 input {
   width: 100%;
   padding: 10px;
@@ -416,7 +422,7 @@ input {
 input:focus {
   border-color: #2ecc71;
 }
-
+/*Botão alterar dados do forms*/
 .bt-altera_dados:hover,
 .bt-altera_dados:active,
 .bt-altera_dados:focus,
@@ -428,7 +434,8 @@ input:focus {
 input::placeholder {
   color: #666262;
 }
-.container_geral{
+/* Aqui é onde fica o forms e a tabela com os dados */
+.container_geral {
   display: flex;
   justify-content: space-between;
   align-items: center;

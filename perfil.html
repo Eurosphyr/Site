@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="style.css" />
+    <link type="php" rel="php" href="tabela.php" />
+    <link type="php" rel="php" href="conexao.php" />
     <link rel="icon" href="Logos.svg" />
     <title>Perfil</title>
   </head>
@@ -22,75 +24,55 @@
       <div class="perfil">
         <img class="foto" src="User.svg" />
         <div class="dados">
+          <!--
+            Aqui vai ser puxado os dados do banco de dados
+          -->
+        </div>
+      </div>
+      <form action="altera_dados.php" method="POST">
+        <div class="alterar_dados">
           <div class="nome">
-            <label
-              ><input type="text" name="nome" value="" placeholder="Nome"
-            /></label>
+            <label for="nome"></label>
+            <input type="text" id="nome" name="nome" placeholder="Nome" />
           </div>
           <br />
           <div class="email">
-            <label
-              ><input type="email" name="email" value="" placeholder="Email"
-            /></label>
+            <label for="email"></label>
+            <input type="email" id="email" name="email" placeholder="Email" />
           </div>
           <br />
           <div class="telefone">
-            <label
-              ><input type="tel" name="telefone" value="" placeholder="Telefone"
-            /></label>
+            <label for="telefone"></label>
+            <input
+              type="tel"
+              id="telefone"
+              name="telefone"
+              placeholder="Telefone"
+            />
           </div>
           <br />
           <div class="endereco">
-            <label
-              ><input type="text" name="endereco" value="" placeholder="Endereço"
-            /></label>
+            <label for="endereco"></label>
+            <input
+              type="text"
+              id="endereco"
+              name="endereco"
+              placeholder="Endereço"
+            />
           </div>
           <br />
           <div class="cidade">
-            <label
-              ><input type="text" name="cidade" value="" placeholder="Cidade"
-            /></label>
+            <label for="cidade"></label>
+            <input type="text" id="cidade" name="cidade" placeholder="Cidade" />
           </div>
           <br />
+          <div class="centered-text">
+            <button class="bt-altera_dados">ALTERAR DADOS</button>
+          </div>
         </div>
-      </div>
-      <div class="centered-text">
-        <button class="bt-altera_dados">ALTERAR DADOS</button>
-      </div>
-      <div class="alterar_dados">
-        <div class="nome">
-          <label
-            ><input type="text" name="nome" value="" placeholder="Nome"
-          /></label>
-        </div>
-        <br />
-        <div class="email">
-          <label
-            ><input type="email" name="email" value="" placeholder="Email"
-          /></label>
-        </div>
-        <br />
-        <div class="telefone">
-          <label
-            ><input type="tel" name="telefone" value="" placeholder="Telefone"
-          /></label>
-        </div>
-        <br />
-        <div class="endereco">
-          <label
-            ><input type="text" name="endereco" value="" placeholder="Endereço"
-          /></label>
-        </div>
-        <br />
-        <div class="cidade">
-          <label
-            ><input type="text" name="cidade" value="" placeholder="Cidade"
-          /></label>
-        </div>
-        <br />
-      </div>
+      </form>
     </div>
-   
+
     <!-- <script src="script.js"></script> -->
   </body>
 </html>
