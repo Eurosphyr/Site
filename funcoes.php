@@ -1,5 +1,4 @@
 <?php
-// Make this in a function to connect in the databas
 function conectarAoBanco()
 {
   $host = "pgsql.projetoscti.com.br";
@@ -26,8 +25,6 @@ function mostrarTabela($result)
       <th>Nome</th>
       <th>Email</th>
       <th>Telefone</th>
-      <th>Endereço</th>
-      <th>Cidade</th>
     </tr>
     ";
   while ($linha = pg_fetch_assoc($result)) {
@@ -36,8 +33,6 @@ function mostrarTabela($result)
         <td>" . $linha['nome'] . "</td>
         <td>" . $linha['email'] . "</td>
         <td>" . $linha['telefone'] . "</td>
-        <td>" . $linha['endereco'] . "</td>
-        <td>" . $linha['cidade'] . "</td>
       </tr>
       ";
   }
@@ -46,13 +41,11 @@ function mostrarTabela($result)
   ";
 }
 
-
-
 function consultarDados()
 {
   $conn = conectarAoBanco();
 
-  $query = "SELECT * FROM tbl_";
+  $query = "SELECT * FROM tbl_produto";
   $result = $conn->query($query);
 
   if (!$result) {
@@ -62,6 +55,26 @@ function consultarDados()
 
   return $result;
 }
+function inserir_dados()
+{
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $conn = conectarAoBanco();
+
+    $linha = [
+      'nome'      => $_POST['nome'],
+      'email'     => $_POST['email'],
+      'senha'  => $_POST['senha'],
+      'telefone'  => $_POST['telefone']
+    ];
+
+    $sql = "INSERT INTO tbl_usuario (nome, email, senha, telefone)  
+              VALUES (:nome, :email, :senha, :telefone)";
+
+    $insert = $conn->prepare($sql);
+  }
+}
+
 
 function altera_dados()
 {
@@ -72,12 +85,12 @@ function altera_dados()
     $linha = [
       'nome'      => $_POST['nome'],
       'email'     => $_POST['email'],
-      'telefone'  => $_POST['telefone'],
-      'endereco'  => $_POST['endereco']
+      'senha'  => $_POST['senha'],
+      'telefone'  => $_POST['telefone']
     ];
 
-    $sql = "INSERT INTO aluno (nome, email, telefone, endereco)  
-              VALUES (:nome, :email, :telefone, :endereco)";
+    $sql = "INSERT INTO tbl_usuario (nome, email, senha, telefone)  
+              VALUES (:nome, :email, :senha, :telefone)";
 
     $update = $conn->prepare($sql);
 
@@ -85,7 +98,7 @@ function altera_dados()
     $update->execute($linha);
 
 
-    header('Location: index.php');
+    header('Location: perfil.html');
   } else {
 
     echo "Form not submitted!";
@@ -96,7 +109,7 @@ function excluirDados()
 {
   $id = $_GET['id'];
 
-  $sql = "DELETE FROM miguel WHERE id = :id";
+  $sql = "DELETE FROM tbl_usuario WHERE id = :id";
   $delete = conectarAoBanco()->prepare($sql);
   $delete->execute(array(':id' => $id));
 
@@ -105,7 +118,7 @@ function excluirDados()
   ];
 
   if ($delete->execute($params)) {
-    header('Location: index.php');
+    header('Location: perfil.html');
   } else {
     echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
   }
