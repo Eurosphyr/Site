@@ -224,11 +224,8 @@ function login_sessao(){
 
 function funcaoLogin ($paramLogin, $paramSenha, &$paramAdmin)  
   {
-   // o "&" antes do nome do parametro $paramAdmin 
-   // faz com que a funcao possa alterar o valor da variavel
-   // usada na chamada !!!
-   $paramAdmin = ($paramLogin == 'marcelo.peres@unesp.br' and 
-                  $paramSenha == '12345');
+   $paramAdmin = ($paramLogin == 'admin' and 
+                  $paramSenha == 'admin');
    // vc tb poderia procurar numa tabela de usuarios pra 
    // validar o usuario, eqto isso, .......
    return true;  // ...........todos sao validos!
