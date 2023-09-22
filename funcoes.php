@@ -161,3 +161,83 @@ echo "<form action='index.php' name='frmPesq' method='post'>
      </form><br>";
 }
 
+function login(){
+  if (isset($_SESSION['sessaoConectado'])) {
+    $sessaoConectado = $_SESSION['sessaoConectado'];
+} else { 
+  $sessaoConectado = false; 
+}
+
+// se sessao nao conectada ...
+if (!$sessaoConectado) { 
+   
+   $loginCookie = '';
+
+   // recupera o valor do cookie com o usuario    
+   if (isset($_COOKIE['loginCookie'])) {
+      $loginCookie = $_COOKIE['loginCookie']; 
+   }
+
+   echo "
+    <html>
+    <header></header>
+    <body>
+        <form name='formlogin' method='post' action='login-sessao.php'>
+        <table><tr>
+        <td>Login<br>
+        <input type='text' name='login' size=30 
+        value='$loginCookie'></td>
+        <td>Senha<br>
+        <input type='password' name='senha' size=8>
+        <input type='submit' value='Enviar'></td>
+        </tr></table>
+        </form>
+    </body>
+    </html>";
+}
+}
+
+function logout(){
+  session_start(); 
+  $_SESSION['sessaoConectado']=false; 
+  $_SESSION['sessaoAdmin']=false; 
+
+  header('Location: login.html');
+}
+
+function login_sessao(){
+  session_start();   
+
+  // login que veio do form
+  $login = $_POST['login'];
+  $senha = $_POST['senha'];
+  $eh_admin = false;
+
+  if ($login<>'') {
+      DefineCookie('loginCookie', $login, 60); 
+      $_SESSION['sessaoConectado'] = funcaoLogin($login,$senha,$eh_admin); 
+      $_SESSION['sessaoAdmin']     = $eh_admin;   
+  }
+     
+  header('Location: login.html');
+}
+
+function funcaoLogin ($paramLogin, $paramSenha, &$paramAdmin)  
+  {
+   // o "&" antes do nome do parametro $paramAdmin 
+   // faz com que a funcao possa alterar o valor da variavel
+   // usada na chamada !!!
+   $paramAdmin = ($paramLogin == 'marcelo.peres@unesp.br' and 
+                  $paramSenha == '12345');
+   // vc tb poderia procurar numa tabela de usuarios pra 
+   // validar o usuario, eqto isso, .......
+   return true;  // ...........todos sao validos!
+
+  }
+
+  function DefineCookie($paramNome, $paramValor, $paramMinutos) 
+  {
+   echo "Cookie: $paramNome Valor: $paramValor";  
+   setcookie($paramNome, $paramValor, time() + $paramMinutos * 60); 
+  }
+
