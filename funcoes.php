@@ -52,7 +52,6 @@ function consultarDados()
     echo "Error in SQL query.";
     exit;
   }
-
   return $result;
 }
 function inserir_dados()
@@ -89,7 +88,7 @@ function altera_dados()
       'telefone'  => $_POST['telefone']
     ];
 
-    $sql = "INSERT INTO tbl_usuario (nome, email, senha, telefone)  
+    $sql = "UPDATE INTO tbl_usuario (nome, email, senha, telefone)  
               VALUES (:nome, :email, :senha, :telefone)";
 
     $update = $conn->prepare($sql);
@@ -105,21 +104,60 @@ function altera_dados()
   }
 }
 
-function excluirDados()
+function inutilizar_produto()
 {
   $id = $_GET['id'];
 
-  $sql = "DELETE FROM tbl_usuario WHERE id = :id";
+  $sql = "UPDATE FROM tbl_produto WHERE id = :id_produto";
   $delete = conectarAoBanco()->prepare($sql);
-  $delete->execute(array(':id' => $id));
+  $delete->execute(array(':id_produto' => $id));
 
   $params = [
-    ':id' => $id
+    ':id_produto' => $id
   ];
 
   if ($delete->execute($params)) {
-    header('Location: perfil.html');
+    header('Location: compra.html');
   } else {
     echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
   }
 }
+
+function excluir_produto(){
+  $id = $_GET['id'];
+
+  $sql = "DELETE FROM tbl_carrinho WHERE id = :id_produto";
+  $delete = conectarAoBanco()->prepare($sql);
+  $delete->execute(array(':id_produto' => $id));
+
+  $params = [
+    ':id_produto' => $id
+  ];
+
+  if ($delete->execute($params)) {
+    header('Location: carrinho.html');
+  } else {
+    echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
+  }
+}
+
+function pesquisa(){
+  if (isset($_POST['varNome'])) {
+    $varNome = $_POST['varNome'];
+} else {
+    $varNome = "";
+}
+
+$sql = " SELECT * FROM tbl_produto 
+         WHERE (nome LIKE '%$varNome%')   
+         ORDER BY nome ";
+
+$select = conectarAoBanco()->query($sql);
+
+echo "<form action='index.php' name='frmPesq' method='post'>
+      Digite o nome ou parte<br>
+      <input type='text' name='nome'>
+      <input type='submit' value='Pesquisar'>
+     </form><br>";
+}
+
