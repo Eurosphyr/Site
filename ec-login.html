@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            
+        }
+        .container{
+            width: auto;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        .menu{
+            border-radius: 5px;
+            flex-direction: column;
+            width: 450px;
+            height: 630px;
+            background-color: #14213D;
+            display: flex;
+            align-items: center;
+            font-size: 25px;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-style: italic;
+            color: #818080;
+            font-weight:bold;
+            transition: 1s;
+        }
+        .cadastro{
+            margin-top: 50px;
+            border-bottom: 2px solid #818080;
+            margin-bottom: 110px;
+        }
+        .em{
+            position: absolute;
+            font-size: 20px;
+            left: 42%;
+            top: 33%;
+        }
+        .se{
+            position: absolute;
+            font-size: 20px;
+            left: 42%;
+            top: 43.5%;
+        }
+        .escrita{
+            width: 300px;
+            font-size: 15px;
+            background-color: #14213D;
+            border: none;
+            border-bottom: solid 2px #818080;
+            color: #818080;
+            margin-bottom: 100px;
+        }
+        .escrita:focus{
+            outline: none;
+        }
+        .Cse{
+            position: absolute;
+            font-size: 20px;
+            left: 42%;
+            top: 54%;
+        }
+        .bt{
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 200px;
+            height: 50px;
+            background-color: #f5a72b;
+            border: 3px solid #f5a72b;
+            border-radius: 3px;
+            color: #3e3e3e;
+            transition: 0.5s linear;
+        }
+        .bt:active{
+            border-bottom: 3px solid #947441 ;
+            border-right: 3px solid #947441;
+            background-color: #947441;
+        }
+        .baixo{
+            margin-top: 6px;   
+            font-size: 13px;
+        }
+        a{
+            text-decoration: none;
+            color: #818080;
+        }
+        .checked{
+            position: absolute;
+            bottom: 42%;
+            left: 42.25%;
+            cursor: pointer;
+        }
+        .salvar{
+            font-size: 10px;
+            position: absolute;
+            bottom: 42%;
+            left: 43.2%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <div class="cadastro">Faça seu Login</div>
+            <label class="em">Email</label>
+            <input class="escrita" type="text">
+            <label class="se">Senha</label>
+            <input class="escrita" type="text">
+            <input class="checked" type="checkbox"><label class="salvar">Lembrar sempre</label>
+            <input class="bt" type="button" value="Confirmar">
+            <div class="baixo"><a href="#">Criar conta</a></div>
+            <div class="baixo"><a href="#">Esqueci a senha</a></div>
+        </div>
+    </div>
+</body>
+</html>

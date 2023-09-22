@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Compra</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+            padding: 0px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .container{
+            display: grid;
+            grid-template-areas: "cabecalho cabecalho cabecalho"
+                                 "foto desc preco"
+                                 "mais nada nada"
+                                 "esp esp esp"
+                                 "vi vi vi";
+            grid-template-columns: 1.3fr 1fr 0.7fr;
+            grid-template-rows: 0.2fr 1.5fr 0.5fr 0.8fr 0.6fr;
+            width: 99vw;
+            height: auto;
+        }
+        .nada{
+            grid-area: nada;
+        }
+        /*Parte Cabecalho*/
+        .cabecalho{
+            width: 100%;
+            position: fixed;
+            padding: 0px 40px;
+            grid-area: cabecalho;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid black;
+        }
+        .logo{
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+        }
+        .b{
+            cursor: pointer;
+            margin: 0px 50px;
+            font-size: 15px;
+            border: none;
+            width: 130px;
+            height: 45px;
+            border-radius: 5px;
+            background-color: #14213D;
+            color: #e5e5e5;
+        }
+        .perfil{
+            margin-left: 780px;
+            background-size: cover;
+            width: 110px;
+            margin-right: 20px;
+        }
+        .carrinho{
+            width: 65px;
+        }
+        .opcao{
+            margin-left: 30px;
+            width: 100px;
+        }
+        /*Parte imagem produto*/
+        .ft-prod1{  
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            grid-area: foto;
+        }
+        .prod{
+            width: 600px;
+        }
+        /*Parte desc produto*/
+        .desc{
+            padding: 40px 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            grid-area: desc;
+        }
+        .titulo-prod{
+            margin-bottom: 25px;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .desc-prod{
+            font-size: 25px;
+        }
+        /*Parte compra produto*/
+        .compra-prod{
+            padding: 40px;
+            grid-area: preco;
+        }
+        .compra{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 5px;
+            background-color: #14213D;
+            width: 100%;
+            height: 100%;
+        }
+        .preco{
+            margin: 70px 0px;
+            color: #ffffff;
+            font-size: 50px;
+        }
+        .tipo1{
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .tipo2{
+            color: #FCA311;
+            font-size: 20px;
+            margin: 20px 0px;
+        }
+        /*Parte mais imagens produto*/
+        .imgs-prod{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-area: mais;
+        }
+        .prod2{
+            margin: 0px 20px;
+            width: 200px;
+        }
+        /*Parte titulo especificacoes*/
+        .esp{
+            justify-content: center;
+            flex-direction: column;
+            display: flex;
+            font-weight: bold;
+            font-size: 25px;
+            padding: 0px 200px;
+            grid-area: esp;
+        }
+        /*Parte descricao especificacoes*/
+        .desc-esp{
+            margin: 30px 0px;
+            font-size: 20px;
+            font-weight: normal;
+        }
+        /*Parte titulo video*/
+        .video{
+            display: flex;
+            font-weight: bold;
+            flex-direction: column;
+            font-size: 25px;
+            padding-left: 200px;
+            grid-area: vi;
+        }
+        /*Parte video*/
+        .video-css{
+            border-radius: 15px;
+            margin: 30px 0px;
+            width: 1470px;
+            height: 350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nada"></div>
+        <div class="cabecalho">
+            <img class="logo" src="logo-MIPRON.jpeg">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <a href=""><img class="perfil" src="Design sem nome (3).png"></a>
+            <a href="ec-carrinho.html"><img class="carrinho" src="Design sem nome (5) (1).png"></a>
+            <a href=""><img class="opcao" src="Design sem nome (3) (1).png"></a>
+        </div>
+        <div class="ft-prod1">
+            <img class="prod" src="image 27 (1).png" >
+        </div>
+        <div class="desc">
+            <p class="titulo-prod">Mousepad Preto</p>
+            <p class="desc-prod">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+               Vestibulum ante leo, tempus quis dignissim at, ullamcorper at quam. 
+               Mauris eleifend congue lectus ac luctus.
+            </p>
+        </div>
+        <div class="compra-prod">
+            <div class="compra">
+                <p class="preco">R$5,99</p>
+                <a href=""><p class="tipo1">Tipo de entrega</p></a>
+                <a href="ec-carrinho.html"><p class="tipo2">Adicionar ao carrinho</p></a>
+                <a href=""><p class="tipo2">Comprar agora</p></a>
+            </div>
+        </div>
+        <div class="imgs-prod">
+            <img class="prod2" src="image 26 (1).png">
+            <img class="prod2" src="image 26 (1).png">
+            <img class="prod2" src="image 26 (1).png">
+        </div>
+        <div class="esp">
+            <p>
+                Especificações Técnicas
+            </p>
+            <p class="desc-esp">
+                Vestibulum ante ipsum primis in faucibus orci luctus et 
+                ultrices posuere cubilia curae; Nam efficitur in lorem quis vulputate. 
+                Praesent iaculis, sapien at dapibus luctus, lorem nisi ultrices arcu, 
+                eget finibus ipsum arcu eget nibh. Vestibulum cursus nec ante id facilisis. 
+                Fusce nec rutrum velit. Quisque nunc massa, porttitor nec nibh sed, tincidunt lacinia felis. 
+                Mauris ornare lectus mi, quis sagittis libero consequat at. 
+                Aliquam interdum risus sit amet mi faucibus luctus. Aenean tincidunt justo at pulvinar faucibus.
+            </p>
+        </div>
+        <div class="video">
+            <p>
+                Video do produto
+            </p>
+            <iframe 
+                class="video-css"  
+                src="https://www.youtube.com/embed/DMBc5LjZPSI?si=zXoy1YEv3TlxYss5"
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>

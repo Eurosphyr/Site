@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Pagamento</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+            padding: 0px;
+        }
+        .fundo{ 
+            z-index: -9;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: #14213D;
+
+        }
+        .container{
+            display: grid;
+            grid-template-areas: "cabecalho cabecalho"
+                                 "tipoP most-prod"
+                                 "endereco pagar";
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 0.157fr 1fr 1fr;
+            width: 100vw;
+            height: 100vh;
+        }
+        input[type=text]
+        {
+            border-radius: 3px;
+            margin: 30px 0px;
+            width: 300px;
+            height: 30px;
+            background-color: #14213D;
+            border: none;
+            font-size: 18px;
+            padding: 0px 10px;
+            color: #ffffff;
+        }
+        input[type=text]:focus{
+            outline: none;
+        }
+        input[type=text]::placeholder{
+            color: #e5e5e5;
+        }
+        p{
+            font-size: 25px;
+            color: #ffffff;
+        }
+        label{
+            color: #ffffff;
+        }
+        /* Parte cabecalho */
+        .cabecalho{
+            width: 100%;
+            z-index: 3;
+            position: fixed;
+            padding: 0px 40px;
+            grid-area: cabecalho;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid black;
+        }
+        .logo{
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+        }
+        .b{
+            cursor: pointer;
+            margin: 0px 50px;
+            font-size: 15px;
+            border: none;
+            width: 130px;
+            height: 45px;
+            border-radius: 5px;
+            background-color: #14213D;
+            color: #e5e5e5;
+        }
+        .perfil{
+            margin-left: 800px;
+            background-size: cover;
+            width: 110px;
+        }
+        .opcao{
+            margin-left: 40px;
+            width: 100px;
+        }
+        /* Parte Tipo de Pagamento */
+        .tipo{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            grid-area: tipoP;
+        }
+        .volta{
+            margin: 15px 0px;
+            padding: 0px 20px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            border: #ffffff solid 1px;
+            border-radius: 50px;
+        }
+        /* Parte Pagar */
+        .pagar{
+            display: flex;
+            justify-content: center;
+            grid-area: pagar;
+        }
+        .formas-p{
+            display: flex;
+            align-items: center;
+            flex-direction: column;   
+        }
+        .desc{
+            font-size: 19px;
+            z-index: 3;
+            height: 350px;
+            background-color: #FCA311;
+            margin: 0px 20px 20px 20px;
+            padding: 40px 60px 20px 60px;
+            border-radius: 0px 0px 4px 4px;
+            box-shadow: 1px 1px 20px 0px #000000; 
+        }
+        .padrao, .premium, .total{
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+        .linha{
+            margin-top: 30px;
+            width: 300px;
+            height: 1px;
+            background-color: #000000;
+        }
+        .esp{
+            margin: 30px 0px;
+        }
+        .bt-compra{
+            background-color: #FCA311;
+            border: none;
+            display: flex;
+            justify-content: center;
+            width: 150px;
+            height: 30px;
+            font-size: 17px;
+            border-radius: 4px;
+            cursor: pointer;
+
+        }
+        .desc-prod{
+            cursor: default;
+            top: 51%;
+            right: 2%;
+            background-color: #e49619;
+            border-radius: 4px 4px 0px 0px;
+            border: 2px solid #000000;
+            border-bottom: none;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            z-index: 4;
+            position: absolute;
+            width: 120px;
+            height: 40px;
+            font-weight: bold;
+        }
+        /* Parte endereco */
+        .endereco{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-area: endereco;
+            padding: 20px;
+        }
+        .endereco-d{
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background-color: #FCA311;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 1px 1px 20px 5px #000000; 
+        }
+        .preto{
+            color: #000000;
+        }
+        /* Parte mostrar prod */
+        .produto{
+            padding: 20px 20px 0px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-area: most-prod;
+        }
+        .mais-imgs{
+            display: flex;
+            flex-direction: column;
+        }
+        .img1{
+            margin-right: 10px;
+        }
+        .img2{
+            width: 200px;
+            margin: 10px 0px;
+        }
+        .contorno{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #FCA311;
+            border-radius: 5px 5px 0px 5px;
+            box-shadow: 1px 1px 20px 5px #000000; 
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo"></div>
+    <div class="container">
+        <div class="cabecalho">
+            <img class="logo" src="logo-MIPRON.jpeg">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <a href=""><img class="perfil" src="Design sem nome (3).png"></a>
+            <a href=""><img class="opcao" src="Design sem nome (3) (1).png"></a>
+        </div>
+        <div class="tipo">
+            <p>Selecione o tipo de pagamentento</p>
+            <div>
+                <div class="volta">
+                    <input type="radio" name="tipoP">
+                    <label>Pix</label>
+                </div>
+                <div class="volta">
+                    <input type="radio" name="tipoP">
+                    <label>Cartão de Débito</label>
+                </div>
+                <div class="volta">
+                    <input type="radio" name="tipoP">
+                    <label>Cartão de Crédito</label>
+                </div>
+            </div>
+        </div>
+        <div class="pagar">
+            <div class="formas-p">
+                <div class="padrao">
+                    <p class="esp">Entrega padrão</p>
+                    <p class="esp">R$0,00</p>
+                </div>
+                <div class="premium">
+                    <p class="esp">Entrega premium</p>
+                    <p class="esp">R$3,99</p>
+                </div>
+                <div class="linha"></div>
+                <div class="total">
+                    <p class="esp"><strong>Total</strong></p>
+                    <p class="esp">R$12,00</p>
+                </div> 
+                <input class="bt-compra" type="button" value="PAGAR">
+            </div>
+            <div class="desc-prod">Descriçao</div>
+            <div class="desc">
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajf
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+                fnasmfnm, fmnasnfamsnfm, fmasfmas,fnasmfnm,
+                fnsakfjassfklfjasfkl, fhasfhsffjajfs
+            </div>
+        </div>
+        <div class="endereco">
+            <div class="endereco-d">
+                <p class="preto">Selecione seu endereço</p>
+                <input type="text" placeholder="Endereço">
+                <input type="text" placeholder="CEP">
+                <input type="text" placeholder="Complemento">
+            </div>
+        </div>
+        <div class="produto">
+            <div class="contorno">
+                <img class="img1" src="image 27 (1).png">
+                <div class="mais-imgs">
+                    <img class="img2" src="image 26 (1).png">
+                    <img class="img2" src="image 26 (1).png">
+                    <img class="img2" src="image 26 (1).png">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

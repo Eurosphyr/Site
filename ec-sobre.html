@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            display: grid;
+            grid-template-areas: "cabecalho cabelho"
+                                 "sobre sobre"
+                                 "escrita1 img1"
+                                 "img2 escrita2"
+                                 "banner banner";
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 0.26fr 1fr 2.5fr 2fr 2.5fr;
+            z-index: 3;
+            grid-area: baixo;
+            background-color: #000000;
+            height: auto;
+        }
+        /*Parte cabecalho*/
+        .cabecalho{
+            width: 100%;
+            position: fixed;
+            padding: 0px 40px;
+            grid-area: cabecalho;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid black;
+        }
+        .logo{
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+        }
+        .b{
+            cursor: pointer;
+            margin: 0px 50px;
+            font-size: 15px;
+            border: none;
+            width: 130px;
+            height: 45px;
+            border-radius: 5px;
+            background-color: #14213D;
+            color: #ffffff;
+        }
+        .perfil{
+            margin-left: 780px;
+            background-size: cover;
+            width: 110px;
+            margin-right: 20px;
+        }
+        .carrinho{
+            width: 65px;
+        }
+        .opcao{
+            margin-left: 30px;
+            width: 100px;
+        }
+        /* Parte Apresentacao */
+        .sobre{
+            flex-direction: column;
+            grid-area: sobre;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+        }
+        .apresentacao{
+            font-weight: bold;
+            font-size: 60px;
+        }
+        .linha{
+            width: 800px;
+            height: 1px;
+            background-color: #000000;
+        }
+        /* Parte corpo texto cima */
+        .part-img1{
+            padding: 20px 0px;
+            grid-area: img1;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .imagem1{
+            width: 400px;
+            height: 500px;
+            background-color: #b8aeae;
+        }
+        /* Parte Escrita1 */
+        .escrita1{
+            grid-area: escrita1;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .escritaL{
+            padding: 0px 300px 0px 350px;
+            font-size: 25px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        /* Parte corpo texto baixo */
+        .part-img2{
+            padding: 20px 0px;
+            grid-area: img2;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .imagem2{
+            width: 400px;
+            height: 500px;
+            background-color: #b8aeae;
+        }
+        /* Parte Escrita2 */
+        .escrita2{
+            grid-area: escrita2;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .escritaD{
+            padding: 0px 300px 0px 350px;
+            font-size: 25px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        /* Parte Banner */
+        .part-banner{
+            grid-area: banner;
+            background-color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .banner{
+            background-color: #b8aeae;
+            height: 400px;
+            width: 1350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cabecalho">
+            <img class="logo" src="logo-MIPRON.jpeg">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <a href=""><img class="perfil" src="Design sem nome (3).png"></a>
+            <a href=""><img class="carrinho" src="Design sem nome (5) (1).png"></a>
+            <a href=""><img class="opcao" src="Design sem nome (3) (1).png"></a>
+        </div>
+        <div class="sobre">
+            <div class="apresentacao">Sobre Nós</div>
+            <div class="linha"></div>
+        </div>
+        <div class="part-img1">
+            <div class="imagem1"></div>
+        </div>
+        <div class="escrita1">
+            <div class="escritaL">Lorem ipsum dolor sit amet,
+                                  consectetur adipiscing elit. 
+                                  Vestibulum laoreet lobortis pellentesque. 
+                                  Vivamus ut dolor vel tortor tempor aliquet pulvinar sed sem.
+            </div>
+        </div>
+        <div class="part-img2">
+            <div class="imagem2"></div>
+        </div>
+        <div class="escrita2">
+            <div class="escritaD">Lorem ipsum dolor sit amet, 
+                                  consectetur adipiscing elit. 
+                                  Vestibulum laoreet lobortis pellentesque. 
+                                  Vivamus ut dolor vel tortor tempor aliquet pulvinar sed sem.
+            </div>
+        </div>
+        <div class="part-banner">
+            <div class="banner"></div>
+        </div>
+    </div>
+</body>
+</html>

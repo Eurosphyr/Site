@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            overflow: hidden;
+            display: grid;
+            grid-template-areas: "cabecalho"
+                                 "meio1"
+                                 "meio2"
+                                 "pagar";
+            grid-template-columns: 1fr;
+            grid-template-rows: 0.2fr 0.5fr 1.6fr 0.8fr;
+            width: 99vw;
+            height: auto;
+        }
+        /*Parte cabecalho*/
+        .cabecalho{
+            width: 100%;
+            z-index: 3;
+            position: fixed;
+            padding: 0px 40px;
+            grid-area: cabecalho;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid black;
+        }
+        .logo{
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+        }
+        .b{
+            cursor: pointer;
+            margin: 0px 50px;
+            font-size: 15px;
+            border: none;
+            width: 130px;
+            height: 45px;
+            border-radius: 5px;
+            background-color: #14213D;
+            color: #e5e5e5;
+        }
+        .perfil{
+            margin-left: 800px;
+            background-size: cover;
+            width: 110px;
+        }
+        .opcao{
+            margin-left: 40px;
+            width: 100px;
+        }
+        /*Parte meio1*/
+        .apresentacao{
+            grid-area: meio1;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .foto-ca{
+            margin-right: 20px;
+            width: 200px;
+        }
+        .escrita-ca
+        {
+            display: flex;
+            flex-direction: column;
+        }
+        .reta1{
+            width: 450px;
+            height: 1px;
+            background-color: black;
+        }
+        .carrinho{
+            margin-left: 90px;
+            font-size: 70px;
+        }
+        .reta2{
+            width: 450px;
+            height: 1px;
+            background-color: black;
+        }
+        /*Parte meio2*/
+        .produtos{
+            padding: 50px 0px;
+            grid-area: meio2;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .prod1{
+            display: flex;
+            align-items: center;
+            padding: 0px 50px;
+            box-shadow: -5px    5px 10px 0px;
+            margin: 10px 0px 10px 0px;
+            width: 850px;
+            height: 200px;
+            background-color: #aaaaaa;
+        }
+        .desing-p{
+            width: 315px;
+            display: flex;
+            align-items: center;
+            border-right: 1px solid #14213D;
+
+        }
+        .ft-prod{
+            width: 106px;
+            height: 106px;
+            background-color: #14213D;
+        }
+        .nm-prod{
+            white-space: pre-wrap;
+            margin: 30px;
+            font-size: 21px;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        .desing-v{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 106px;
+            width: 171px;
+            border-right: 1px solid #14213D;
+            font-size: 25px;
+        }
+        .v-prod{
+            margin: 0px;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+        }
+        .q-prod{
+            display: flex;
+            margin: 0px 3px;
+            width: 30px;
+            border: 2px solid black;
+        }
+        .desing-t{
+            width: 170px;
+            height: 106px;
+            display: flex;
+            justify-content: center;
+        }
+        .retirar{
+            margin: 0px;
+            transform: rotate(45deg);
+            font-size: 25px;
+        }
+        .valores{
+            margin-top: 40px;
+            flex-direction: column;
+            height: 40px;
+            width: 850px;
+            display: flex;
+            align-items: end;
+        }
+        .escrita{
+            font-size: 20px;
+        }
+        .font{
+            font-size: 18px;
+        }
+        .escrita-p{
+            position: absolute;
+            left: 29%;
+            top: 43%;
+        }
+        .escrita-v{
+            position: absolute;
+            left: 47.5%;
+            top: 43%;
+        }
+        .escrita-q{
+            position: absolute;
+            left: 56.1%;
+            top: 43%;
+        }
+        .escrita-t{
+            position: absolute;
+            left: 65.6%;
+            top: 43%;
+        }
+        .pagar{
+            display: flex;
+            justify-content: center;
+            grid-area: pagar;
+            background-color: rgb(255, 255, 255);
+        }
+        .baixo{
+            border-top: 1px solid #14213D;
+            display: flex;
+            justify-content: space-between;
+            padding: 50px 30px 0px 30px;
+            width: 1100px;
+        }
+        .comprar{
+            cursor: pointer;
+            height: 100px;
+            width: 250px;
+            border: none;
+            border-radius: 7px;
+            background-color: #FCA311;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .voltar{
+            font-size: 20px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cabecalho">
+            <img class="logo" src="logo-MIPRON.jpeg">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <input class="b" type="button" value="Button">
+            <a href=""><img class="perfil" src="Design sem nome (3).png"></a>
+            <a href=""><img class="opcao" src="Design sem nome (3) (1).png"></a>
+        </div>
+        <div class="apresentacao">
+            <img class="foto-ca" src="Design sem nome (4) (1).png">
+            <div class="escrita-ca">
+                <div class="reta1"></div>
+                <p class="carrinho">Carrinho</p>
+                <div class="reta2"></div>
+            </div>
+        </div>
+        <div class="produtos">
+                <p class="font escrita-p">Produto</p>
+                <p class="font escrita-v">Valor</p>
+                <p class="font escrita-q">Quant</p>
+                <p class="font escrita-t">Total</p>
+            <div class="prod1">
+                <div class="desing-p">
+                    <div class="ft-prod"></div>
+                    <p class="nm-prod">Nome do produto</p>
+                </div> 
+                <div class="desing-v">
+                    <p class="v-prod">R$</p>
+                </div>
+                <div class="desing-v">
+                    <a href="">-</a>
+                    <input class="q-prod" type="number" value="1">
+                    <a href="">+</a>
+                </div>
+                <div class="desing-t">
+                    <p class="v-prod">R$</p>
+                </div>
+                <a class="retirar" href="">+</a>
+            </div>
+            <div class="prod1">
+                <div class="desing-p">
+                    <div class="ft-prod"></div>
+                    <p class="nm-prod">Nome do produto</p>
+                </div> 
+                <div class="desing-v">
+                    <p class="v-prod">R$</p>
+                </div>
+                <div class="desing-v">
+                    <a href="">-</a>
+                    <input class="q-prod" type="number" value="1">
+                    <a href="">+</a>
+                </div>
+                <div class="desing-t">
+                    <p class="v-prod">R$</p>
+                </div>
+                <a class="retirar" href="">+</a>
+            </div>
+            <div class="prod1">
+                <div class="desing-p">
+                    <div class="ft-prod"></div>
+                    <p class="nm-prod">Nome do produto</p>
+                </div> 
+                <div class="desing-v">
+                    <p class="v-prod">R$</p>
+                </div>
+                <div class="desing-v">
+                    <a href="">-</a>
+                    <input class="q-prod" type="number" value="1">
+                    <a href="">+</a>
+                </div>
+                <div class="desing-t">
+                    <p class="v-prod">R$</p>
+                </div>
+                    <a class="retirar" href="">+</a>
+            </div>
+            <div class="valores">
+                <p class="escrita">Subtotal: R$</p>
+                <p class="escrita">Frete: R$</p>
+                <p class="escrita">Total: R$</p>
+            </div>
+        </div>
+        <div class="pagar">
+            <div class="baixo">
+                <a class="voltar" href="">Continuar comprando</a>
+                <input class="comprar" type="button" value="Comprar">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
