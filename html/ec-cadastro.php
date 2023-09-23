@@ -10,14 +10,16 @@
     <div class="container">
       <div class="menu">
         <div class="cadastro">Cadastre-se</div>
+        <form action="../php/funcoes.php" method="POST">
         <label class="em">Email</label>
         <input class="escrita" type="text" />
         <label class="se">Senha</label>
         <input class="escrita" type="text" />
         <label class="Cse">Confirmar Senha</label>
         <input class="escrita" type="text" />
-        <input class="bt" type="button" value="Confirmar" />
+        <input class="bt" type="submit" value="Confirmar" />
         <div class="baixo"><a href="ec-login.html">Ja possuo conta</a></div>
+        </form>
       </div>
     </div>
   </body>

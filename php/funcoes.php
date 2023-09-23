@@ -56,24 +56,25 @@ function consultarDados()
 }
 function inserir_dados()
 {
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $conn = conectarAoBanco();
 
-    $conn = conectarAoBanco();
+        $linha = [
+            'email'          => $_POST['email'],
+            'senha'          => $_POST['senha'],
+            'confirmar_senha' => $_POST['confirmar_senha'], // Match the input name
+        ];
 
-    $linha = [
-      'nome'      => $_POST['nome'],
-      'email'     => $_POST['email'],
-      'senha'  => $_POST['senha'],
-      'telefone'  => $_POST['telefone']
-    ];
+        $sql = "INSERT INTO tbl_usuario (email, senha, confirmar_senha)  
+                VALUES (:email, :senha, :confirmar_senha)";
 
-    $sql = "INSERT INTO tbl_usuario (nome, email, senha, telefone)  
-              VALUES (:nome, :email, :senha, :telefone)";
-
-    $insert = $conn->prepare($sql);
-  }
+        $insert = $conn->prepare($sql);
+        $insert->execute($linha);
+        
+        // Redirect to a thank-you page or perform other actions as needed
+        header("Location: thank_you.php");
+    }
 }
-
 
 function altera_dados()
 {
