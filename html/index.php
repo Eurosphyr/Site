@@ -14,15 +14,12 @@
     <div class="container">
     <div class="cabecalho">
       <img class="logo" src="logo-MIPRON.jpeg" />
-      <input class="b" type="button" value="HOME" href="index.php" />
-      <input class="b" type="button" value="SOBRE" href="ec-sobre.php" />
-      <input class="b" type="button" value="COMPRAR"  href="ec-telacompra.php"/>
+      <a class="b" href="index.php">HOME</a>
+      <a class="b" href="ec-sobre.php">SOBRE</a>
+      <a class="b" href="ec-telacompra.php">COMPRAR</a>
       <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
     </div>
-        <!-- <a href=""><img class="perfil" src="../img/user.png"></a> -->
-            <!-- <a href=""><img class="carrinho" src="../img/cart.png"></a> -->
-            <!-- <a href=""><img class="opcao" src="../img/menu.png"></a> -->
     </div>
         </div>
       </div>
