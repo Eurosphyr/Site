@@ -13,7 +13,7 @@
         <label class="em">Email</label>
         <input class="escrita" type="text" />
         <label class="se">Senha</label>
-        <input class="escrita" type="text" />
+        <input class="escrita" type="password" />
         <input class="checked" type="checkbox" /><label class="salvar"
           >Lembrar sempre</label
         >

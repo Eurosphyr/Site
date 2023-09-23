@@ -78,11 +78,11 @@
       </div>
       <div class="produto">
         <div class="contorno">
-          <img class="img1" src="image 27 (1).png" />
+          <img class="img1" src="../img/mousepad.png" />
           <div class="mais-imgs">
-            <img class="img2" src="image 26 (1).png" />
-            <img class="img2" src="image 26 (1).png" />
-            <img class="img2" src="image 26 (1).png" />
+            <img class="img2" src="../img/mousepad.png" />
+            <img class="img2" src="../img/mousepad.png "/>
+            <img class="img2" src="../img/mousepad.png" />
           </div>
         </div>
       </div>

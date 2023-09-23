@@ -14,11 +14,11 @@
         <label class="em">Email</label>
         <input class="escrita" type="text" />
         <label class="se">Senha</label>
-        <input class="escrita" type="text" />
+        <input class="escrita" type="password" />
         <label class="Cse">Confirmar Senha</label>
         <input class="escrita" type="text" />
         <input class="bt" type="submit" value="Confirmar" />
-        <div class="baixo"><a href="ec-login.html">Ja possuo conta</a></div>
+        <div class="baixo"><a href="ec-login.php">Ja possuo conta</a></div>
         </form>
       </div>
     </div>

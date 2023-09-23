@@ -2,197 +2,16 @@
   margin: 0px;
 }
 /* Grid todo */
-.container {
-  overflow: hidden;
-  display: grid;
-  grid-template-areas:
-    "cabecalho cabecalho cabecalho"
-    "esquerda centro direita"
-    "baixo baixo baixo";
-  grid-template-columns: 0.5fr 3fr 0.5fr;
-  grid-template-rows: 0.07fr 0.55fr 1fr;
-  height: 20vh;
-  width: 99vw;
-}
-/* Parte do cabecalho */
-.cabecalho {
-  display: flex;
-  justify-content: space-around;
-  z-index: 4;
-  grid-area: cabecalho;
-  background-color: rgb(255, 255, 255);
-  border-bottom: 2px solid #000000;
-}
-/* Parte esquerda */
-.esquerda {
-  z-index: 3;
-  box-shadow: -5px 0px 150px 1px;
-  grid-area: esquerda;
-}
-.dentro-esquerda {
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background-color: #14213d;
-  transition: 1s ease;
-}
-.dentro-esquerda:hover {
-  transform: scaleX(3);
-}
-/* Parte direita */
-.direita {
-  z-index: 2;
-  box-shadow: 0px 0px 150px 1px;
-  grid-area: direita;
-}
 
-.dentro-direita {
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  background-color: #14213d;
-  transition: ease 1s;
-}
-.dentro-direita:hover {
-  transform: scaleX(3);
-}
-/* Parte centro */
-.centro {
-  grid-area: centro;
-  background-color: blueviolet;
-}
-.dentro {
-  background-position: left;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-color: #fca311;
-  width: 100%;
-  height: 100%;
-  transition: 1s;
-}
-.produto {
-  left: 20%;
-  position: absolute;
-  border-radius: 50%;
-  background-image: url(pc.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 22.5%;
-  height: 43%;
-  transition: 0.5s;
-}
-.produto:hover {
-  width: 50%;
-  height: 45%;
-  border-radius: 10%;
-}
-.bt-comprar {
-  width: 175px;
-  height: 45px;
-  border-radius: 25px;
-  font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
-  color: white;
-  border: none;
-  border-right: 3px solid #3e3c3c;
-  border-top: 3px solid #3e3c3c;
-  background-color: #3e3c3c;
-  position: absolute;
-  bottom: 15%;
-  right: 30%;
-  transition: 0.25s;
-}
-.bt-comprar:active {
-  background-color: #666262;
-}
-.desc-produto {
-  border-radius: 10%;
-  background-color: #3e3c3c;
-  position: absolute;
-  right: 20%;
-  font-size: 15px;
-  font-family: "Courier New", Courier, monospace;
-  color: white;
-  white-space: pre-wrap;
-  width: 20%;
-}
-/* Parte de baixo */
-.baixo {
-  padding: 100px 10px 10px 10px;
-  display: grid;
-  grid-template-areas:
-    "areaLogo escritaLogo"
-    "escritaDiferencial areaDiferencial"
-    "fim fim";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 2fr 2fr 0.5fr;
-  z-index: 3;
-  grid-area: baixo;
-  background-color: #000000;
-}
-/* Logo-Parte de baixo */
-.logo1 {
-  grid-area: areaLogo;
-  background-color: #e5e5e5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.fotoL {
-  width: 300px;
-  height: 300px;
-  background-size: cover;
-  border-radius: 100%;
-}
-/* EscritaL-Parte de baixo */
-.escritaLogo1 {
-  grid-area: escritaLogo;
-  background-color: #e5e5e5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.escritaL {
-  padding: 0px 300px 0px 350px;
-  font-size: 25px;
-  font-family: "Courier New", Courier, monospace;
-}
-/* Diferencial-Parte de baixo */
-.diferencial {
-  grid-area: areaDiferencial;
-  background-color: #e5e5e5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* EscrotaD-Parte de baixo */
-.escritaDiferencial {
-  grid-area: escritaDiferencial;
-  background-color: #e5e5e5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.escritaD {
-  padding: 0px 300px 0px 350px;
-  font-size: 25px;
-  font-family: "Courier New", Courier, monospace;
-}
-/* Fim-Parte de baixo */
-.fimBaixo {
-  grid-area: fim;
-  background-color: #14213d;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
+
+
+
+
+
+
+
+
 /* Miguel organizar dps */
 .logo {
   display: flex;
@@ -332,8 +151,8 @@
   border-bottom: 1px solid black;
 }
 .logo {
-  width: 45px;
-  height: 45px;
+  width: 100px;
+  height: auto;
   border-radius: 100%;
 }
 .b {
@@ -349,8 +168,20 @@
 }
 /* Perfil */
 .perfil {
+  width: 30px;
+  height: auto;
+}
+
+.carrinho{
   display: flex;
-  background-size: cover;
+  width: 30px;
+  height: auto;
+}
+
+.opcao{
+  display: flex;
+  width: 30px;
+  height: auto;
 }
 /*Onde é mostrado os dados da tabela do banco de dados*/
 .dados {

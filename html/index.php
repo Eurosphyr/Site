@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+    <link type="text/css" rel="stylesheet" href="../css/index.css" />
     <title>MIPRON</title>
     <link
       rel="icon"
@@ -17,9 +17,9 @@
         <input class="b" type="button" value="HOME" />
         <input class="b" type="button" value="SOBRE" />
         <input class="b" type="button" value="COMPRAR" />
-        <a href=""><img class="perfil" src="../img/user.png"></a>
-            <a href=""><img class="carrinho" src="../img/cart.png"></a>
-            <a href=""><img class="opcao" src="../img/menu.png"></a>
+        <!-- <a href=""><img class="perfil" src="../img/user.png"></a> -->
+            <!-- <a href=""><img class="carrinho" src="../img/cart.png"></a> -->
+            <!-- <a href=""><img class="opcao" src="../img/menu.png"></a> -->
     </div>
         </div>
       </div>

@@ -1,84 +1,116 @@
-*{
+/* Define color variables */
+:root {
+    --primary-bg-color: #14213D;
+    --secondary-bg-color: #f5a72b;
+    --text-color: #818080;
+    --accent-color: #947441;
+}
+
+/* Reset default styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-.container{
+
+/* Container styles */
+.container {
     width: auto;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
-.menu{
+
+/* Menu styles */
+.menu {
     border-radius: 5px;
     flex-direction: column;
-    width: 450px;
-    height: 630px;
-    background-color: #14213D;
+    width: 100%;
+    max-width: 450px;
+    background-color: var(--primary-bg-color);
     display: flex;
     align-items: center;
     font-size: 25px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style: italic;
-    color: #818080;
-    font-weight:bold;
+    color: var(--text-color);
+    font-weight: bold;
     transition: 1s;
+    padding: 20px;
 }
-.cadastro{
-    margin-top: 50px;
-    border-bottom: 2px solid #818080;
-    margin-bottom: 110px;
+
+/* Cadastro styles */
+.cadastro {
+    margin-top: 20px;
+    border-bottom: 2px solid var(--text-color);
+    margin-bottom: 40px;
 }
-.em{
-    position: absolute;
+
+/* Label styles */
+.em,
+.se,
+.Cse {
     font-size: 20px;
-    left: 42%;
-    top: 33%;
+    margin: 10px 0;
+    text-align: center;
 }
-.se{
-    position: absolute;
-    font-size: 20px;
-    left: 42%;
-    top: 43.5%;
-}
-.escrita{
-    width: 300px;
+
+/* Input styles */
+.escrita {
+    width: 100%;
     font-size: 15px;
-    background-color: #14213D;
+    background-color: var(--primary-bg-color);
     border: none;
-    border-bottom: solid 2px #818080;
-    color: #818080;
-    margin-bottom: 75px;
+    border-bottom: solid 2px var(--text-color);
+    color: var(--text-color);
+    margin-bottom: 20px;
+    padding: 10px;
 }
-.escrita:focus{
+
+/* Remove input focus outline */
+.escrita:focus {
     outline: none;
 }
-.Cse{
-    position: absolute;
-    font-size: 20px;
-    left: 42%;
-    top: 54%;
-}
-.bt{
+
+/* Button styles */
+.bt {
     font-size: 18px;
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     height: 50px;
-    background-color: #f5a72b;
-    border: 3px solid #f5a72b;
+    background-color: var(--secondary-bg-color);
+    border: 3px solid var(--secondary-bg-color);
     border-radius: 3px;
-    color: #3e3e3e;
+    color: var(--text-color);
     transition: 0.5s linear;
+    cursor: pointer;
 }
-.bt:active{
-    border-bottom: 3px solid #947441 ;
-    border-right: 3px solid #947441;
-    background-color: #947441;
+
+/* Button active state styles */
+.bt:active {
+    border-bottom: 3px solid var(--accent-color);
+    border-right: 3px solid var(--accent-color);
+    background-color: var(--accent-color);
 }
-.baixo{
-    margin-top: 6px;   
+
+/* Baixo styles */
+.baixo {
+    margin-top: 6px;
     font-size: 13px;
+    text-align: center;
 }
-a{
+
+/* Anchor styles */
+a {
     text-decoration: none;
-    color: #818080;
+    color: var(--text-color);
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .menu {
+        width: 100%;
+        max-width: none;
+    }
 }

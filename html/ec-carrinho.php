@@ -93,7 +93,9 @@
       <div class="pagar">
         <div class="baixo">
           <a class="voltar" href="">Continuar comprando</a>
-          <input class="comprar" type="button" value="Comprar" />
+          <form action="../php/funcoes.php" method="POST">
+          <input class="comprar" type="submit" value="Comprar" />
+          </form>
         </div>
       </div>
     </div>
