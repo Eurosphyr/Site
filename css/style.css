@@ -1,20 +1,37 @@
+/* Define color variables */
+:root {
+  --main-bg-color: rgb(255, 255, 255);
+  --header-bg-color: #14213d;
+  --text-color: black;
+  --button-bg-color: #14213d;
+  --button-text-color: #e5e5e5;
+  --accent-color: #3498db;
+  --accent-hover-color: #2ecc71;
+  --placeholder-color: #666262;
+}
 
+/* Rest of your CSS with variables and font-family */
 .cabecalho {
   width: 100%;
-  z-index: 3;
+  z-index: 999;
   position: fixed;
   padding: 0px 40px;
   grid-area: cabecalho;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--main-bg-color);
   display: flex;
   align-items: center;
-  border-bottom: 1px solid black;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--text-color);
+  font-family: "Arial", sans-serif;
+  color: var(--text-color);
 }
+
 .logo {
   width: 100px;
   height: auto;
   border-radius: 100%;
 }
+
 .b {
   cursor: pointer;
   margin: 0px 50px;
@@ -23,26 +40,34 @@
   width: 130px;
   height: 45px;
   border-radius: 5px;
-  background-color: #14213d;
-  color: #e5e5e5;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
 }
+
 /* Perfil */
+.opcao {
+  /* Manter seu estilo existente */
+  display: flex;
+  width: 30px;
+  height: auto;
+  margin-left: 10px; /* Espaço entre ícones */
+}
+
+.carrinho {
+  /* Manter seu estilo existente */
+  display: flex;
+  width: 30px;
+  height: auto;
+  margin-left: 10px; /* Espaço entre ícones */
+}
+
 .perfil {
+  /* Manter seu estilo existente */
   width: 30px;
   height: auto;
+  margin-left: 10px; /* Espaço entre ícones */
 }
 
-.carrinho{
-  display: flex;
-  width: 30px;
-  height: auto;
-}
-
-.opcao{
-  display: flex;
-  width: 30px;
-  height: auto;
-}
 /*Onde é mostrado os dados da tabela do banco de dados*/
 .dados {
   display: flex;
@@ -51,7 +76,8 @@
   align-items: flex-start;
   margin-left: 5vh;
 }
-/*Aqui é o forms no qual será alterados os dados da tabela*/
+
+/*Aqui é o forms no qual serão alterados os dados da tabela*/
 .alterar_dados {
   display: flex;
   background-size: cover;
@@ -60,6 +86,7 @@
   align-items: flex-end;
   margin-right: 20vh;
 }
+
 /*Centraliza o texto*/
 .centered-text {
   justify-content: center;
@@ -68,6 +95,10 @@
   font-size: 15px;
   font-family: "Arial", sans-serif;
 }
+
+/*Botão alterar dados no forms*/
+/* Rest of your CSS with variables and font-family */
+
 /*Botão alterar dados no forms*/
 .bt-altera_dados {
   cursor: pointer;
@@ -77,9 +108,10 @@
   width: 130px;
   height: 45px;
   border-radius: 5px;
-  background-color: #14213d;
-  color: #e5e5e5;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
 }
+
 /*Foto do perfil*/
 .foto {
   width: 15vh;
@@ -93,41 +125,61 @@
   transform: translateX(-50%);
 }
 
+/* Add top margin to .alterar_dados */
+.alterar_dados {
+  display: flex;
+  background-size: cover;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-right: 20vh;
+  margin-top: 150px; /* Add margin-top to push it below the .cabecalho */
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+  .cabecalho {
+    padding: 0px 20px; /* Adjust padding for smaller screens */
+  }
+
+  .b {
+    margin: 0px 20px; /* Adjust margin for smaller screens */
+  }
+
+  /* Add more responsive styles as needed */
+}
+
+
 label {
   margin-left: 30px;
   font-size: 15px;
   font-family: "Arial", sans-serif;
   display: inline-block;
 }
+
 /*Campos do formulário*/
 input {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #3498db;
+  border: 2px solid var(--accent-color);
   border-radius: 5px;
   outline: none;
   transition: border-color 0.3s ease-in-out;
 }
 
 input:focus {
-  border-color: #2ecc71;
+  border-color: var(--accent-hover-color);
 }
-/*Botão alterar dados do forms*/
+
 .bt-altera_dados:hover,
 .bt-altera_dados:active,
 .bt-altera_dados:focus,
 .bt-altera_dados:visited,
 .bt-altera_dados:link {
-  background-color: #666262;
+  background-color: var(--button-bg-color);
 }
 
 input::placeholder {
-  color: #666262;
-}
-/* Aqui é onde fica o forms e a tabela com os dados */
-.container_geral {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  color: var(--placeholder-color);
 }

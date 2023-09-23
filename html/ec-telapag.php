@@ -9,15 +9,14 @@
   <body>
     <div class="fundo"></div>
     <div class="container">
-      <div class="cabecalho">
-        <img class="logo" src="logo-MIPRON.jpeg" />
-        <input class="b" type="button" value="HOME" />
-        <input class="b" type="button" value="SOBRE" />
-        <input class="b" type="button" value="COMPRAR" />
-        <a href=""><img class="perfil" src="../img/user.png" /></a>
-        <a href=""><img class="carrinho" src="../img/cart.png" /></a>
-        <a href=""><img class="opcao" src="../img/menu.png" /></a>
-      </div>
+    <div class="cabecalho">
+      <img class="logo" src="logo-MIPRON.jpeg" />
+      <input class="b" type="button" value="HOME" />
+      <input class="b" type="button" value="SOBRE" />
+      <input class="b" type="button" value="COMPRAR" />
+      <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
+      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
+    </div>
       <div class="tipo">
         <p>Selecione o tipo de pagamentento</p>
         <div>

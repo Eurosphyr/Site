@@ -17,9 +17,8 @@
       <input class="b" type="button" value="HOME" />
       <input class="b" type="button" value="SOBRE" />
       <input class="b" type="button" value="COMPRAR" />
-      <a href=""><img class="perfil" src="../img/user.png" /></a>
-      <a href=""><img class="carrinho" src="../img/cart.png" /></a>
-      <a href=""><img class="opcao" src="../img/menu.png" /></a>
+      <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
+      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
     </div>
   </div>
   <div class="container_geral">
@@ -51,7 +50,7 @@
         </div>
         <br />
         <div class="centered-text">
-          <input type="submit" class="bt-altera_dados">ALTERAR DADOS</input>
+          <input type="submit" class="bt-altera_dados" value="Alterar Dados"></input>
         </div>
       </div>
     </form>
