@@ -18,9 +18,9 @@
   padding: 0px 40px;
   grid-area: cabecalho;
   background-color: var(--main-bg-color);
+  justify-content: space-between; /* Alinhar ícones à direita */
+  align-items: center; /* Alinhar verticalmente no centro */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   border-bottom: 1px solid var(--text-color);
   font-family: "Arial", sans-serif;
   color: var(--text-color);
@@ -45,22 +45,8 @@
 }
 
 /* Perfil */
-.opcao {
-  /* Manter seu estilo existente */
-  display: flex;
-  width: 30px;
-  height: auto;
-  margin-left: 10px; /* Espaço entre ícones */
-}
 
-.carrinho {
-  /* Manter seu estilo existente */
-  display: flex;
-  width: 30px;
-  height: auto;
-  margin-left: 10px; /* Espaço entre ícones */
-}
-
+.carrinho,
 .perfil {
   /* Manter seu estilo existente */
   width: 30px;

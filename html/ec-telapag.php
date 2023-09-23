@@ -11,9 +11,9 @@
     <div class="container">
     <div class="cabecalho">
       <img class="logo" src="logo-MIPRON.jpeg" />
-      <input class="b" type="button" value="HOME" />
-      <input class="b" type="button" value="SOBRE" />
-      <input class="b" type="button" value="COMPRAR" />
+      <input class="b" type="button" value="HOME" href="index.php" />
+      <input class="b" type="button" value="SOBRE" href="ec-sobre.php" />
+      <input class="b" type="button" value="COMPRAR"  href="ec-telacompra.php"/>
       <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
     </div>
