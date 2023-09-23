@@ -10,6 +10,7 @@
     <div class="container">
       <div class="menu">
         <div class="cadastro">Faça seu Login</div>
+        <form action="../php/funcoes.php" method="POST">
         <label class="em">Email</label>
         <input class="escrita" type="text" />
         <label class="se">Senha</label>
@@ -18,6 +19,7 @@
           >Lembrar sempre</label
         >
         <input class="bt" type="button" value="Confirmar" />
+        </form>
         <div class="baixo"><a href="ec-cadastro.html">Criar conta</a></div>
         <div class="baixo"><a href="#">Esqueci a senha</a></div>
       </div>

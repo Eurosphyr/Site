@@ -72,7 +72,7 @@ function inserir_dados()
         $insert->execute($linha);
         
         // Redirect to a thank-you page or perform other actions as needed
-        header("Location: thank_you.php");
+        header("Location: ../html/login.php");
     }
 }
 
@@ -118,7 +118,7 @@ function inutilizar_produto()
   ];
 
   if ($delete->execute($params)) {
-    header('Location: compra.html');
+    header('Location: ../html/ec-carrinho.php');
   } else {
     echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
   }
@@ -155,7 +155,7 @@ $sql = " SELECT * FROM tbl_produto
 
 $select = conectarAoBanco()->query($sql);
 
-echo "<form action='index.php' name='frmPesq' method='post'>
+echo "<form action='' name='frmPesq' method='post'>
       Digite o nome ou parte<br>
       <input type='text' name='nome'>
       <input type='submit' value='Pesquisar'>
@@ -183,7 +183,7 @@ if (!$sessaoConectado) {
     <html>
     <header></header>
     <body>
-        <form name='formlogin' method='post' action='login-sessao.php'>
+        <form name='formlogin' method='post' action=''>
         <table><tr>
         <td>Login<br>
         <input type='text' name='login' size=30 
@@ -203,7 +203,7 @@ function logout(){
   $_SESSION['sessaoConectado']=false; 
   $_SESSION['sessaoAdmin']=false; 
 
-  header('Location: login.html');
+  header('Location: ../html/login.php');
 }
 
 function login_sessao(){
@@ -220,7 +220,7 @@ function login_sessao(){
       $_SESSION['sessaoAdmin']     = $eh_admin;   
   }
      
-  header('Location: login.html');
+  header('Location: ../html/login.php');
 }
 
 function funcaoLogin ($paramLogin, $paramSenha, &$paramAdmin)  
