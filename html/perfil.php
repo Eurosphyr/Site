@@ -23,7 +23,7 @@
   </div>
   <div class="container_geral">
     <div class="perfil">
-      <img class="foto" src="User.svg" />
+      <img class="foto" src="../img/User.svg" />
       <div class="dados">
 
       </div>

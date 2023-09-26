@@ -1,8 +1,8 @@
 /* Define color variables */
 :root {
-  --main-bg-color: rgb(255, 255, 255);
+  --main-bg-color: #ffffff;
   --header-bg-color: #14213d;
-  --text-color: black;
+  --text-color: #000000;
   --button-bg-color: #14213d;
   --button-text-color: #e5e5e5;
   --accent-color: #3498db;
