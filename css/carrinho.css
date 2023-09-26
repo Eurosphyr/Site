@@ -16,42 +16,67 @@
     height: auto;
 }
 /*Parte cabecalho*/
-.cabecalho{
+/* Define color variables */
+:root {
+    --main-bg-color: #ffffff;
+    --header-bg-color: #14213d;
+    --text-color: #000000;
+    --button-bg-color: #14213d;
+    --button-text-color: #e5e5e5;
+    --accent-color: #3498db;
+    --accent-hover-color: #2ecc71;
+    --placeholder-color: #666262;
+  }
+  
+  /* Rest of your CSS with variables and font-family */
+  .cabecalho {
     width: 100%;
-    z-index: 3;
+    z-index: 999;
     position: fixed;
     padding: 0px 40px;
     grid-area: cabecalho;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--main-bg-color);
+    justify-content: space-between; /* Alinhar ícones à direita */
+    align-items: center; /* Alinhar verticalmente no centro */
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid black;
-}
-.logo{
-    width: 45px;
-    height: 45px;
-    border-radius: 100%;
-}
-.b{
-    cursor: pointer;
-    margin: 0px 50px;
-    font-size: 15px;
-    border: none;
-    width: 130px;
-    height: 45px;
-    border-radius: 5px;
-    background-color: #14213D;
-    color: #e5e5e5;
-}
-.perfil{
-    margin-left: 800px;
-    background-size: cover;
-    width: 110px;
-}
-.opcao{
-    margin-left: 40px;
+    border-bottom: 1px solid var(--text-color);
+    font-family: "Arial", sans-serif;
+    color: var(--text-color);
+  }
+  
+  .logo {
     width: 100px;
-}
+    height: auto;
+    border-radius: 100%;
+  }
+  
+  /* Style for the link buttons */
+  .b {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--button-bg-color); /* Button background color */
+    color: var(--button-text-color); /* Button text color */
+    text-decoration: none; /* Remove underlines from links */
+    border-radius: 5px; /* Rounded corners */
+    border: none; /* Remove border */
+    cursor: pointer; /* Show hand cursor on hover */
+    margin-right: 10px; /* Space between buttons */
+  }
+  
+  .b:hover {
+    background-color: var(--accent-color); /* Change the background color on hover */
+  }
+  
+  
+  /* Perfil */
+  
+  .carrinho,
+  .perfil {
+    /* Manter seu estilo existente */
+    width: 30px;
+    height: auto;
+    margin-left: 10px; /* Espaço entre ícones */
+  }
 /*Parte meio1*/
 .apresentacao{
     grid-area: meio1;
