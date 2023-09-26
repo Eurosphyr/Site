@@ -27,7 +27,7 @@ function mostrarTabela($result)
       <th>Telefone</th>
     </tr>
     ";
-  while ($linha = pg_fetch_assoc($result)) {
+  while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     echo "
       <tr>
         <td>" . $linha['nome'] . "</td>
@@ -59,20 +59,29 @@ function inserir_dados()
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = conectarAoBanco();
 
-        $linha = [
-            'email'          => $_POST['email'],
-            'senha'          => $_POST['senha'],
-            'confirmar_senha' => $_POST['confirmar_senha'], // Match the input name
-        ];
+        // Verifique se a senha e a confirmação da senha são iguais
+        if ($_POST['senha'] === $_POST['confirmar_senha']) {
+            $email = $_POST['email'];
+            $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Use hash para armazenar a senha com segurança
 
-        $sql = "INSERT INTO tbl_usuario (email, senha, confirmar_senha)  
-                VALUES (:email, :senha, :confirmar_senha)";
+            $sql = "INSERT INTO tbl_usuario (email, senha)  
+                    VALUES (:email, :senha)";
 
-        $insert = $conn->prepare($sql);
-        $insert->execute($linha);
-        
-        // Redirect to a thank-you page or perform other actions as needed
-        header("Location: ../html/login.php");
+            $insert = $conn->prepare($sql);
+            $insert->bindParam(':email', $email);
+            $insert->bindParam(':senha', $senha);
+
+            if ($insert->execute()) {
+                // Inserção bem-sucedida, redirecione para uma página de agradecimento ou execute outras ações conforme necessário
+                header("Location: ../html/login.php");
+            } else {
+                // Trate o erro de inserção, se necessário
+                echo "Erro ao inserir os dados.";
+            }
+        } else {
+            // As senhas não correspondem, você pode lidar com isso de acordo com sua lógica
+            echo "As senhas não correspondem.";
+        }
     }
 }
 
@@ -98,7 +107,7 @@ function altera_dados()
     $update->execute($linha);
 
 
-    header('Location: perfil.html');
+    header('Location: ../html/perfil.php');
   } else {
 
     echo "Form not submitted!";
@@ -109,18 +118,18 @@ function inutilizar_produto()
 {
   $id = $_GET['id'];
 
-  $sql = "UPDATE FROM tbl_produto WHERE id = :id_produto";
-  $delete = conectarAoBanco()->prepare($sql);
-  $delete->execute(array(':id_produto' => $id));
+  $sql = "UPDATE FROM tbl_produto SET excluido = true WHERE id = :id_produto";
+  $update = conectarAoBanco()->prepare($sql);
+  $update->execute(array(':id_produto' => $id));
 
   $params = [
     ':id_produto' => $id
   ];
 
-  if ($delete->execute($params)) {
+  if ($update->execute($params)) {
     header('Location: ../html/ec-carrinho.php');
   } else {
-    echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
+    echo "Erro ao inserir o registro: " . $update->errorInfo()[2];
   }
 }
 
@@ -136,7 +145,7 @@ function excluir_produto(){
   ];
 
   if ($delete->execute($params)) {
-    header('Location: carrinho.html');
+    header('Location: ../html/ec-carrinho.php');
   } else {
     echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
   }
@@ -161,7 +170,7 @@ echo "<form action='' name='frmPesq' method='post'>
       <input type='submit' value='Pesquisar'>
      </form><br>";
 }
-
+/*
 function login(){
   if (isset($_SESSION['sessaoConectado'])) {
     $sessaoConectado = $_SESSION['sessaoConectado'];
@@ -238,4 +247,4 @@ function funcaoLogin ($paramLogin, $paramSenha, &$paramAdmin)
    echo "Cookie: $paramNome Valor: $paramValor";  
    setcookie($paramNome, $paramValor, time() + $paramMinutos * 60); 
   }
-
+*/
