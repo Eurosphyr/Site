@@ -10,7 +10,7 @@
     <div class="container">
       <div class="menu">
         <div class="cadastro">Cadastre-se</div>
-        <form action="../php/funcoes.php" method="POST">
+        <form action="../php/inserir_dados.php" method="POST">
           <label class="em">Email</label>
           <input class="escrita" type="text" name="email" />
           

@@ -28,7 +28,7 @@
 
       </div>
     </div>
-    <form action="../php/funcoes.php" method="POST">
+    <form action="../php/alterar_dados.php" method="POST">
       <div class="alterar_dados">
         <div class="nome">
           <label for="nome"></label>

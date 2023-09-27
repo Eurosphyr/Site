@@ -55,67 +55,6 @@ function consultarDados()
   }
   return $result;
 }
-function inserir_dados()
-{
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $conn = conectarAoBanco();
-
-        // Verifique se a senha e a confirmação da senha são iguais
-        if ($_POST['senha'] === $_POST['confirmar_senha']) {
-            $email = $_POST['email'];
-            $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Use hash para armazenar a senha com segurança
-
-            $sql = "INSERT INTO tbl_usuario (email, senha, nome, telefone)  
-                    VALUES (:email, :senha, :nome, :telefone)";
-
-            $insert = $conn->prepare($sql);
-            $insert->bindParam(':email', $_POST[$email]);
-            $insert->bindParam(':senha', $_POST[$senha]);
-            $insert->bindParam(':nome', $_POST['nome']);
-            $insert->bindParam(':telefone', $_POST['telefone']);
-
-            if ($insert->execute()) {
-                // Inserção bem-sucedida, redirecione para uma página de agradecimento ou execute outras ações conforme necessário
-                header("Location: ../html/login.php");
-            } else {
-                // Trate o erro de inserção, se necessário
-                echo "Erro ao inserir os dados.";
-            }
-        } else {
-            // As senhas não correspondem, você pode lidar com isso de acordo com sua lógica
-            echo "As senhas não correspondem.";
-        }
-    }
-}
-
-function altera_dados()
-{
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $conn = conectarAoBanco();
-
-    $linha = [
-      'nome'      => $_POST['nome'],
-      'email'     => $_POST['email'],
-      'senha'  => $_POST['senha'],
-      'telefone'  => $_POST['telefone']
-    ];
-
-    $sql = "UPDATE INTO tbl_usuario (nome, email, senha, telefone)  
-              VALUES (:nome, :email, :senha, :telefone)";
-
-    $update = $conn->prepare($sql);
-
-
-    $update->execute($linha);
-
-
-    header('Location: ../html/perfil.php');
-  } else {
-
-    echo "Form not submitted!";
-  }
-}
 
 function inutilizar_produto()
 {
