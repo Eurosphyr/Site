@@ -18,7 +18,8 @@
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
     </div>
       <div class="ft-prod1">
-        <img class="prod" src="mousepad.png" />
+        <div class = "zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" /></div>
+        
       </div>
       <div class="desc">
         <p class="titulo-prod">Mousepad Preto</p>
@@ -32,16 +33,16 @@
         <div class="compra">
           <p class="preco">R$5,99</p>
           <a href=""><p class="tipo1">Tipo de entrega</p></a>
-          <a href="ec-carrinho.html"
+          <a href="ec-carrinho.php"
             ><p class="tipo2">Adicionar ao carrinho</p></a
           >
           <a href=""><p class="tipo2">Comprar agora</p></a>
         </div>
       </div>
       <div class="imgs-prod">
-        <img class="prod2" src="mousepad_front.png" />
-        <img class="prod2" src="mousepad.png" />
-        <img class="prod2" src="mini_mousepad.png" />
+        <img class="prod2" src="../img/mousepad_front.png" />
+        <img class="prod2" src="../img/mousepad.png" />
+        <img class="prod2" src="../img/mini_mousepad.png" />
       </div>
       <div class="esp">
         <p>Especificações Técnicas</p>
@@ -58,16 +59,10 @@
       </div>
       <div class="video">
         <p>Video do produto</p>
-        <iframe
-          class="video-css"
-          src="https://www.youtube.com/embed/DMBc5LjZPSI?si=zXoy1YEv3TlxYss5"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        >
+        <iframe class="video-css" src="https://www.youtube.com/embed/faoDlV3YlFE" title="Star Wars: Duel of The Fates | EPIC VERSION (Remastered V2)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>>
         </iframe>
       </div>
     </div>
+    <script src="../php/script.js"></script>
   </body>
 </html>

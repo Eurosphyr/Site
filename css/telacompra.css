@@ -90,6 +90,11 @@ a{
     padding: 30px;
     grid-area: foto;
 }
+
+.zoom:hover img {
+    transform: scale(1.1); /* Aumente o tamanho em 110% */
+    transition: transform 0.3s ease; /* Adicione uma transição suave */
+  }
 .prod{
     width: 600px;
 }
