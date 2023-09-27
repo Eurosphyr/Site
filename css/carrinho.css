@@ -36,7 +36,7 @@
     padding: 0px 40px;
     grid-area: cabecalho;
     background-color: var(--main-bg-color);
-    justify-content: space-between; /* Alinhar ícones à direita */
+    justify-content: space-around; /* Alinhar ícones à direita */
     align-items: center; /* Alinhar verticalmente no centro */
     display: flex;
     border-bottom: 1px solid var(--text-color);
