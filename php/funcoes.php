@@ -33,6 +33,7 @@ function mostrarTabela($result)
         <td>" . $linha['nome'] . "</td>
         <td>" . $linha['email'] . "</td>
         <td>" . $linha['telefone'] . "</td>
+        <td>.</td>
       </tr>
       ";
   }
@@ -64,12 +65,14 @@ function inserir_dados()
             $email = $_POST['email'];
             $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Use hash para armazenar a senha com segurança
 
-            $sql = "INSERT INTO tbl_usuario (email, senha)  
-                    VALUES (:email, :senha)";
+            $sql = "INSERT INTO tbl_usuario (email, senha, nome, telefone)  
+                    VALUES (:email, :senha, :nome, :telefone)";
 
             $insert = $conn->prepare($sql);
-            $insert->bindParam(':email', $email);
-            $insert->bindParam(':senha', $senha);
+            $insert->bindParam(':email', $_POST[$email]);
+            $insert->bindParam(':senha', $_POST[$senha]);
+            $insert->bindParam(':nome', $_POST['nome']);
+            $insert->bindParam(':telefone', $_POST['telefone']);
 
             if ($insert->execute()) {
                 // Inserção bem-sucedida, redirecione para uma página de agradecimento ou execute outras ações conforme necessário

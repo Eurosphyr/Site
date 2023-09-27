@@ -11,15 +11,25 @@
       <div class="menu">
         <div class="cadastro">Cadastre-se</div>
         <form action="../php/funcoes.php" method="POST">
-        <label class="em">Email</label>
-        <input class="escrita" type="text" />
-        <label class="se">Senha</label>
-        <input class="escrita" type="password" />
-        <label class="Cse">Confirmar Senha</label>
-        <input class="escrita" type="text" />
-        <input class="bt" type="submit" value="Confirmar" />
-        <div class="baixo"><a href="ec-login.php">Ja possuo conta</a></div>
+          <label class="em">Email</label>
+          <input class="escrita" type="text" name="email" />
+          
+          <label class="se">Senha</label>
+          <input class="escrita" type="password" name="senha" />
+          
+          <label class="Cse">Confirmar Senha</label>
+          <input class="escrita" type="password" name="confirmar_senha" />
+
+          <!-- Adicione campos nome e telefone aqui -->
+          <label class="nm">Nome</label>
+          <input class="escrita" type="text" name="nome" />
+          
+          <label class="tel">Telefone</label>
+          <input class="escrita" type="text" name="telefone" />
+
+          <input class="bt" type="submit" value="Confirmar" />
         </form>
+        <div class="baixo"><a href="ec-login.php">Já possuo conta</a></div>
       </div>
     </div>
   </body>
