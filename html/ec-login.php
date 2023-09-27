@@ -19,7 +19,9 @@
           >Lembrar sempre</label
         >
         <input class="checked" type="checkbox" />
+        <div class="centralizar" align="center">
         <input class="bt" type="submit" value="Confirmar" />
+        </div>
         </form>
         <div class="baixo"><a href="ec-cadastro.php">Criar conta</a></div>
         <div class="baixo"><a href="#">Esqueci a senha</a></div>

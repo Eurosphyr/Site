@@ -26,8 +26,10 @@
           
           <label class="tel">Telefone</label>
           <input class="escrita" type="text" name="telefone" />
-
-          <input class="bt" type="submit" value="Confirmar" />
+          <div class="centralizar" align="center">
+            <input class="bt" type="submit" value="Confirmar" />
+          </div>
+         
         </form>
         <div class="baixo"><a href="ec-login.php">Já possuo conta</a></div>
       </div>
