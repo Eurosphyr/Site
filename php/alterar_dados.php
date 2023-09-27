@@ -8,19 +8,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = conectarAoBanco();
 
     $linha = [
-        'nome'      => $_POST['nome'],
-        'email'     => $_POST['email'],
-        'senha'     => $_POST['senha'], // Se você pretende atualizar a senha, lembre-se de hash novamente
-        'telefone'  => $_POST['telefone']
+        'id_usuario'    => $_POST['id_usuario'], // Make sure you have an input field for the user's ID
+        'nome'          => $_POST['nome'],
+        'email'         => $_POST['email'],
+        'senha'         => $_POST['senha'],
+        'telefone'      => $_POST['telefone']
     ];
 
-    // Use uma instrução SQL correta para a atualização
-    $sql = "UPDATE tbl_usuario SET nome = :nome, email = :email, senha = :senha, telefone = :telefone WHERE id = :id";
+    
+    $query = "UPDATE tbl_usuario SET nome = :nome, email = :email, senha = :senha, telefone = :telefone WHERE id_usuario = :id_usuario";
 
-    $update = $conn->prepare($sql);
-
-    // Você precisa passar o ID do usuário que está sendo atualizado
-    // Você pode obter o ID do usuário da sessão ou de algum outro lugar // Substitua 1 pelo ID correto
+    $update = $conn->prepare($query);
 
     $update->execute($linha);
 
