@@ -13,7 +13,7 @@
   <body>
     <div class="container">
     <div class="cabecalho">
-      <img class="logo" src="logo-MIPRON.jpeg" />
+      <img class="logo" src="../img/Logos.svg" />
       <a class="b" href="index.php">HOME</a>
       <a class="b" href="ec-sobre.php">SOBRE</a>
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
@@ -33,12 +33,13 @@
         <div class="dentro">
           <div class="desc-produto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam vel ratione impedit dolorem. Eum quisquam, distinctio corporis sequi, tenetur maxime in explicabo saepe, quidem quod laboriosam neque cumque magni possimus.</div>
           <div class="produto"></div>
-          <button class="bt-comprar">COMPRAR</button>
+          <div class="centralizar" align="center"><button class="bt-comprar">COMPRAR</button></div>
+          
         </div>
       </div>
       <div class="baixo">
         <div class="logo1">
-          <img class="fotoL" src="logo-MIPRON.jpeg" />
+          <img class="fotoL" src="../img/Logos.svg" />
         </div>
         <div class="escritaLogo1">
           <div class="escritaL">
@@ -48,7 +49,7 @@
           </div>
         </div>
         <div class="diferencial">
-          <img class="fotoL" src="logo-MIPRON.jpeg" />
+          <img class="fotoL" src="../img/Logos.svg" />
         </div>
         <div class="escritaDiferencial">
           <div class="escritaD">

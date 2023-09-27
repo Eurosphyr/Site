@@ -27,8 +27,8 @@
 }
 
 .logo {
-  width: 100px;
-  height: auto;
+  width: auto;
+  height: 50px;
   border-radius: 100%;
 }
 
@@ -46,7 +46,8 @@
 }
 
 .b:hover {
-  background-color: var(--accent-color); /* Change the background color on hover */
+  background-color: var(--accent-color);
+  outline: none; /* Change the background color on hover */
 }
 
 

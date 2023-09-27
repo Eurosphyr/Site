@@ -43,13 +43,11 @@
     font-family: "Arial", sans-serif;
     color: var(--text-color);
   }
-  
   .logo {
-    width: 100px;
-    height: auto;
+    width: auto;
+    height: 50px;
     border-radius: 100%;
   }
-  
   /* Style for the link buttons */
   .b {
     display: inline-block;
@@ -64,8 +62,10 @@
   }
   
   .b:hover {
-    background-color: var(--accent-color); /* Change the background color on hover */
+    background-color: var(--accent-color);
+    outline: none; /* Change the background color on hover */
   }
+
   
   
   /* Perfil */

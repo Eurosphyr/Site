@@ -10,7 +10,7 @@
     <div class="container">
       <div class="nada"></div>
       <div class="cabecalho">
-      <img class="logo" src="logo-MIPRON.jpeg" />
+      <img class="logo" src="../img/Logos.svg" />
       <a class="b" href="index.php">HOME</a>
       <a class="b" href="ec-sobre.php">SOBRE</a>
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
