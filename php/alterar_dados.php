@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = conectarAoBanco();
 
     $linha = [
-        'id_usuario'    => $_POST['id_usuario'], // Make sure you have an input field for the user's ID
+        'id_usuario'    => $_POST['id_usuario'],
         'nome'          => $_POST['nome'],
         'email'         => $_POST['email'],
         'senha'         => $_POST['senha'],

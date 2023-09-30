@@ -112,7 +112,7 @@ echo "<form action='' name='frmPesq' method='post'>
       <input type='submit' value='Pesquisar'>
      </form><br>";
 }
-/*
+
 function login(){
   if (isset($_SESSION['sessaoConectado'])) {
     $sessaoConectado = $_SESSION['sessaoConectado'];
@@ -189,4 +189,4 @@ function funcaoLogin ($paramLogin, $paramSenha, &$paramAdmin)
    echo "Cookie: $paramNome Valor: $paramValor";  
    setcookie($paramNome, $paramValor, time() + $paramMinutos * 60); 
   }
-*/
+

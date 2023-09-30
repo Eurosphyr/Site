@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="text/css" rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/index.css" />
     <title>MIPRON</title>
-    <link
-      rel="icon"
-      href="Logos.svg"
-    />
+    <link rel="icon" href="../img/Logos.svg" />
   </head>
   <body>
     <div class="container">
@@ -61,6 +58,6 @@
         <div class="fimBaixo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ut nihil ea repellat temporibus laboriosam quidem soluta dignissimos. Esse nemo assumenda dolorum quisquam eveniet repudiandae velit fugit nisi! Tempora, architecto.</div>
       </div>
     </div>
-    <script src="script.js"></script>
+    <script src="../php/script.js"></script>
   </body>
 </html>
