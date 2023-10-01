@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tela Pagamento</title>
     <link rel="stylesheet" href="../css/telapag.css" />
+    <link rel="stylesheet" href="../css/cabecalho.css" />
     <link rel="icon" href="../img/Logos.svg" />
   </head>
   <body>

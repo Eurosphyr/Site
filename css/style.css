@@ -11,55 +11,7 @@
 }
 
 /* Rest of your CSS with variables and font-family */
-.cabecalho {
-  width: 100%;
-  z-index: 999;
-  position: fixed;
-  padding: 0px 40px;
-  grid-area: cabecalho;
-  background-color: var(--main-bg-color);
-  justify-content: space-around; /* Alinhar ícones à direita */
-  align-items: center; /* Alinhar verticalmente no centro */
-  display: flex;
-  border-bottom: 1px solid var(--text-color);
-  font-family: "Arial", sans-serif;
-  color: var(--text-color);
-}
 
-.logo {
-  width: auto;
-  height: 50px;
-  border-radius: 100%;
-}
-
-/* Style for the link buttons */
-.b {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: var(--button-bg-color); /* Button background color */
-  color: var(--button-text-color); /* Button text color */
-  text-decoration: none; /* Remove underlines from links */
-  border-radius: 5px; /* Rounded corners */
-  border: none; /* Remove border */
-  cursor: pointer; /* Show hand cursor on hover */
-  margin-right: 10px; /* Space between buttons */
-}
-
-.b:hover {
-  background-color: var(--accent-color);
-  outline: none; /* Change the background color on hover */
-}
-
-
-/* Perfil */
-
-.carrinho,
-.perfil {
-  /* Manter seu estilo existente */
-  width: 30px;
-  height: auto;
-  margin-left: 10px; /* Espaço entre ícones */
-}
 
 /*Onde é mostrado os dados da tabela do banco de dados*/
 .dados {

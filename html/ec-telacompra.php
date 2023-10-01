@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tela de Compra</title>
     <link rel="stylesheet" href="../css/telacompra.css" />
+    <link rel="stylesheet" href="../css/cabecalho.css" />
     <link rel="icon" href="../img/Logos.svg" />
   </head>
   <body>
