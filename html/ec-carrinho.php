@@ -33,7 +33,7 @@
       <p class="font escrita-v">Valor</p>
       <p class="font escrita-q">Quant</p>
       <p class="font escrita-t">Total</p>
-      <div class="prod1">
+      <div class="prod1 oculto">
         <div class="desing-p">
           <div class="ft-prod"></div>
           <p class="nm-prod">Nome do produto</p>
@@ -42,16 +42,16 @@
           <p class="v-prod">R$</p>
         </div>
         <div class="desing-v">
-        <button onclick="diminuirValor()">-</button>
-          <input class="q-prod" id="meuInput" type="number" value="1" />
-          <button onclick="aumentarValor()">+</button>
+          <button onclick="diminuirValor(0)">-</button>
+          <input class="q-prod" id="input-0" type="number" value="1" readonly />
+          <button onclick="aumentarValor(0)">+</button>
         </div>
         <div class="desing-t">
           <p class="v-prod">R$</p>
         </div>
         <a class="retirar" href="">+</a>
       </div>
-      <div class="prod1">
+      <div class="prod1 oculto">
         <div class="desing-p">
           <div class="ft-prod"></div>
           <p class="nm-prod">Nome do produto</p>
@@ -60,16 +60,16 @@
           <p class="v-prod">R$</p>
         </div>
         <div class="desing-v">
-        <button onclick="diminuirValor()">-</button>
-          <input class="q-prod" id="meuInput" type="number" value="1" />
-          <button onclick="aumentarValor()">+</button>
+          <button onclick="diminuirValor(1)">-</button>
+          <input class="q-prod" id="input-1" type="number" value="1" readonly />
+          <button onclick="aumentarValor(1)">+</button>
         </div>
         <div class="desing-t">
           <p class="v-prod">R$</p>
         </div>
         <a class="retirar" href="">+</a>
       </div>
-      <div class="prod1">
+      <div class="prod1 oculto">
         <div class="desing-p">
           <div class="ft-prod"></div>
           <p class="nm-prod">Nome do produto</p>
@@ -78,9 +78,9 @@
           <p class="v-prod">R$</p>
         </div>
         <div class="desing-v">
-          <button onclick="diminuirValor()">-</button>
-          <input class="q-prod" id="meuInput" type="number" value="1" />
-          <button onclick="aumentarValor()">+</button>
+          <button onclick="diminuirValor(2)">-</button>
+          <input class="q-prod" id="input-2" type="number" value="1" readonly />
+          <button onclick="aumentarValor(2)">+</button>
         </div>
         <div class="desing-t">
           <p class="v-prod">R$</p>
@@ -105,14 +105,34 @@
   <script>
     const input = document.getElementById("meuInput");
 
-    function aumentarValor() {
+    function aumentarValor(index) {
+      const input = document.getElementById(`input-${index}`);
       input.value = parseInt(input.value) + 1;
+      mostrarOcultarProdutos();
     }
 
-    function diminuirValor() {
+    function diminuirValor(index) {
+      const input = document.getElementById(`input-${index}`);
       const valorAtual = parseInt(input.value);
       if (valorAtual > 0) {
         input.value = valorAtual - 1;
+      }
+      mostrarOcultarProdutos();
+    }
+
+
+    function mostrarProdutos() {
+      const produtos = document.querySelectorAll(".prod1");
+      const valorInput = parseInt(input.value);
+
+      if (valorInput > 0) {
+        produtos.forEach((produto) => {
+          produto.classList.remove("oculto");
+        });
+      } else {
+        produtos.forEach((produto) => {
+          produto.classList.add("oculto");
+        });
       }
     }
   </script>

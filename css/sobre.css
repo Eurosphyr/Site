@@ -4,7 +4,7 @@
 }
 .container{
     display: grid;
-    grid-template-areas: "cabecalho cabelho"
+    grid-template-areas: "cabecalho cabecalho"
                          "sobre sobre"
                          "escrita1 img1"
                          "img2 escrita2"
