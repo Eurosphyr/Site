@@ -42,7 +42,7 @@
   .apresentacao {
     font-weight: bold;
     font-size: 60px;
-    color: var(--title-color);
+    color: var(--line-color);
   }
   
   .linha {
@@ -64,7 +64,7 @@
   .imagem1 {
     width: 400px;
     height: 500px;
-    background-color: #b8aeae;
+    background-color: var(--text-color);
   }
   
   /* Parte Escrita1 */
@@ -96,7 +96,7 @@
   .imagem2 {
     width: 400px;
     height: 500px;
-    background-color: #b8aeae;
+    background-color: var(--text-color);
   }
   
   /* Parte Escrita2 */
@@ -127,7 +127,7 @@
   }
   
   .banner {
-    background-color: #b8aeae;
+    background-color: var(--text-color);
     height: 400px;
     width: 1350px;
   }
