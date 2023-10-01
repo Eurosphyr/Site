@@ -12,8 +12,6 @@
   /* Rest of your CSS with variables and font-family */
   .cabecalho {
     width: 100%;
-    z-index: 999;
-    position: fixed;
     padding: 0px 40px;
     grid-area: cabecalho;
     background-color: var(--main-bg-color);
@@ -58,3 +56,20 @@
     height: auto;
     margin-left: 10px; /* Espaço entre ícones */
   }
+
+  .bt-comprar {
+    background-color: var(--button-bg-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+  
+  .bt-comprar:hover {
+    background-color: var(--button-hover-color);
+  }
+  

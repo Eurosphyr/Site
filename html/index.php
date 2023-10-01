@@ -31,7 +31,7 @@
         <div class="dentro">
           <div class="desc-produto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam vel ratione impedit dolorem. Eum quisquam, distinctio corporis sequi, tenetur maxime in explicabo saepe, quidem quod laboriosam neque cumque magni possimus.</div>
           <div class="produto"></div>
-          <div class="centralizar" align="center"><button class="bt-comprar">COMPRAR</button></div>
+          <div class="centralizar" align="center"><a class="bt-comprar" href="ec-telacompra.php">COMPRAR</a></div>
           
         </div>
       </div>
@@ -56,7 +56,7 @@
             aliquet pulvinar sed sem.
           </div>
         </div>
-        <div class="fimBaixo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ut nihil ea repellat temporibus laboriosam quidem soluta dignissimos. Esse nemo assumenda dolorum quisquam eveniet repudiandae velit fugit nisi! Tempora, architecto.</div>
+        <div class="fimBaixo"></div>
       </div>
     </div>
     <script src="../php/script.js"></script>

@@ -42,20 +42,15 @@ function mostrarTabela($result)
   ";
 }
 
-function consultarDados()
+function obterProdutos()
 {
-  $conn = conectarAoBanco();
+    $conn = conectarAoBanco();
 
-  $query = "SELECT * FROM tbl_produto";
-  $result = $conn->query($query);
+    $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE excluido = false");
+    $stmt->execute();
 
-  if (!$result) {
-    echo "Error in SQL query.";
-    exit;
-  }
-  return $result;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 function inutilizar_produto()
 {
   $id = $_GET['id'];

@@ -34,10 +34,7 @@
       <div class="compra-prod">
         <div class="compra">
           <p class="preco">R$5,99</p>
-          <a href=""><p class="tipo1">Tipo de entrega</p></a>
-          <a href="ec-carrinho.php"
-            ><p class="tipo2">Adicionar ao carrinho</p></a
-          >
+            <a href="ec-carrinho.php" class="bt-comprar tipo2" >Adicionar ao carrinho</a>
           <a href=""><p class="tipo2">Comprar agora</p></a>
         </div>
       </div>
@@ -61,7 +58,7 @@
       </div>
       <div class="video">
         <p>Video do produto</p>
-        <iframe class="video-css" src="https://www.youtube.com/embed/faoDlV3YlFE" title="Star Wars: Duel of The Fates | EPIC VERSION (Remastered V2)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>>
+        <iframe class="video-css" src="https://www.youtube.com/embed/faoDlV3YlFE" title="Star Wars: Duel of The Fates | EPIC VERSION (Remastered V2)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </iframe>
       </div>
     </div>
