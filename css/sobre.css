@@ -80,7 +80,7 @@
     padding: 0px 300px 0px 350px;
     font-size: var(--font-size);
     font-family: var(--font-family);
-    color: var(--text-color);
+    color: var(--line-color);
   }
   
   /* Parte corpo texto baixo */
@@ -112,7 +112,7 @@
     padding: 0px 300px 0px 350px;
     font-size: var(--font-size);
     font-family: var(--font-family);
-    color: var(--text-color);
+    color: var(--line-color);
   }
   
   /* Parte Banner */
