@@ -22,7 +22,7 @@
       <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
     </div>
-    <div class="ft-prod1">
+    <div class="ft-prod1 imagem-wrapper">
       <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" onclick="proximaImagem()" /></div>
 
     </div>
