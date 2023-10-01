@@ -113,41 +113,96 @@ echo "<form action='' name='frmPesq' method='post'>
      </form><br>";
 }
 
-function login(){
-  if (isset($_SESSION['sessaoConectado'])) {
-    $sessaoConectado = $_SESSION['sessaoConectado'];
-} else { 
-  $sessaoConectado = false; 
+
+
+function login()
+{
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+    session_start();
+
+    // Verificar se o usuário já está conectado
+    if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
+        // Usuário já está conectado, redirecione-o para a página inicial ou outra página
+        header('Location: ../html/index.php');
+        exit;
+    }
+
+    // Verificar se o formulário de login foi enviado
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obter o email e senha do formulário
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+
+        // Conectar ao banco de dados (substitua com suas próprias configurações)
+        $conn = conectarAoBanco();
+
+        // Verificar a conexão com o banco de dados
+        if (!$conn) {
+            die("Falha na conexão com o banco de dados: " . $conn->errorInfo()[2]);
+        }
+
+        // Consulta SQL para verificar as credenciais no banco de dados
+        $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1) {
+            // As credenciais são válidas, conecte o usuário
+            $_SESSION['sessaoConectado'] = true;
+
+            // Redirecione para a página de sucesso ou página inicial
+            header('Location: ../html/index.php');
+            exit;
+        } else {
+            // Credenciais inválidas, exiba uma mensagem de erro
+            echo "Credenciais inválidas. Por favor, tente novamente.";
+        }
+
+        // Feche a conexão com o banco de dados
+        $conn = null;
+    }
+
+    echo "
+    <!DOCTYPE html>
+    <html lang='en'>
+      <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>Login</title>
+        <link rel='stylesheet' href='../css/cadastro.css' />
+        <link rel='icon' href='../img/Logos.svg' />
+      </head>
+      <body>
+        <div class='container'>
+          <div class='menu'>
+            <div class='cadastro'>Faça seu Login</div>
+            <form action='' method='POST'>
+              <label for='email' class='em'>Email</label>
+              <input id='email' class='escrita' type='text' name='email' required>
+              <label for='senha' class='se'>Senha</label>
+              <input id='senha' class='escrita' type='password' name='senha' required>
+              <label for='lembrar' class='salvar'>Lembrar sempre</label>
+              <input id='lembrar' class='checked' type='checkbox'>
+              <div class='centralizar' align='center'>
+                <input class='bt' type='submit' value='Confirmar'>
+              </div>
+            </form>
+            <div class='baixo'><a href='ec-cadastro.php'>Criar conta</a></div>
+            <div class='baixo'><a href='#'>Esqueci a senha</a></div>
+          </div>
+        </div>
+      </body>
+    </html>
+    ";
 }
 
-// se sessao nao conectada ...
-if (!$sessaoConectado) { 
-   
-   $loginCookie = '';
 
-   // recupera o valor do cookie com o usuario    
-   if (isset($_COOKIE['loginCookie'])) {
-      $loginCookie = $_COOKIE['loginCookie']; 
-   }
 
-   echo "
-    <html>
-    <header></header>
-    <body>
-        <form name='formlogin' method='post' action=''>
-        <table><tr>
-        <td>Login<br>
-        <input type='text' name='login' size=30 
-        value='$loginCookie'></td>
-        <td>Senha<br>
-        <input type='password' name='senha' size=8>
-        <input type='submit' value='Enviar'></td>
-        </tr></table>
-        </form>
-    </body>
-    </html>";
-}
-}
+
 
 function logout(){
   session_start(); 
