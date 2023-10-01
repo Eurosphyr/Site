@@ -101,10 +101,13 @@ a{
     align-items: center;
     justify-content: center;
     grid-area: mais;
+    position: relative;
 }
 .prod2{
     margin: 0px 20px;
     width: 200px;
+    display: block;
+    margin: 0 auto;
 }
 /*Parte titulo especificacoes*/
 .esp{
@@ -143,20 +146,30 @@ a{
     transform: scale(2); /* Zoom de 2x */
 }
 
-.seta-direita,
-.seta-esquerda{
+.setas {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: #14213D;
-    color: #ffffff;
-    font-size: 50px;
-    font-weight: bold;
-    border-radius: 5px;
+    justify-content: space-between; /* Para espaço igual entre as setas e as imagens */
+    width: 100%; /* Usando a largura total do container */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .seta-esquerda {
+    left: 0;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-}
+  }
+  
+  .seta-direita {
+    right: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+   
 
 .zoom img {
     width: 100%; /* Defina a largura desejada das imagens */

@@ -13,7 +13,7 @@
 <body>
   <div class="container">
     <div class="cabecalho">
-    <img class="logo" src="../img/Logos.svg" />
+      <img class="logo" src="../img/Logos.svg" />
       <a class="b" href="index.php">HOME</a>
       <a class="b" href="ec-sobre.php">SOBRE</a>
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
@@ -21,7 +21,7 @@
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
     </div>
     <div class="apresentacao">
-      <img class="foto-ca" src="cart_circle.png" />
+      <img class="foto-ca" src="../img/cart_circle.png" />
       <div class="escrita-ca">
         <div class="reta1"></div>
         <p class="carrinho">Carrinho</p>
@@ -42,9 +42,9 @@
           <p class="v-prod">R$</p>
         </div>
         <div class="desing-v">
-          <a href="">-</a>
-          <input class="q-prod" type="number" value="1" />
-          <a href="">+</a>
+        <button onclick="diminuirValor()">-</button>
+          <input class="q-prod" id="meuInput" type="number" value="1" />
+          <button onclick="aumentarValor()">+</button>
         </div>
         <div class="desing-t">
           <p class="v-prod">R$</p>
@@ -60,9 +60,9 @@
           <p class="v-prod">R$</p>
         </div>
         <div class="desing-v">
-          <a href="">-</a>
-          <input class="q-prod" type="number" value="1" />
-          <a href="">+</a>
+        <button onclick="diminuirValor()">-</button>
+          <input class="q-prod" id="meuInput" type="number" value="1" />
+          <button onclick="aumentarValor()">+</button>
         </div>
         <div class="desing-t">
           <p class="v-prod">R$</p>
@@ -78,9 +78,9 @@
           <p class="v-prod">R$</p>
         </div>
         <div class="desing-v">
-          <a href="">-</a>
-          <input class="q-prod" type="number" value="1" />
-          <a href="">+</a>
+          <button onclick="diminuirValor()">-</button>
+          <input class="q-prod" id="meuInput" type="number" value="1" />
+          <button onclick="aumentarValor()">+</button>
         </div>
         <div class="desing-t">
           <p class="v-prod">R$</p>
@@ -102,6 +102,20 @@
       </div>
     </div>
   </div>
+  <script>
+    const input = document.getElementById("meuInput");
+
+    function aumentarValor() {
+      input.value = parseInt(input.value) + 1;
+    }
+
+    function diminuirValor() {
+      const valorAtual = parseInt(input.value);
+      if (valorAtual > 0) {
+        input.value = valorAtual - 1;
+      }
+    }
+  </script>
 </body>
 
 </html>

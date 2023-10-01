@@ -45,13 +45,14 @@
     </div>
     <div class="imgs-prod">
       <div class="setas">
-        <img id="seta-esquerda" class="seta-esquerda" src="../img/seta_esquerda.svg" alt="Seta Esquerda" onclick="imagemAnterior()" />
-        <img id="seta-direita" class="seta-direita" src="../img/seta_direita.svg" alt="Seta Direita" onclick="proximaImagem()" />
+        <img id="seta-esquerda" class="setas seta-esquerda" src="../img/seta_esquerda.svg" alt="Seta Esquerda" onclick="imagemAnterior()" />
+        <img class="prod2" src="../img/mousepad_front.png" />
+        <img class="prod2" src="../img/mousepad.png" />
+        <img class="prod2" src="../img/mini_mousepad.png" />
+        <img id="seta-direita" class="setas seta-direita" src="../img/seta_direita.svg" alt="Seta Direita" onclick="proximaImagem()" />
       </div>
 
-      <img class="prod2" src="../img/mousepad_front.png" />
-      <img class="prod2" src="../img/mousepad.png" />
-      <img class="prod2" src="../img/mini_mousepad.png" />
+
     </div>
     <div class="esp">
       <p>Especificações Técnicas</p>
@@ -72,32 +73,32 @@
       </iframe>
     </div>
   </div>
-    <script>
-        var imagens = [
-            "../img/mousepad.png",
-            "../img/mousepad_front.png",
-            "../img/mini_mousepad.png"
-        ];
+  <script>
+    var imagens = [
+      "../img/mousepad.png",
+      "../img/mousepad_front.png",
+      "../img/mini_mousepad.png"
+    ];
 
-        var imagemAtual = 0;
+    var imagemAtual = 0;
 
-        function exibirImagemAtual() {
-            var imagemPrincipal = document.getElementById('zoomImg');
-            imagemPrincipal.src = imagens[imagemAtual];
-        }
+    function exibirImagemAtual() {
+      var imagemPrincipal = document.getElementById('zoomImg');
+      imagemPrincipal.src = imagens[imagemAtual];
+    }
 
-        function proximaImagem() {
-            imagemAtual = (imagemAtual + 1) % imagens.length;
-            exibirImagemAtual();
-        }
+    function proximaImagem() {
+      imagemAtual = (imagemAtual + 1) % imagens.length;
+      exibirImagemAtual();
+    }
 
-        function imagemAnterior() {
-            imagemAtual = (imagemAtual - 1 + imagens.length) % imagens.length;
-            exibirImagemAtual();
-        }
+    function imagemAnterior() {
+      imagemAtual = (imagemAtual - 1 + imagens.length) % imagens.length;
+      exibirImagemAtual();
+    }
 
-        exibirImagemAtual();
-    </script>
+    exibirImagemAtual();
+  </script>
 </body>
 
 </html>

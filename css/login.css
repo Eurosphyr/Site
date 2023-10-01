@@ -88,6 +88,10 @@
     text-decoration: none;
     color: #818080;
   }
+
+  .mostrar {
+    padding: auto;
+  }
   
   /* Specific styles for small screens (max-width: 768px) */
   @media screen and (max-width: 768px) {

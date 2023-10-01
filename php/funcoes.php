@@ -170,6 +170,7 @@ function login()
         <title>Login</title>
         <link rel='stylesheet' href='../css/cadastro.css' />
         <link rel='icon' href='../img/Logos.svg' />
+        <script src='../php/script.js'></script>
       </head>
       <body>
         <div class='container'>
@@ -181,7 +182,9 @@ function login()
               <label for='senha' class='se'>Senha</label>
               <input id='senha' class='escrita' type='password' name='senha' required>
               <label for='lembrar' class='salvar'>Lembrar sempre</label>
-              <input id='lembrar' class='checked' type='checkbox'>
+              <input id='lembrar' class='checked' type='checkbox'><br>
+              <label for='mostrar-senha' class='mostrar'>Mostrar senha</label>
+              <input id='mostrar-senha' class='checked' type='checkbox'>
               <div class='centralizar' align='center'>
                 <input class='bt' type='submit' value='Confirmar'>
               </div>
@@ -190,6 +193,14 @@ function login()
             <div class='baixo'><a href='#'>Esqueci a senha</a></div>
           </div>
         </div>
+        <script>
+        const senha = document.getElementById('senha');
+        const mostrarSenha = document.getElementById('mostrar-senha');
+      
+        mostrarSenha.addEventListener('click', function (e) {
+          senha.type = mostrarSenha.checked ? 'text' : 'password';
+        });
+      </script>
       </body>
     </html>
     ";

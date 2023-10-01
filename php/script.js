@@ -16,39 +16,3 @@ imagem.addEventListener("click", () => {
     imagem.classList.remove("animacao-rodar");
   });
 });
-
-const mainImg = document.getElementById("zoomImg");
-const thumbnails = document.querySelectorAll(".prod2");
-
-thumbnails.forEach((thumbnail) => {
-  thumbnail.addEventListener("mouseover", () => {
-    // Altera a imagem principal para a imagem da miniatura
-    mainImg.src = thumbnail.src;
-  });
-});
-
- 
-var imagens = [
-  "../img/mousepad.png",
-  "../img/mousepad_front.png",
-  "../img/mini_mousepad.png"
-];
-
-var imagemAtual = 0;
-
-function exibirImagemAtual() {
-  var imagemPrincipal = document.getElementById('zoomImg');
-  imagemPrincipal.src = imagens[imagemAtual];
-}
-
-function proximaImagem() {
-  imagemAtual = (imagemAtual + 1) % imagens.length;
-  exibirImagemAtual();
-}
-
-function imagemAnterior() {
-  imagemAtual = (imagemAtual - 1 + imagens.length) % imagens.length;
-  exibirImagemAtual();
-}
-
-exibirImagemAtual();
