@@ -59,7 +59,7 @@
 
   .bt-comprar {
     background-color: var(--button-bg-color);
-    color: white;
+    color: var(--main-bg-color);
     border: none;
     border-radius: 25px;
     padding: 10px 20px;
@@ -70,6 +70,6 @@
   }
   
   .bt-comprar:hover {
-    background-color: var(--button-hover-color);
+    background-color: var(--accent-color);
   }
   

@@ -1,5 +1,14 @@
+:root {
+    --font-family: Arial, Helvetica, sans-serif;
+    --main-bg-color: #ffffff;
+    --text-color: #000000;
+    --button-bg-color: #14213d;
+    --button-text-color: #e5e5e5;
+    --primary-bg-color: #FCA311;
+  }
+
 *{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-family);
     margin: 0px;
     padding: 0px;
 }
@@ -8,7 +17,7 @@
     position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: #14213D;
+    background-color: var(--button-bg-color);
 
 }
 .container{
@@ -27,38 +36,25 @@ input[type=text]
     margin: 30px 0px;
     width: 300px;
     height: 30px;
-    background-color: #14213D;
+    background-color: var(--button-bg-color);
     border: none;
     font-size: 18px;
     padding: 0px 10px;
-    color: #ffffff;
+    color: var(--main-bg-color);
 }
 input[type=text]:focus{
     outline: none;
 }
 input[type=text]::placeholder{
-    color: #e5e5e5;
+    color: var(--button-text-color);
 }
 p{
     font-size: 25px;
-    color: #ffffff;
+    color: var(--button-text-color);
 }
 label{
-    color: #ffffff;
+    color: var(--main-bg-color);
 }
-/* Parte cabecalho */
-:root {
-    --main-bg-color: #ffffff;
-    --header-bg-color: #14213d;
-    --text-color: #000000;
-    --button-bg-color: #14213d;
-    --button-text-color: #e5e5e5;
-    --accent-color: #3498db;
-    --accent-hover-color: #2ecc71;
-    --placeholder-color: #666262;
-  }
-  
-  /* Rest of your CSS with variables and font-family */
   /* Parte Tipo de Pagamento */
 .tipo{
     display: flex;
@@ -73,7 +69,7 @@ label{
     display: flex;
     align-items: center;
     height: 50px;
-    border: #ffffff solid 1px;
+    border: var(--main-bg-color) solid 1px;
     border-radius: 50px;
 }
 /* Parte Pagar */
@@ -91,11 +87,11 @@ label{
     font-size: 19px;
     z-index: 3;
     height: 350px;
-    background-color: #FCA311;
+    background-color: var(--primary-bg-color);
     margin: 0px 20px 20px 20px;
     padding: 40px 60px 20px 60px;
     border-radius: 0px 0px 4px 4px;
-    box-shadow: 1px 1px 20px 0px #000000; 
+    box-shadow: 1px 1px 20px 0px var(--text-color); 
 }
 .padrao, .premium, .total{
     display: flex;
@@ -106,13 +102,13 @@ label{
     margin-top: 30px;
     width: 300px;
     height: 1px;
-    background-color: #000000;
+    background-color: var(--text-color);
 }
 .esp{
     margin: 30px 0px;
 }
 .bt-compra{
-    background-color: #FCA311;
+    background-color: var(--button-bg-color);
     border: none;
     display: flex;
     justify-content: center;
@@ -127,9 +123,9 @@ label{
     cursor: default;
     top: 51%;
     right: 2%;
-    background-color: #e49619;
+    background-color: var(--primary-bg-color);
     border-radius: 4px 4px 0px 0px;
-    border: 2px solid #000000;
+    border: 2px solid var(--text-color);
     border-bottom: none;
     align-items: center;
     display: flex;
@@ -152,15 +148,15 @@ label{
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    background-color: #FCA311;
+    background-color: var(--primary-bg-color);
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 1px 1px 20px 5px #000000; 
+    box-shadow: 1px 1px 20px 5px var(--primary-bg-color); 
 }
 .preto{
-    color: #000000;
+    color: var(--text-color);
 }
 /* Parte mostrar prod */
 .produto{
@@ -187,7 +183,7 @@ label{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #FCA311;
+    background-color: var(--primary-bg-color);
     border-radius: 5px 5px 0px 5px;
-    box-shadow: 1px 1px 20px 5px #000000; 
+    box-shadow: 1px 1px 20px 5px var(--text-color); 
 }

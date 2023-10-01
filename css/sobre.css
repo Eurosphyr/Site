@@ -1,117 +1,134 @@
-*{
+:root {
+    --main-bg-color: #000000;
+    --accent-bg-color: #ffffff;
+    --text-color: #b8aeae;
+    --title-color: #ffffff;
+    --line-color: #000000;
+    --font-family: 'Courier New', Courier, monospace;
+    --font-size: 25px;
+  }
+  
+  * {
     margin: 0px;
     padding: 0px;
-}
-.container{
+  }
+  
+  .container {
     display: grid;
-    grid-template-areas: "cabecalho cabecalho"
-                         "sobre sobre"
-                         "escrita1 img1"
-                         "img2 escrita2"
-                         "banner banner";
+    grid-template-areas:
+      "cabecalho cabecalho"
+      "sobre sobre"
+      "escrita1 img1"
+      "img2 escrita2"
+      "banner banner";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.26fr 1fr 2.5fr 2fr 2.5fr;
     z-index: 3;
     grid-area: baixo;
-    background-color: #000000;
+    background-color: var(--main-bg-color);
     height: auto;
-}
-/*Parte cabecalho*/
-/* Define color variables */
-:root {
-    --main-bg-color: #ffffff;
-    --header-bg-color: #14213d;
-    --text-color: #000000;
-    --button-bg-color: #14213d;
-    --button-text-color: #e5e5e5;
-    --accent-color: #3498db;
-    --accent-hover-color: #2ecc71;
-    --placeholder-color: #666262;
   }
+  
   /* Parte Apresentacao */
-.sobre{
+  .sobre {
     flex-direction: column;
     grid-area: sobre;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
-}
-.apresentacao{
+    background-color: var(--accent-bg-color);
+  }
+  
+  .apresentacao {
     font-weight: bold;
     font-size: 60px;
-}
-.linha{
+    color: var(--title-color);
+  }
+  
+  .linha {
     width: 800px;
     height: 1px;
-    background-color: #000000;
-}
-/* Parte corpo texto cima */
-.part-img1{
+    background-color: var(--line-color);
+  }
+  
+  /* Parte corpo texto cima */
+  .part-img1 {
     padding: 20px 0px;
     grid-area: img1;
-    background-color: #ffffff;
+    background-color: var(--accent-bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.imagem1{
+  }
+  
+  .imagem1 {
     width: 400px;
     height: 500px;
     background-color: #b8aeae;
-}
-/* Parte Escrita1 */
-.escrita1{
+  }
+  
+  /* Parte Escrita1 */
+  .escrita1 {
     grid-area: escrita1;
-    background-color: #ffffff;
+    background-color: var(--accent-bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.escritaL{
+  }
+  
+  .escritaL {
     padding: 0px 300px 0px 350px;
-    font-size: 25px;
-    font-family: 'Courier New', Courier, monospace;
-}
-/* Parte corpo texto baixo */
-.part-img2{
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    color: var(--text-color);
+  }
+  
+  /* Parte corpo texto baixo */
+  .part-img2 {
     padding: 20px 0px;
     grid-area: img2;
-    background-color: #ffffff;
+    background-color: var(--accent-bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.imagem2{
+  }
+  
+  .imagem2 {
     width: 400px;
     height: 500px;
     background-color: #b8aeae;
-}
-/* Parte Escrita2 */
-.escrita2{
+  }
+  
+  /* Parte Escrita2 */
+  .escrita2 {
     grid-area: escrita2;
-    background-color: #ffffff;
+    background-color: var(--accent-bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.escritaD{
+  }
+  
+  .escritaD {
     padding: 0px 300px 0px 350px;
-    font-size: 25px;
-    font-family: 'Courier New', Courier, monospace;
-}
-/* Parte Banner */
-.part-banner{
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    color: var(--text-color);
+  }
+  
+  /* Parte Banner */
+  .part-banner {
     grid-area: banner;
-    background-color: #ffffff;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 25px;
+    background-color: var(--accent-bg-color);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.banner{
+  }
+  
+  .banner {
     background-color: #b8aeae;
     height: 400px;
     width: 1350px;
-}
+  }
+  

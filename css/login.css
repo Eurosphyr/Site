@@ -1,122 +1,129 @@
+:root {
+  --main-bg-color: #14213d;
+  --text-color: #818080;
+  --highlight-color: #f5a72b;
+  --highlight-hover-color: #947441;
+  --border-color: #818080;
+  --font-family: Arial, Helvetica, sans-serif;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-  }
-  
-  /* Common styles for both large and small screens */
-  .container {
-    width: auto;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  border-radius: 5px;
+  flex-direction: column;
+  width: 100%;
+  height: 450px;
+  background-color: var(--main-bg-color);
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-style: italic;
+  color: var(--text-color);
+  font-weight: bold;
+  transition: 1s;
+  padding: 20px;
+}
+
+.cadastro {
+  margin-top: 20px;
+  border-bottom: 2px solid var(--text-color);
+  margin-bottom: 40px;
+}
+
+.em,
+.se,
+.Cse {
+  font-size: 20px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.escrita {
+  width: 100%;
+  font-size: 15px;
+  background-color: var(--main-bg-color);
+  border: none;
+  border-bottom: solid 2px var(--border-color);
+  color: var(--text-color);
+  margin-bottom: 100px;
+  padding: 10px;
+}
+
+.escrita:focus {
+  outline: none;
+}
+
+.bt {
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  max-width: 200px;
+  height: 50px;
+  background-color: var(--highlight-color);
+  border: 3px solid var(--highlight-color);
+  border-radius: 3px;
+  color: #3e3e3e;
+  transition: 0.5s linear;
+}
+
+.bt:active {
+  border-bottom: 3px solid var(--highlight-hover-color);
+  border-right: 3px solid var(--highlight-hover-color);
+  background-color: var(--highlight-hover-color);
+}
+
+.baixo {
+  margin-top: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.mostrar {
+  padding: auto;
+}
+
+@media screen and (max-width: 768px) {
   .menu {
-    border-radius: 5px;
-    flex-direction: column;
-    width: 100%;
-    height: 450px;
-    background-color: #14213D;
-    display: flex;
-    align-items: center;
-    font-size: 25px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-style: italic;
-    color: #818080;
-    font-weight: bold;
-    transition: 1s;
-    padding: 20px;
+    width: 90%; 
+    height: auto; 
   }
-  
+
   .cadastro {
-    margin-top: 20px;
-    border-bottom: 2px solid #818080;
-    margin-bottom: 40px;
+    margin-top: 20px; 
+    margin-bottom: 50px; 
   }
-  
+
   .em,
   .se,
   .Cse {
-   font-size: 20px;
-   margin: 10px 0;
-   text-align: center; /* Center horizontally */
-  }
-  
-  .escrita {
-    width: 100%;
-    font-size: 15px;
-    background-color: #14213D;
-    border: none;
-    border-bottom: solid 2px #818080;
-    color: #818080;
-    margin-bottom: 100px;
-    padding: 10px;
-  }
-  
-  .escrita:focus {
-    outline: none;
-  }
-  
-  .bt { 
-    cursor: pointer;
-    font-size: 18px;
-    width: 100%;
-    max-width: 200px;
-    height: 50px;
-    background-color: #f5a72b;
-    border: 3px solid #f5a72b;
-    border-radius: 3px;
-    color: #3e3e3e;
-    transition: 0.5s linear;
-  }
-  
-  .bt:active {
-    border-bottom: 3px solid #947441;
-    border-right: 3px solid #947441;
-    background-color: #947441;
-  }
-  
-  .baixo {
-    margin-top: 6px;
-    font-size: 13px;
-    text-align: center;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #818080;
+    font-size: 16px; 
   }
 
-  .mostrar {
-    padding: auto;
+  .escrita {
+    width: 100%; 
   }
-  
-  /* Specific styles for small screens (max-width: 768px) */
-  @media screen and (max-width: 768px) {
-    .menu {
-      width: 90%; /* Adjust the width for small screens */
-      height: auto; /* Adjust the height for small screens */
-    }
-  
-    .cadastro {
-      margin-top: 20px; /* Adjust margin for small screens */
-      margin-bottom: 50px; /* Adjust margin for small screens */
-    }
-  
-    .em,
-    .se,
-    .Cse {
-      font-size: 16px; /* Adjust font size for small screens */
-    }
-  
-    .escrita {
-      width: 100%; /* Make the input full width on small screens */
-    }
-  
-    .bt {
-      width: 100%; /* Make the button full width on small screens */
-    }
+
+  .bt {
+    width: 100%; 
   }
-  
+}
