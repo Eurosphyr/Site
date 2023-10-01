@@ -26,3 +26,29 @@ thumbnails.forEach((thumbnail) => {
     mainImg.src = thumbnail.src;
   });
 });
+
+ 
+var imagens = [
+  "../img/mousepad.png",
+  "../img/mousepad_front.png",
+  "../img/mini_mousepad.png"
+];
+
+var imagemAtual = 0;
+
+function exibirImagemAtual() {
+  var imagemPrincipal = document.getElementById('zoomImg');
+  imagemPrincipal.src = imagens[imagemAtual];
+}
+
+function proximaImagem() {
+  imagemAtual = (imagemAtual + 1) % imagens.length;
+  exibirImagemAtual();
+}
+
+function imagemAnterior() {
+  imagemAtual = (imagemAtual - 1 + imagens.length) % imagens.length;
+  exibirImagemAtual();
+}
+
+exibirImagemAtual();
