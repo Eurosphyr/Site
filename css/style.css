@@ -1,4 +1,3 @@
-/* Define color variables */
 :root {
   --main-bg-color: #ffffff;
   --header-bg-color: #14213d;
@@ -9,9 +8,6 @@
   --accent-hover-color: #2ecc71;
   --placeholder-color: #666262;
 }
-
-/* Rest of your CSS with variables and font-family */
-
 
 /*Onde é mostrado os dados da tabela do banco de dados*/
 .dados {
@@ -42,9 +38,6 @@
 }
 
 /*Botão alterar dados no forms*/
-/* Rest of your CSS with variables and font-family */
-
-/*Botão alterar dados no forms*/
 .bt-altera_dados {
   cursor: pointer;
   margin: 0px 50px;
@@ -70,7 +63,7 @@
   transform: translateX(-50%);
 }
 
-/* Add top margin to .alterar_dados */
+
 .alterar_dados {
   display: flex;
   background-size: cover;
@@ -78,20 +71,20 @@
   justify-content: flex-end;
   align-items: flex-end;
   margin-right: 20vh;
-  margin-top: 150px; /* Add margin-top to push it below the .cabecalho */
+  margin-top: 150px; 
 }
 
-/* Responsive CSS */
+
 @media screen and (max-width: 768px) {
   .cabecalho {
-    padding: 0px 20px; /* Adjust padding for smaller screens */
+    padding: 0px 20px;
   }
 
   .b {
-    margin: 0px 20px; /* Adjust margin for smaller screens */
+    margin: 0px 20px;
   }
 
-  /* Add more responsive styles as needed */
+  
 }
 
 
