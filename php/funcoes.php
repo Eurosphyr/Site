@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 function conectarAoBanco()
 {
   $host = "pgsql.projetoscti.com.br";
@@ -16,40 +19,116 @@ function conectarAoBanco()
     exit;
   }
 }
-
-function mostrarTabela($result)
+function adicionarRecursoParaUsuariosLogados()
 {
-  echo "
-  <table border='1'>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Telefone</th>
-    </tr>
-    ";
-  while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    echo "
-      <tr>
-        <td>" . $linha['nome'] . "</td>
-        <td>" . $linha['email'] . "</td>
-        <td>" . $linha['telefone'] . "</td>
-        <td>.</td>
-      </tr>
-      ";
+  session_start();
+
+  if (!isset($_SESSION['sessaoConectado']) || $_SESSION['sessaoConectado'] !== true) {
+    // O usuário não está logado, redirecione-o para a página de login
+    header('Location: ../html/ec-login.php');
+    exit;
   }
+
+  $userId = $_SESSION['userId'];
+  $userName = $_SESSION['userName'];
+  $userEmail = $_SESSION['userEmail'];
+  $userTelefone = $_SESSION['userTelefone'];
+
   echo "
-  </table>
+    <!DOCTYPE html>
+    <html lang='pt-br'>
+    <head>
+      <meta charset='UTF-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+      <link rel='stylesheet' href='../css/style.css' />
+      <link rel='stylesheet' href='../css/cabecalho.css' />
+      <link rel='icon' href='../img/Logos.svg' />
+      <title>Perfil</title>
+    </head>
+    <body>
+      <div class='container'>
+        <div class='cabecalho'>
+          <img class='logo' src='../img/Logos.svg' />
+          <a class='b' href='index.php'>HOME</a>
+          <a class='b' href='ec-sobre.php'>SOBRE</a>
+          <a class='b' href='ec-telacompra.php'>COMPRAR</a>
+          <a href='../html/ec-login.php'><img class='perfil' src='../img/user.png' /></a>
+          <a href='../html/ec-carrinho.php'><img class='carrinho' src='../img/cart.png' /></a>
+          <a href='../html/perfil.php'><img class='perfil' src='../img/user.png' /></a>
+        </div>
+      </div>
+      <div class='container_geral'>
+        <div class='perfil'>
+          <img class='foto' src='../img/User.svg' />
+          <div class='dados'>
+          <table>
+            <tr>
+              <td>Nome:</td>
+              <td>$userName</td>
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td>$userEmail</td>
+            </tr>
+            <tr>
+              <td>Telefone:</td>
+              <td>$userTelefone</td>
+            </tr>
+          </table>
+          <div class='centralizar' align='center'>
+          <form action='' method='POST'>
+          <button type='button' class='bt' name='logoutButton' id='logoutButton'>Sair</button>
+        </form>
+          </div>
+          </div>
+        </div>
+      </div>
+      <script>
+document.getElementById('logoutButton').addEventListener('click', function() {
+    // Fazer uma solicitação AJAX para chamar a função PHP
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../php/funcoes.php', true); // Use POST para enviar dados
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // A resposta da função PHP será exibida aqui
+            console.log(xhr.responseText);
+            // Redirecionar para a página de login se necessário
+            window.location.href = '../html/ec-login.php';
+        }
+    };
+
+    // Enviar dados para a função PHP
+    xhr.send('acao=logout');
+});
+</script>
+
+    </body>
+    </html>
   ";
 }
 
+function logout()
+{
+  session_start();
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'logout') {
+    $_SESSION['sessaoConectado'] = false;
+    $_SESSION['sessaoAdmin'] = false;
+    echo "Logout realizado com sucesso!";
+  }
+}
+
+
+
+
 function obterProdutos()
 {
-    $conn = conectarAoBanco();
+  $conn = conectarAoBanco();
 
-    $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE excluido = false");
-    $stmt->execute();
+  $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE excluido = false");
+  $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 function inutilizar_produto()
 {
@@ -70,7 +149,8 @@ function inutilizar_produto()
   }
 }
 
-function excluir_produto(){
+function excluir_produto()
+{
   $id = $_GET['id'];
 
   $sql = "DELETE FROM tbl_carrinho WHERE id = :id_produto";
@@ -88,20 +168,21 @@ function excluir_produto(){
   }
 }
 
-function pesquisa(){
+function pesquisa()
+{
   if (isset($_POST['varNome'])) {
     $varNome = $_POST['varNome'];
-} else {
+  } else {
     $varNome = "";
-}
+  }
 
-$sql = " SELECT * FROM tbl_produto 
+  $sql = " SELECT * FROM tbl_produto 
          WHERE (nome LIKE '%$varNome%')   
          ORDER BY nome ";
 
-$select = conectarAoBanco()->query($sql);
+  $select = conectarAoBanco()->query($sql);
 
-echo "<form action='' name='frmPesq' method='post'>
+  echo "<form action='' name='frmPesq' method='post'>
       Digite o nome ou parte<br>
       <input type='text' name='nome'>
       <input type='submit' value='Pesquisar'>
@@ -112,58 +193,56 @@ echo "<form action='' name='frmPesq' method='post'>
 
 function login()
 {
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
-    session_start();
+  session_start();
 
-    // Verificar se o usuário já está conectado
+  try {
     if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
-        // Usuário já está conectado, redirecione-o para a página inicial ou outra página
-        header('Location: ../html/index.php');
-        exit;
+      // Se o usuário já está logado, redirecione para a página de perfil
+      header('Location: perfil.php');
+      exit;
     }
 
-    // Verificar se o formulário de login foi enviado
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Obter o email e senha do formulário
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
+      $email = $_POST['email'];
+      $senha = $_POST['senha'];
 
-        // Conectar ao banco de dados (substitua com suas próprias configurações)
-        $conn = conectarAoBanco();
+      $conn = conectarAoBanco();
 
-        // Verificar a conexão com o banco de dados
-        if (!$conn) {
-            die("Falha na conexão com o banco de dados: " . $conn->errorInfo()[2]);
-        }
+      if (!$conn) {
+        throw new Exception("Falha na conexão com o banco de dados.");
+      }
 
-        // Consulta SQL para verificar as credenciais no banco de dados
-        $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->execute();
+      $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':email', $email);
+      $stmt->bindParam(':senha', $senha);
+      $stmt->execute();
 
-        if ($stmt->rowCount() == 1) {
-            // As credenciais são válidas, conecte o usuário
-            $_SESSION['sessaoConectado'] = true;
+      if ($stmt->rowCount() == 1) {
+        // Dados do usuário encontrados
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Redirecione para a página de sucesso ou página inicial
-            header('Location: ../html/index.php');
-            exit;
-        } else {
-            // Credenciais inválidas, exiba uma mensagem de erro
-            echo "Credenciais inválidas. Por favor, tente novamente.";
-        }
+        // Armazene os dados do usuário na sessão
+        $_SESSION['sessaoConectado'] = true;
+        $_SESSION['userId'] = $userData['id'];
+        $_SESSION['userName'] = $userData['nome'];
+        $_SESSION['userEmail'] = $userData['email'];
+        $_SESSION['userTelefone'] = $userData['telefone'];
 
-        // Feche a conexão com o banco de dados
-        $conn = null;
+        // Redirecione para a página de perfil
+        header('Location: perfil.php');
+        exit;
+      } else {
+        throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
+      }
     }
+  } catch (Exception $e) {
+    echo "Erro: " . $e->getMessage();
+  }
 
-    echo "
+  echo "
     <!DOCTYPE html>
-    <html lang='en'>
+    <html lang='pt-br'>
       <head>
         <meta charset='UTF-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
@@ -203,51 +282,51 @@ function login()
       </script>
       </body>
     </html>
-    ";
+  ";
+}
+/*
+function logout()
+{
+  session_start();
+  if (isset($_POST['logoutButton'])) {
+  $_SESSION['sessaoConectado'] = false;
+  $_SESSION['sessaoAdmin'] = false;
+  header('Location: ../html/ec-login.php');
 }
 
+}*/
 
 
-
-
-function logout(){
-  session_start(); 
-  $_SESSION['sessaoConectado']=false; 
-  $_SESSION['sessaoAdmin']=false; 
-
-  header('Location: ../html/login.php');
-}
-
-function login_sessao(){
-  session_start();   
+function login_sessao()
+{
+  session_start();
 
   // login que veio do form
   $login = $_POST['login'];
   $senha = $_POST['senha'];
   $eh_admin = false;
 
-  if ($login<>'') {
-      DefineCookie('loginCookie', $login, 60); 
-      $_SESSION['sessaoConectado'] = funcaoLogin($login,$senha,$eh_admin); 
-      $_SESSION['sessaoAdmin']     = $eh_admin;   
+  if ($login <> '') {
+    DefineCookie('loginCookie', $login, 60);
+    $_SESSION['sessaoConectado'] = funcaoLogin($login, $senha, $eh_admin);
+    $_SESSION['sessaoAdmin']     = $eh_admin;
   }
-     
+
   header('Location: ../html/login.php');
 }
 
-function funcaoLogin ($paramLogin, $paramSenha, &$paramAdmin)  
-  {
-   $paramAdmin = ($paramLogin == 'admin' and 
-                  $paramSenha == 'admin');
-   // vc tb poderia procurar numa tabela de usuarios pra 
-   // validar o usuario, eqto isso, .......
-   return true;  // ...........todos sao validos!
+function funcaoLogin($paramLogin, $paramSenha, &$paramAdmin)
+{
+  $paramAdmin = ($paramLogin == 'admin' and
+    $paramSenha == 'admin');
+  // vc tb poderia procurar numa tabela de usuarios pra 
+  // validar o usuario, eqto isso, .......
+  return true;  // ...........todos sao validos!
 
-  }
+}
 
-  function DefineCookie($paramNome, $paramValor, $paramMinutos) 
-  {
-   echo "Cookie: $paramNome Valor: $paramValor";  
-   setcookie($paramNome, $paramValor, time() + $paramMinutos * 60); 
-  }
-
+function DefineCookie($paramNome, $paramValor, $paramMinutos)
+{
+  echo "Cookie: $paramNome Valor: $paramValor";
+  setcookie($paramNome, $paramValor, time() + $paramMinutos * 60);
+}

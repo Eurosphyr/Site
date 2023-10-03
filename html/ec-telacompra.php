@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8" />
@@ -21,6 +21,7 @@
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
       <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
+      <a href="perfil.php"><img class="perfil" src="../img/user.png" /></a>
     </div>
     <div class="ft-prod1 imagem-wrapper">
       <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" onclick="proximaImagem()" /></div>

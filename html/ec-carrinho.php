@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8" />
@@ -19,6 +19,7 @@
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
       <a href="ec-login.php"><img class="perfil" src="../img/user.png" /></a>
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
+      <a href="perfil.php"><img class="perfil" src="../img/user.png" /></a>
     </div>
     <div class="apresentacao">
       <img class="foto-ca" src="../img/cart_circle.png" />
