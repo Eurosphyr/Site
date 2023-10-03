@@ -12,7 +12,9 @@
 
 <body>
   <div class="container">
-    <?php include "../php/funcoes.php"; 
+    <?php 
+    include "../php/funcoes.php";
+    include "../php/login.php"; 
     adicionarRecursoParaUsuariosLogados();
     ?>
   </div>
