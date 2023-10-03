@@ -83,26 +83,6 @@ function adicionarRecursoParaUsuariosLogados()
           </div>
         </div>
       </div>
-      <script>
-document.getElementById('logoutButton').addEventListener('click', function() {
-    // Fazer uma solicitação AJAX para chamar a função PHP
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../php/funcoes.php', true); // Use POST para enviar dados
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // A resposta da função PHP será exibida aqui
-            console.log(xhr.responseText);
-            // Redirecionar para a página de login se necessário
-            window.location.href = '../html/ec-login.php';
-        }
-    };
-
-    // Enviar dados para a função PHP
-    xhr.send('acao=logout');
-});
-</script>
-
     </body>
     </html>
   ";
@@ -117,10 +97,6 @@ function logout()
     echo "Logout realizado com sucesso!";
   }
 }
-
-
-
-
 function obterProdutos()
 {
   $conn = conectarAoBanco();
