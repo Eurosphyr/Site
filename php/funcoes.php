@@ -28,7 +28,7 @@ function logout()
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'logout') {
     // Destruir a sessão
     session_destroy();
-    
+
     // Redirecionar para a página de login
     header('Location: ../html/ec-login.php');
     exit;
@@ -86,27 +86,40 @@ function excluir_produto()
 
 function pesquisa()
 {
-  if (isset($_POST['varNome'])) {
-    $varNome = $_POST['varNome'];
-  } else {
-    $varNome = "";
+  if (isset($_POST['termo_pesquisa'])) {
+    $varNome = $_POST['termo_pesquisa'];
+
+    $sql = "SELECT * FROM tbl_produto 
+            WHERE nome LIKE '%$varNome%'   
+            ORDER BY nome";
+
+    $select = conectarAoBanco()->prepare($sql);
+    $select->execute();
+    $result = $select->fetchAll(PDO::FETCH_ASSOC);
+
+    echo "<table>"; // Abra a tabela aqui
+
+    foreach ($result as $row) {
+      echo "<tr>";
+      echo "<td>" . $row['nome'] . "</td>";
+      echo "</tr>";
+    }
+
+    echo "</table>"; // Feche a tabela aqui
   }
 
-  $sql = " SELECT * FROM tbl_produto 
-         WHERE (nome LIKE '%$varNome%')   
-         ORDER BY nome ";
-
-  $select = conectarAoBanco()->query($sql);
-
-  echo "<form action='' name='frmPesq' method='post'>
-      Digite o nome ou parte<br>
-      <input type='text' name='nome'>
+  echo "
+  <div class='imagem'>
+  <img src='../img/lupa.png' alt='Imagem' id='imagem'>
+</div>
+<div id='barra-pesquisa' class='barra'>
+  <form action='' method='post'>
+      <input type='text' id='pesquisa' name='termo_pesquisa'>
       <input type='submit' value='Pesquisar'>
-     </form><br>";
+  </form>
+</div>
+  ";
 }
-
-
-
 function login()
 {
   session_start();
@@ -165,7 +178,6 @@ function login()
         <title>Login</title>
         <link rel='stylesheet' href='../css/cadastro.css' />
         <link rel='icon' href='../img/Logos.svg' />
-        <script src='../php/script.js'></script>
       </head>
       <body>
         <div class='container'>
@@ -200,19 +212,6 @@ function login()
     </html>
   ";
 }
-/*
-function logout()
-{
-  session_start();
-  if (isset($_POST['logoutButton'])) {
-  $_SESSION['sessaoConectado'] = false;
-  $_SESSION['sessaoAdmin'] = false;
-  header('Location: ../html/ec-login.php');
-}
-
-}*/
-
-
 function login_sessao()
 {
   session_start();

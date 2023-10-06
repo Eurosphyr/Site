@@ -16,3 +16,16 @@ imagem.addEventListener("click", () => {
     imagem.classList.remove("animacao-rodar");
   });
 });
+function displayCharacters(characters) {
+const pesquisa = document.getElementById("varNome");
+pesquisa.addEventListener("keyup", (e) => {
+  const searchString = e.target.value.toLowerCase();
+  const filteredCharacters = characters.filter((character) => {
+    return (
+      character.name.toLowerCase().includes(searchString) ||
+      character.nickname.toLowerCase().includes(searchString)
+    );
+  });
+  displayCharacters(filteredCharacters);
+});
+}

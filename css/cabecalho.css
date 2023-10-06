@@ -67,3 +67,36 @@
 .bt-comprar:hover {
   background-color: var(--accent);
 }
+
+/* Estilo para a barra de pesquisa */
+.barra {
+  display: none; /* A barra de pesquisa inicialmente oculta */
+  background-color: #fff; /* Cor de fundo branca */
+  padding: 10px; /* Espaçamento interno */
+  border: 1px solid #ccc; /* Borda cinza */
+  border-radius: 5px; /* Cantos arredondados */
+  position: absolute; /* Posição absoluta para sobrepor a imagem */
+  top: 50px; /* Distância a partir do topo */
+  left: 0; /* Alinhado à esquerda */
+  width: 200px; /* Largura da barra de pesquisa */
+  z-index: 1; /* Certifica-se de que a barra esteja acima de outros elementos */
+}
+
+/* Estilo para a imagem */
+.imagem {
+  cursor: pointer; /* Transforma o cursor em um ponteiro quando hover */
+}
+
+/* Estilo para a animação da imagem */
+.animacao-rodar {
+  animation: rodar 1s linear; /* Animação de rotação */
+}
+
+@keyframes rodar {
+  0% {
+    transform: rotate(0deg); /* Começa sem rotação */
+  }
+  100% {
+    transform: rotate(360deg); /* Completa uma rotação de 360 graus */
+  }
+}
