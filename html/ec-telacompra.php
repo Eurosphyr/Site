@@ -19,11 +19,11 @@
       <a class="b" href="index.php">HOME</a>
       <a class="b" href="ec-sobre.php">SOBRE</a>
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
-      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
-      <a href="perfil.php"><img class="perfil" src="../img/user.png" /></a>
+      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" alt="Carrinho" /></a>
+      <a href="perfil.php"><img class="perfil" src="../img/user.png" alt="Perfil" /></a>
     </div>
     <div class="ft-prod1 imagem-wrapper">
-      <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" onclick="proximaImagem()" /></div>
+      <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" alt="Mousepad" onclick="proximaImagem()" /></div>
 
     </div>
     <div class="desc">
@@ -46,9 +46,9 @@
     <div class="imgs-prod">
       <div class="setas">
         <img id="seta-esquerda" class="setas seta-esquerda" src="../img/seta_esquerda.svg" alt="Seta Esquerda" onclick="imagemAnterior()" />
-        <img class="prod2" src="../img/mousepad_front.png" />
-        <img class="prod2" src="../img/mousepad.png" />
-        <img class="prod2" src="../img/mini_mousepad.png" />
+        <img class="prod2" src="../img/mousepad_front.png" alt="Mousepad Frente" />
+        <img class="prod2" src="../img/mousepad.png" alt="Mousepad" />
+        <img class="prod2" src="../img/mini_mousepad.png" alt="Mini Mousepad" />
         <img id="seta-direita" class="setas seta-direita" src="../img/seta_direita.svg" alt="Seta Direita" onclick="proximaImagem()" />
       </div>
 

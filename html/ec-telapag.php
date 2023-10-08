@@ -16,8 +16,8 @@
       <a class="b" href="index.php">HOME</a>
       <a class="b" href="ec-sobre.php">SOBRE</a>
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
-      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
-      <a href="perfil.php"><img class="perfil" src="../img/user.png" /></a>
+      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" alt="Carrinho" /></a>
+      <a href="perfil.php"><img class="perfil" src="../img/user.png" alt="Perfil" /></a>
     </div>
       <div class="tipo">
         <p>Selecione o tipo de pagamentento</p>
@@ -81,9 +81,9 @@
         <div class="contorno">
           <img class="img1" src="../img/mousepad.png" />
           <div class="mais-imgs">
-            <img class="img2" src="../img/mousepad.png" />
-            <img class="img2" src="../img/mousepad.png "/>
-            <img class="img2" src="../img/mousepad.png" />
+            <img class="img2" src="../img/mousepad.png" alt="Produto" />
+            <img class="img2" src="../img/mousepad.png " alt = "Produto"/>
+            <img class="img2" src="../img/mousepad.png" alt="Produto" />
           </div>
         </div>
       </div>
