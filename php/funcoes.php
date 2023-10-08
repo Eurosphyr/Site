@@ -64,26 +64,6 @@ function inutilizar_produto()
     echo "Erro ao inserir o registro: " . $update->errorInfo()[2];
   }
 }
-
-function excluir_produto()
-{
-  $id = $_GET['id'];
-
-  $sql = "DELETE FROM tbl_carrinho WHERE id = :id_produto";
-  $delete = conectarAoBanco()->prepare($sql);
-  $delete->execute(array(':id_produto' => $id));
-
-  $params = [
-    ':id_produto' => $id
-  ];
-
-  if ($delete->execute($params)) {
-    header('Location: ../html/ec-carrinho.php');
-  } else {
-    echo "Erro ao inserir o registro: " . $delete->errorInfo()[2];
-  }
-}
-
 function pesquisa()
 {
   if (isset($_POST['termo_pesquisa'])) {
@@ -245,3 +225,77 @@ function DefineCookie($paramNome, $paramValor, $paramMinutos)
   echo "Cookie: $paramNome Valor: $paramValor";
   setcookie($paramNome, $paramValor, time() + $paramMinutos * 60);
 }
+
+function crud()
+{
+  ini_set('display_errors', 1);
+  error_reporting(E_ALL);
+  $conn = conectarAoBanco();
+  $query = "SELECT * FROM tbl_produto ORDER BY id_produto ASC";
+  $result = $conn->query($query);
+
+  if ($result) {
+    echo "<table id='tabela'>";
+    echo "<tr>";
+    echo "<th>ID</th>";
+    echo "<th>Nome</th>";
+    echo "<th>Descrição</th>";
+    echo "<th>Excluido</th>";
+    echo "<th>Preço</th>";
+    echo "<th>Data de Exclusão</th>";
+    echo "<th>Código Visual</th>";
+    echo "<th>Custo</th>";
+    echo "<th>Margem de Lucro</th>";
+    echo "<th>ICMS</th>";
+    echo "<th>Imagem</th>";
+    echo "<th>Cor</th>";
+    echo "<th>Categoria</th>";
+    echo "<th>Ações</th>";
+    echo "</tr>";
+
+    if ($result->rowCount() > 0) {
+      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $id_produto = $row['id_produto'];
+        $nome = $row['nome'];
+        $descricao = $row['descricao'];
+        $excluido = $row['excluido'];
+        $preco = $row['preco'];
+        $data_exclusao = $row['data_exclusao'];
+        $codigovisual = $row['codigovisual'];
+        $custo = $row['custo'];
+        $margem_lucro = $row['margem_lucro'];
+        $icms = $row['icms'];
+        $imagem = $row['imagem'];
+        $cor = $row['cor'];
+        $categoria = $row['categoria'];
+
+        echo "<tr>";
+        echo "<td>" . $id_produto . "</td>";
+        echo "<td>" . $nome . "</td>";
+        echo "<td>" . $descricao . "</td>";
+        echo "<td>" . $excluido . "</td>";
+        echo "<td>" . $preco . "</td>";
+        echo "<td>" . $data_exclusao . "</td>";
+        echo "<td>" . $codigovisual . "</td>";
+        echo "<td>" . $custo . "</td>";
+        echo "<td>" . $margem_lucro . "</td>";
+        echo "<td>" . $icms . "</td>";
+        echo "<td>" . $imagem . "</td>";
+        echo "<td>" . $cor . "</td>";
+        echo "<td>" . $categoria . "</td>";
+        echo "<td><a href='../php/form_insert.php?acao=adicionar'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
+        echo "<td><a href='../php/excluir.php?id=" . $id_produto . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
+        echo "<td><a href='../php/alterar.php?id=" . $id_produto . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "<p>Nenhum registro encontrado.</p>";
+}
+
+} else {
+echo "Erro ao executar a query.";
+}
+}
+
