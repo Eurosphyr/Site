@@ -273,3 +273,38 @@ echo "Erro ao executar a query.";
 }
 }
 
+// funcoes.php
+
+function recuperarProdutos() {
+  // Conecte-se ao banco de dados
+  $conn = conectarAoBanco();
+
+  if (!$conn) {
+      die("Falha na conexão com o banco de dados.");
+  }
+
+  // Consulta SQL para recuperar todos os produtos
+  $sql = "SELECT * FROM tbl_produto";
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();
+  $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  return $produtos;
+}
+
+function calcularTotalPedido($carrinho, $produtos)
+{
+    $totalPedido = 0;
+
+    foreach ($carrinho as $produtoId => $quantidade) {
+        // Verifica se o produto existe no array de produtos
+        if (isset($produtos[$produtoId])) {
+            $precoProduto = $produtos[$produtoId]['preco'];
+            $totalProduto = $precoProduto * $quantidade;
+            $totalPedido += $totalProduto;
+        }
+    }
+
+    return $totalPedido;
+}
+
