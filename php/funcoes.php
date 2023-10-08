@@ -250,7 +250,7 @@ function crud()
     echo "<th>Imagem</th>";
     echo "<th>Cor</th>";
     echo "<th>Categoria</th>";
-    echo "<th>Ações</th>";
+    echo "<th colspan='3'>Ações</th>";
     echo "</tr>";
 
     if ($result->rowCount() > 0) {
