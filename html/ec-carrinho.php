@@ -2,8 +2,9 @@
 // ec-carrinho.php
 include "../php/funcoes.php";
 
-// Conecte-se ao banco de dados
+$total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
 $conn = conectarAoBanco();
+
 
 if (!$conn) {
   die("Falha na conexão com o banco de dados.");
@@ -88,22 +89,19 @@ $subtotal = 0;
         <p class="escrita" id="subtotal">Subtotal: R$0.00</p>
         <p class="escrita" id="total">Total: R$0.00</p>
       </div>
+      <a href="ec-telapag.php?subtotal=<?= $subtotal ?>&total=<?= $total ?>" id="botao-pagar" class="botao-pagar" style="display:none;">Pagar</a>
 
     </div>
 
     <script>
       const input = document.getElementById("meuInput");
-
-      // Defina a taxa de frete (pode ser calculada dinamicamente se necessário)
-
-      // Atualize o subtotal e o total
       let subtotal = 0;
       let total = 0;
 
       function atualizarTotais() {
         subtotal = 0;
 
-        // Atualize o subtotal com base nos valores individuais dos produtos
+        
         const produtos = document.querySelectorAll(".prod1");
         produtos.forEach((produto, index) => {
           const input = document.getElementById(`input-${index}`);
@@ -118,6 +116,13 @@ $subtotal = 0;
         // Atualize os elementos HTML correspondentes
         document.getElementById("subtotal").textContent = `Subtotal: R$${subtotal.toFixed(2)}`;
         document.getElementById("total").textContent = `Total: R$${total.toFixed(2)}`;
+
+        const botaoPagar = document.getElementById("botao-pagar");
+    if (subtotal > 0) {
+        botaoPagar.style.display = "block";
+    } else {
+        botaoPagar.style.display = "none";
+    }
       }
 
       function aumentarValor(index) {
