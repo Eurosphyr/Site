@@ -12,9 +12,10 @@
 
 <body>
   <div class="container">
-    <?php 
-    include "../php/funcoes.php";
-    include "../php/login.php"; 
+    <?php
+    include "../php/login.php";
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
     adicionarRecursoParaUsuariosLogados();
     ?>
   </div>

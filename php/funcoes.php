@@ -37,33 +37,7 @@ function logout()
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'logout') {
   logout(); // Chame a função logout()
 }
-function obterProdutos()
-{
-  $conn = conectarAoBanco();
 
-  $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE excluido = false");
-  $stmt->execute();
-
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-function inutilizar_produto()
-{
-  $id = $_GET['id'];
-
-  $sql = "UPDATE FROM tbl_produto SET excluido = true WHERE id = :id_produto";
-  $update = conectarAoBanco()->prepare($sql);
-  $update->execute(array(':id_produto' => $id));
-
-  $params = [
-    ':id_produto' => $id
-  ];
-
-  if ($update->execute($params)) {
-    header('Location: ../html/ec-carrinho.php');
-  } else {
-    echo "Erro ao inserir o registro: " . $update->errorInfo()[2];
-  }
-}
 function pesquisa()
 {
   if (isset($_POST['termo_pesquisa'])) {
@@ -107,7 +81,7 @@ function login()
   try {
     if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
       // Se o usuário já está logado, redirecione para a página de perfil
-      header('Location: perfil.php');
+      header('Location: ../html/perfil.php');
       exit;
     }
 
@@ -133,13 +107,13 @@ function login()
 
         // Armazene os dados do usuário na sessão
         $_SESSION['sessaoConectado'] = true;
-        $_SESSION['userId'] = $userData['id'];
+        $_SESSION['userId'] = $userData['id_usuario'];
         $_SESSION['userName'] = $userData['nome'];
         $_SESSION['userEmail'] = $userData['email'];
         $_SESSION['userTelefone'] = $userData['telefone'];
 
         // Redirecione para a página de perfil
-        header('Location: perfil.php');
+        header('Location: ../html/perfil.php');
         exit;
       } else {
         throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
