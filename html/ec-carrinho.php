@@ -62,6 +62,9 @@ $subtotal = 0;
         $quantidadeProduto = isset($_SESSION['carrinho'][$index]) ? $_SESSION['carrinho'][$index] : 0;
         $totalProduto = $precoProduto * $quantidadeProduto;
         $subtotal += $totalProduto;
+        var_dump($subtotal);
+        var_dump($total);
+
       ?>
         <div class="prod1">
           <div class="desing-p">
@@ -89,7 +92,14 @@ $subtotal = 0;
         <p class="escrita" id="subtotal">Subtotal: R$0.00</p>
         <p class="escrita" id="total">Total: R$0.00</p>
       </div>
-      <a href="ec-telapag.php?subtotal=<?= $subtotal ?>&total=<?= $total ?>" id="botao-pagar" class="botao-pagar" style="display:none;">Pagar</a>
+      <form id="formulario-pagamento" action="ec-telapag.php" method="get" style="display: none;">
+        <input type="hidden" name="subtotal" id="input-subtotal" value="">
+        <input type="hidden" name="total" id="input-total" value="">
+      </form>
+
+      <a href="#" id="botao-pagar" class="comprar" onclick="enviarFormularioPagamento(); return false;">Pagar</a>
+
+
 
     </div>
 
@@ -101,7 +111,7 @@ $subtotal = 0;
       function atualizarTotais() {
         subtotal = 0;
 
-        
+
         const produtos = document.querySelectorAll(".prod1");
         produtos.forEach((produto, index) => {
           const input = document.getElementById(`input-${index}`);
@@ -118,11 +128,11 @@ $subtotal = 0;
         document.getElementById("total").textContent = `Total: R$${total.toFixed(2)}`;
 
         const botaoPagar = document.getElementById("botao-pagar");
-    if (subtotal > 0) {
-        botaoPagar.style.display = "block";
-    } else {
-        botaoPagar.style.display = "none";
-    }
+        if (subtotal > 0) {
+          botaoPagar.style.display = "block";
+        } else {
+          botaoPagar.style.display = "none";
+        }
       }
 
       function aumentarValor(index) {
@@ -165,12 +175,8 @@ $subtotal = 0;
             // Atualize o subtotal, frete e total aqui (se necessário)
           });
       }
-
       // Chame a função de atualização de totais inicialmente
       atualizarTotais();
-
-
-      // Adicione aqui a lógica para calcular o frete e o total
 
       function mostrarProdutos() {
         const produtos = document.querySelectorAll(".prod1");
@@ -186,6 +192,16 @@ $subtotal = 0;
           });
         }
       }
+
+      function enviarFormularioPagamento() {
+        // Defina os valores de subtotal e total nos campos do formulário
+        document.getElementById("input-subtotal").value = subtotal.toFixed(2);
+        document.getElementById("input-total").value = total.toFixed(2);
+
+        // Envie o formulário
+        document.getElementById("formulario-pagamento").submit();
+      }
+
 
       mostrarProdutos();
     </script>

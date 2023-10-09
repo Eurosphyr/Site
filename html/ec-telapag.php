@@ -1,6 +1,6 @@
 <?php
 // Recupere os valores do subtotal e total da query string
-$subTotal = isset($_GET['subtotal']) ? floatval($_GET['subtotal']) : 0;
+$subtotal = isset($_GET['subtotal']) ? floatval($_GET['subtotal']) : 0;
 $total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
 ?>
 

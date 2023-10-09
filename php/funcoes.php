@@ -297,7 +297,7 @@ function calcularTotalPedido($carrinho, $produtos)
     $totalPedido = 0;
 
     foreach ($carrinho as $produtoId => $quantidade) {
-        // Verifica se o produto existe no array de produtos
+     
         if (isset($produtos[$produtoId])) {
             $precoProduto = $produtos[$produtoId]['preco'];
             $totalProduto = $precoProduto * $quantidade;

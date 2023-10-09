@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['data_exclusao']) && !empty($_POST['data_exclusao'])) {
         $data_exclusao = $_POST['data_exclusao']; // Aqui, $data_exclusao é uma string no formato "YYYY-MM-DD HH:MI:SS"
     } else {
-        $data_exclusao = null; // Define como nulo se não for fornecido
+        $data_exclusao = null;
     }
     $codigovisual = $_POST['codigovisual'];
     $custo = $_POST['custo'];
