@@ -1,5 +1,6 @@
 <?php
 // ec-carrinho.php
+session_start();
 include "../php/funcoes.php";
 
 $total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
@@ -14,6 +15,43 @@ if (!$conn) {
 $produtos = recuperarProdutos();
 
 $subtotal = 0;
+$produtosJSON = isset($_GET['produtos']) ? $_GET['produtos'] : null;
+$produtosNoCarrinho = [];
+
+if ($produtosJSON) {
+    $produtosNoCarrinho = json_decode(urldecode($produtosJSON), true);
+}
+
+
+$produtosNoCarrinho = isset($_SESSION['carrinho']) ? $_SESSION['carrinho'] : [];
+
+
+
+if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
+    $produtoId = $_GET['produto_id'];
+    $produtoNome = $_GET['produto_nome'];
+    $produtoPreco = floatval($_GET['produto_preco']);
+
+    // Adicione o produto ao carrinho
+    if (isset($produtosNoCarrinho[$produtoId])) {
+        // Se o produto já estiver no carrinho, aumente a quantidade
+        $produtosNoCarrinho[$produtoId]['quantidade']++;
+    } else {
+        // Se o produto não estiver no carrinho, adicione-o ao carrinho
+        $produtosNoCarrinho[$produtoId] = [
+            'nome' => $produtoNome,
+            'preco' => $produtoPreco,
+            'quantidade' => 1,
+        ];
+    }
+
+    // Atualize a sessão com o carrinho atualizado
+    $_SESSION['carrinho'] = $produtosNoCarrinho;
+
+    // Redirecione o usuário de volta para a página de compra
+    header("Location: ec-telacompra.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -155,7 +193,6 @@ $subtotal = 0;
       function removerProduto(index) {
         const input = document.getElementById(`input-${index}`);
         input.value = 0;
-        mostrarOcultarProdutos();
         atualizarCarrinho(index, 0);
         atualizarTotais();
       }

@@ -21,6 +21,8 @@
       <a class="b" href="ec-telacompra.php">COMPRAR</a>
       <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" alt="Carrinho" /></a>
       <a href="perfil.php"><img class="perfil" src="../img/user.png" alt="Perfil" /></a>
+      <button onclick="verCarrinho()" class="b">Ver Carrinho</button>
+
     </div>
     <div class="ft-prod1 imagem-wrapper">
       <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" alt="Mousepad" onclick="proximaImagem()" /></div>
@@ -37,8 +39,11 @@
     <div class="compra-prod">
       <div class="compra">
         <p class="preco">R$5,99</p>
-        <a href="ec-carrinho.php" class="bt-comprar tipo2">Adicionar ao carrinho</a>
+        <?php $produtoId = 3; ?>
+        <<a href="ec-carrinho.php?produto_id=<?= $produtoId; ?>">Adicionar ao Carrinho</a>
         <a href="">
+        <input type="hidden" id="produtos-carrinho" name="produtos-carrinho" value="">
+
           <p class="tipo2">Comprar agora</p>
         </a>
       </div>
@@ -98,6 +103,42 @@
     }
 
     exibirImagemAtual();
+
+    const carrinho = [];
+    let totalCarrinho = 0;
+
+    function adicionarAoCarrinho(nomeProduto, precoProduto) {
+    carrinho.push({ nome: nomeProduto, preco: precoProduto });
+    totalCarrinho += precoProduto;
+    atualizarCarrinho();
+
+    // Crie uma lista de produtos em formato JSON
+    const listaProdutosJSON = JSON.stringify(carrinho);
+
+    // Atualize o valor do campo de entrada oculto com a lista de produtos
+    document.getElementById("produtos-carrinho").value = listaProdutosJSON;
+}
+
+    function atualizarCarrinho() {
+      const itensCarrinho = document.getElementById("itens-carrinho");
+      const totalCarrinhoElement = document.getElementById("total-carrinho");
+
+      itensCarrinho.innerHTML = "";
+      carrinho.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+        itensCarrinho.appendChild(li);
+      });
+
+      totalCarrinhoElement.textContent = totalCarrinho.toFixed(2);
+    }
+
+    function verCarrinho() {
+    // Redirecione o usuário para ec-carrinho.php com os produtos no carrinho na URL
+    const listaProdutosJSON = document.getElementById("produtos-carrinho").value;
+    window.location.href = `ec-carrinho.php?produtos=${encodeURIComponent(listaProdutosJSON)}`;
+}
+
   </script>
 </body>
 
