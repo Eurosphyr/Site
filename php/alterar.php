@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
 
         <body>
             <h1>Editar Produto</h1>
-            <form action="alterar_produtos.php" method="post">
+            <form action="alterar_produtos.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id_produto" value="<?php echo $id_produto; ?>">
                 <label for="nome">Nome:</label>
                 <input type="text" name="nome" value="<?php echo $nome; ?>"><br>
@@ -61,11 +61,12 @@ if (isset($_GET['id'])) {
                 <label for="icms">ICMS:</label>
                 <input type="text" name="icms" value="<?php echo $icms; ?>"><br>
                 <label for="imagem">Imagem:</label>
-                <input type="text" name="imagem" value="<?php echo $imagem; ?>"><br>
+                <input type="file" name="imagem" value="<?php echo "<img src='$imagem' alt='Imagem do Produto'>"?>" ><br>
                 <label for="cor">Cor:</label>
                 <input type="text" name="cor" value="<?php echo $cor; ?>"><br>
                 <label for="categoria">Categoria:</label>
                 <input type="text" name="categoria" value="<?php echo $categoria; ?>"><br>
+                <input type="hidden" name="imagem_existente" value="<?php echo $imagem; ?>">
                 <input type="submit" value="Salvar Alterações">
             </form>
         </body>
