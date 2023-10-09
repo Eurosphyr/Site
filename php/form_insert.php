@@ -11,7 +11,7 @@
 
 <body>
     <h2>Formulário de Produto</h2>
-    <form action="adicionar.php" method="POST">
+    <form action="adicionar.php" method="POST" enctype="multipart/form-data">
         <label for="id_produto"></label>
         <input type="hidden" id="id_produto" name="id_produto"><br><br>
 
@@ -37,7 +37,7 @@
         <input type="text" id="icms" name="icms"><br><br>
 
         <label for="imagem">Imagem:</label>
-        <input type="text" id="imagem" name="imagem"><br><br>
+        <input type="file" id="imagem" name="imagem"><br><br>
 
         <label for="cor">Cor:</label>
         <input type="text" id="cor" name="cor"><br><br>

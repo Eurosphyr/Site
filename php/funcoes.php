@@ -254,7 +254,7 @@ function crud()
         echo "<td>" . $custo . "</td>";
         echo "<td>" . $margem_lucro . "</td>";
         echo "<td>" . $icms . "</td>";
-        echo "<td>" . $imagem . "</td>";
+        echo "<td><img src='$imagem' alt='Imagem do Produto'></td>";
         echo "<td>" . $cor . "</td>";
         echo "<td>" . $categoria . "</td>";
         echo "<td><a href='../php/form_insert.php?acao=adicionar'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
