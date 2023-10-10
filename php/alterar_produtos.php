@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $custo = $_POST['custo'];
     $margem_lucro = $_POST['margem_lucro'];
     $icms = $_POST['icms'];
+    $quantidade = $_POST['quantidade'];
     $imagem = $_POST['imagem'];
 
     // Verifique se a data_exclusao foi definida no formulário
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepare e execute a consulta SQL
-    $query = "UPDATE tbl_produto SET nome = :nome, descricao = :descricao, excluido = :excluido, preco = :preco, data_exclusao = :data_exclusao, codigovisual = :codigovisual, custo = :custo, margem_lucro = :margem_lucro, icms = :icms, imagem = :imagem WHERE id_produto = :id_produto";
+    $query = "UPDATE tbl_produto SET nome = :nome, descricao = :descricao, excluido = :excluido, preco = :preco, data_exclusao = :data_exclusao, codigovisual = :codigovisual, custo = :custo, margem_lucro = :margem_lucro, icms = :icms, imagem = :imagem, quantidade = :quantidade WHERE id_produto = :id_produto";
     
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
@@ -73,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':margem_lucro', $margem_lucro, PDO::PARAM_INT);
     $stmt->bindParam(':icms', $icms, PDO::PARAM_INT);
     $stmt->bindParam(':imagem', $imagem, PDO::PARAM_STR);
+    $stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
         echo "Produto atualizado com sucesso.";

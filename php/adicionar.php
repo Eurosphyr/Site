@@ -40,12 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':icms' => $_POST['icms'],
             ':imagem' => $caminhoImagem, // Salve o caminho da imagem no banco de dados
             ':cor' => $_POST['cor'],
-            ':categoria' => $_POST['categoria']
+            ':categoria' => $_POST['categoria'],
+            ':quantidade' => $_POST['quantidade']
         ];
         $sql = "INSERT INTO tbl_produto(
-                nome, descricao, preco, codigovisual, custo, margem_lucro, icms, imagem, cor, categoria)
+                nome, descricao, preco, codigovisual, custo, margem_lucro, icms, imagem, cor, categoria, quantidade)
                 VALUES (
-                :nome, :descricao, :preco, :codigovisual, :custo, :margem_lucro, :icms, :imagem, :cor, :categoria
+                :nome, :descricao, :preco, :codigovisual, :custo, :margem_lucro, :icms, :imagem, :cor, :categoria, :quantidade
                 )";
 
         $stmt = $conn->prepare($sql);

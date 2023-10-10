@@ -45,6 +45,8 @@
         <label for="categoria">Categoria:</label>
         <input type="text" id="categoria" name="categoria"><br><br>
 
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade" name="quantidade"><br><br>
         <input type="submit" value="Enviar">
     </form>
 </body>

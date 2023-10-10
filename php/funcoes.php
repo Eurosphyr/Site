@@ -224,6 +224,7 @@ function crud()
     echo "<th>Imagem</th>";
     echo "<th>Cor</th>";
     echo "<th>Categoria</th>";
+    echo "<th>Quantidade</th>";
     echo "<th colspan='3'>Ações</th>";
     echo "</tr>";
 
@@ -242,6 +243,7 @@ function crud()
         $imagem = $row['imagem'];
         $cor = $row['cor'];
         $categoria = $row['categoria'];
+        $quantidade = $row['quantidade'];
 
         echo "<tr>";
         echo "<td>" . $id_produto . "</td>";
@@ -257,6 +259,7 @@ function crud()
         echo "<td><img src='$imagem' alt='Imagem do Produto' class='imagem-pequena'></td>";
         echo "<td>" . $cor . "</td>";
         echo "<td>" . $categoria . "</td>";
+        echo "<td>" . $quantidade . "</td>";
         echo "<td><a href='../php/form_insert.php?acao=adicionar'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
         echo "<td><a href='../php/excluir.php?id=" . $id_produto . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
         echo "<td><a href='../php/alterar.php?id=" . $id_produto . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";

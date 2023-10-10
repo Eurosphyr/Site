@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
         $imagem = $row['imagem'];
         $cor = $row['cor'];
         $categoria = $row['categoria'];
+        $quantidade = $row['quantidade'];
 ?>
         <!DOCTYPE html>
         <html>
@@ -66,6 +67,8 @@ if (isset($_GET['id'])) {
                 <input type="text" name="cor" value="<?php echo $cor; ?>"><br>
                 <label for="categoria">Categoria:</label>
                 <input type="text" name="categoria" value="<?php echo $categoria; ?>"><br>
+                <label for="quantidade">Quantidade:</label>
+                <input type="text" name="quantidade" value="<?php echo $quantidade; ?>"><br>
                 <input type="hidden" name="imagem_existente" value="<?php echo $imagem; ?>">
                 <input type="submit" value="Salvar Alterações">
             </form>
