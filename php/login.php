@@ -15,6 +15,24 @@ function adicionarRecursoParaUsuariosLogados()
         $userEmail = isset($_SESSION['userEmail']) ? $_SESSION['userEmail'] : null;
         $userTelefone = isset($_SESSION['userTelefone']) ? $_SESSION['userTelefone'] : null;
 
+        echo "
+            <doctype html>
+            <html lang='pt-br'>
+            <head>
+                <meta charset='utf-8'>
+                <title>Alterar Dados</title>
+            </head>
+            <body>
+            <div class='container'>
+                <div class='cabecalho'>
+                    <img class='logo' src='../img/Logos.svg' />
+                    <a class='b' href='index.php'>HOME</a>
+                    <a class='b' href='ec-sobre.php'>SOBRE</a>
+                    <a class='b' href='ec-telacompra.php'>COMPRAR</a>
+                    <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' /></a>
+                    <a href='perfil.php'><img class='perfil' src='../img/user.png' /></a>
+                </div>";
+            
         // Verificar se as variáveis são definidas antes de usá-las
         if ($userId !== null && $userName !== null && $userEmail !== null && $userTelefone !== null) {
             echo "
