@@ -30,6 +30,21 @@
         <label class="Cse">Confirmar Senha</label>
         <input class="escrita" type="password" name="confirmar_senha" />
 
+        <label class="rua">Rua</label>
+        <input class="escrita" type="text" name="endereco_rua" />
+
+        <label class="num">Número</label>
+        <input class="escrita" type="text" name="endereco_num" />
+
+        <label class="bai">Bairro</label>
+        <input class="escrita" type="text" name="endereco_bairro" />
+
+        <label class="cid">Cidade</label>
+        <input class="escrita" type="text" name="endereco_cidade" />
+
+        <label class="est">Estado</label>
+        <input class="escrita" type="text" name="endereco_estado" />
+
         <div class="centralizar" align="center">
           <input class="bt" type="submit" value="Confirmar" />
         </div>

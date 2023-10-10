@@ -264,26 +264,89 @@ function crud()
         echo "<td><a href='../php/excluir.php?id=" . $id_produto . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
         echo "<td><a href='../php/alterar.php?id=" . $id_produto . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";
         echo "</tr>";
+      }
+
+      echo "</table>";
+    } else {
+      echo "<p>Nenhum registro encontrado.</p>";
     }
-
-    echo "</table>";
-} else {
-    echo "<p>Nenhum registro encontrado.</p>";
+  } else {
+    echo "Erro ao executar a query.";
+  }
 }
 
-} else {
-echo "Erro ao executar a query.";
-}
+function crud_usuarios()
+{
+  ini_set('display_errors', 1);
+  error_reporting(E_ALL);
+  $conn = conectarAoBanco();
+  $query = "SELECT * FROM tbl_usuario ORDER BY id_usuario ASC";
+  $result = $conn->query($query);
+
+  if ($result) {
+    echo "<table id='tabela'>";
+    echo "<tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Senha</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+            <th>Número</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Tipo de Usuário</th>
+            <th colspan='3'>Ações</th>
+          </tr>";
+
+    if ($result->rowCount() > 0) {
+      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $id_usuario = $row['id_usuario'];
+        $nome = $row['nome'];
+        $senha = $row['senha'];
+        $email = $row['email'];
+        $telefone = $row['telefone'];
+        $rua = $row['endereco_rua'];
+        $bairro = $row['endereco_bairro'];
+        $numero = $row['endereco_num'];
+        $cidade = $row['endereco_cidade'];
+        $estado = $row['endereco_estado'];
+        $tipo_usuario = $row['tipo_usuario'];
+
+        echo "<tr>";
+        echo "<td>" . $id_usuario . "</td>";
+        echo "<td>" . $nome . "</td>";
+        echo "<td>" . $senha . "</td>";
+        echo "<td>" . $email . "</td>";
+        echo "<td>" . $telefone . "</td>";
+        echo "<td>" . $rua . "</td>";
+        echo "<td>" . $bairro . "</td>";
+        echo "<td>" . $numero . "</td>";
+        echo "<td>" . $cidade . "</td>";
+        echo "<td>" . $estado . "</td>";
+        echo "<td>" . $tipo_usuario . "</td>";
+        echo "<td><a href='../html/ec-cadastro.php'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
+        echo "<td><a href='../php/excluir_usuarios.php?id_usuario=" . $id_usuario . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
+        echo "<td><a href='../php/alterar_usuarios.php?id_usuario=" . $id_usuario . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";
+        echo "</tr>";
+      }
+      echo "</table>";
+    } else {
+      echo "Nenhum resultado encontrado.";
+    }
+  }
 }
 
 // funcoes.php
 
-function recuperarProdutos() {
+function recuperarProdutos()
+{
   // Conecte-se ao banco de dados
   $conn = conectarAoBanco();
 
   if (!$conn) {
-      die("Falha na conexão com o banco de dados.");
+    die("Falha na conexão com o banco de dados.");
   }
 
   // Consulta SQL para recuperar todos os produtos
@@ -297,17 +360,16 @@ function recuperarProdutos() {
 
 function calcularTotalPedido($carrinho, $produtos)
 {
-    $totalPedido = 0;
+  $totalPedido = 0;
 
-    foreach ($carrinho as $produtoId => $quantidade) {
-     
-        if (isset($produtos[$produtoId])) {
-            $precoProduto = $produtos[$produtoId]['preco'];
-            $totalProduto = $precoProduto * $quantidade;
-            $totalPedido += $totalProduto;
-        }
+  foreach ($carrinho as $produtoId => $quantidade) {
+
+    if (isset($produtos[$produtoId])) {
+      $precoProduto = $produtos[$produtoId]['preco'];
+      $totalProduto = $precoProduto * $quantidade;
+      $totalPedido += $totalProduto;
     }
+  }
 
-    return $totalPedido;
+  return $totalPedido;
 }
-

@@ -16,6 +16,14 @@ include "funcoes.php";
             $novoNome = $_POST['novo_nome'];
             $novoEmail = $_POST['novo_email'];
             $novoTelefone = $_POST['novo_telefone'];
+            $novaSenha = $_POST['nova_senha'];
+            $confirmarNovaSenha = $_POST['confirmar_nova_senha'];
+            $novaRua = $_POST['nova_rua'];
+            $novoNum = $_POST['novo_num'];
+            $novoBairro = $_POST['novo_bairro'];
+            $novaCidade = $_POST['nova_cidade'];
+            $novoEstado = $_POST['novo_estado'];
+            $novoTipo = $_POST['novo_tipo'];
 
             // Conecte-se ao banco de dados
             $conn = conectarAoBanco();
@@ -26,12 +34,18 @@ include "funcoes.php";
             }
 
             // Atualize os dados do usuário no banco de dados
-            $sql = "UPDATE tbl_usuario SET nome = :novoNome, email = :novoEmail, telefone = :novoTelefone WHERE id_usuario = :userId";
+            $sql = "UPDATE tbl_usuario SET nome = :novoNome, email = :novoEmail, telefone = :novoTelefone, endereco_rua = :nova_rua, endereco_num = :novo_num, endereco_bairro = :novo_bairro, endereco_cidade = :nova_cidade, endereco_estado = :novo_estado, tipo_usuario = :novo_tipo   WHERE id_usuario = :userId";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':novoNome', $novoNome);
             $stmt->bindParam(':novoEmail', $novoEmail);
             $stmt->bindParam(':novoTelefone', $novoTelefone);
+            $stmt->bindParam(':nova_rua', $novaRua);
+            $stmt->bindParam(':novo_num', $novoNum);
+            $stmt->bindParam(':novo_bairro', $novoBairro);
+            $stmt->bindParam(':nova_cidade', $novaCidade);
+            $stmt->bindParam(':novo_estado', $novoEstado);
+            $stmt->bindParam(':novo_tipo', $novoTipo);
             $stmt->bindParam(':userId', $userId);
 
             if ($stmt->execute()) {

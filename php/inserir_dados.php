@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $senha = $_POST['senha']; // Use hash para armazenar a senha com segurança
 
         // Use placeholders para evitar SQL Injection
-        $query = "INSERT INTO tbl_usuario (nome, senha, email, telefone) VALUES (:nome, :senha, :email, :telefone)";
+        $query = "INSERT INTO tbl_usuario (nome, senha, email, telefone, endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado) VALUES (:nome, :senha, :email, :telefone, :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado)";
         $stmt = $conn->prepare($query);
 
         // Associe os valores aos placeholders
@@ -19,6 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':email', $_POST['email']);
         $stmt->bindParam(':telefone', $_POST['telefone']);
+        $stmt->bindParam(':endereco_rua', $_POST['endereco_rua']);
+        $stmt->bindParam(':endereco_bairro', $_POST['endereco_bairro']);
+        $stmt->bindParam(':endereco_num', $_POST['endereco_num']);
+        $stmt->bindParam(':endereco_cidade', $_POST['endereco_cidade']);
+        $stmt->bindParam(':endereco_estado', $_POST['endereco_estado']);
+        
 
         // Execute a consulta
         if ($stmt->execute()) {
