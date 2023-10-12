@@ -72,6 +72,7 @@ if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
 <body>
   <div class="container">
   <?php 
+        setarCookies(); 
         exibirConteudoComBaseNoPapel();?>
     <div class="apresentacao">
       <img class="foto-ca" src="../img/cart_circle.png" />

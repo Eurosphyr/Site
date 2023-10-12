@@ -23,6 +23,7 @@ $precoProduto = 6.00;
     <div class="nada"></div>
     <?php
     session_start();
+    setarCookies();
     exibirConteudoComBaseNoPapel(); ?>
     </div>
     <div class="ft-prod1 imagem-wrapper">

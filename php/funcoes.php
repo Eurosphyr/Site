@@ -27,6 +27,12 @@ function logout()
   session_start();
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'logout') {
     // Destruir a sessão
+    excluirCookie('userId');
+    excluirCookie('userName');
+    excluirCookie('userEmail');
+    
+    // Encerre a sessão
+    session_unset();
     session_destroy();
 
     // Redirecionar para a página de login
@@ -76,144 +82,159 @@ function pesquisa()
 }
 function login()
 {
-  session_start();
+    session_start();
 
-  try {
+    // Verifica se o usuário já está logado com base nos cookies
     if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
-      // Se o usuário já está logado, redirecione para a página de perfil
-      header('Location: ../html/perfil.php');
-      exit;
+        // Se o usuário já está logado, redirecione para a página de perfil
+        header('Location: ../html/perfil.php');
+        exit;
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      $email = $_POST['email'];
-      $senha = $_POST['senha'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
 
-      $conn = conectarAoBanco();
+        $conn = conectarAoBanco();
 
-      if (!$conn) {
-        throw new Exception("Falha na conexão com o banco de dados.");
-      }
-
-      $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
-      $stmt = $conn->prepare($sql);
-      $stmt->bindParam(':email', $email);
-      $stmt->bindParam(':senha', $senha);
-      $stmt->execute();
-
-      if ($stmt->rowCount() == 1) {
-        // Dados do usuário encontrados
-        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($userData['tipo_usuario'] == 1) {
-          // O usuário é um administrador
-          $_SESSION['tipo_usuario'] = true;
-        } else {
-          // O usuário não é um administrador
-          $_SESSION['tipo_usuario'] = false;
+        if (!$conn) {
+            throw new Exception("Falha na conexão com o banco de dados.");
         }
 
-        // Defina outras informações do usuário na sessão
-        $_SESSION['sessaoConectado'] = true;
-        $_SESSION['userId'] = $userData['id_usuario'];
-        $_SESSION['userName'] = $userData['nome'];
-        $_SESSION['userEmail'] = $userData['email'];
-        $_SESSION['userTelefone'] = $userData['telefone'];
+        $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
+        $stmt->execute();
 
-        // Redirecione com base no papel do usuário
-        if ($_SESSION['tipo_usuario']) {
-          header('Location: ../html/crud.php');
-          exibirConteudoComBaseNoPapel(); // Página de administrador
+        if ($stmt->rowCount() == 1) {
+            // Dados do usuário encontrados
+            $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($userData['tipo_usuario'] == 1) {
+                // O usuário é um administrador
+                $_SESSION['tipo_usuario'] = true;
+            } else {
+                // O usuário não é um administrador
+                $_SESSION['tipo_usuario'] = false;
+            }
+
+            // Defina outras informações do usuário na sessão
+            $_SESSION['sessaoConectado'] = true;
+            $_SESSION['userId'] = $userData['id_usuario'];
+            $_SESSION['userName'] = $userData['nome'];
+            $_SESSION['userEmail'] = $userData['email'];
+            $_SESSION['userTelefone'] = $userData['telefone'];
+
+            // Verifique se o usuário marcou "Lembrar sempre"
+            $lembrarUsuario = isset($_POST['lembrar']) ? true : false;
+
+            if ($lembrarUsuario) {
+                // Defina os cookies com base nos dados do usuário e tempo de expiração
+                setcookie('lembrar_usuario', true, time() + 3600 * 24 * 7); // Expira em uma semana
+                setcookie('userId', $userData['id_usuario'], time() + 3600 * 24 * 7);
+                setcookie('userName', $userData['nome'], time() + 3600 * 24 * 7);
+                setcookie('userEmail', $userData['email'], time() + 3600 * 24 * 7);
+            }
+
+            // Redirecione com base no papel do usuário
+            if ($_SESSION['tipo_usuario']) {
+                header('Location: ../html/crud.php');
+                exibirConteudoComBaseNoPapel(); // Página de administrador
+            } else {
+                header('Location: ../html/index.php');
+                exibirConteudoComBaseNoPapel(); // Página de perfil do usuário comum
+            }
+            exit;
         } else {
-          header('Location: ../html/index.php');
-          exibirConteudoComBaseNoPapel(); // Página de perfil do usuário comum
+            throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
         }
-        exit;
-      } else {
-        throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
-      }
     }
-  } catch (Exception $e) {
-    echo "Erro: " . $e->getMessage();
-  }
 
-  echo "
-    <!DOCTYPE html>
-    <html lang='pt-br'>
-      <head>
-        <meta charset='UTF-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <title>Login</title>
-        <link rel='stylesheet' href='../css/cadastro.css' />
-        <link rel='icon' href='../img/Logos.svg' />
-      </head>
-      <body>
-        <div class='container'>
-          <div class='menu'>
-            <div class='cadastro'>Faça seu Login</div>
-            <form action='' method='POST'>
-              <label for='email' class='em'>Email</label>
-              <input id='email' class='escrita' type='text' name='email' required>
-              <label for='senha' class='se'>Senha</label>
-              <input id='senha' class='escrita' type='password' name='senha' required>
-              <label for='lembrar' class='salvar'>Lembrar sempre</label>
-              <input id='lembrar' class='checked' type='checkbox'><br>
-              <label for='mostrar-senha' class='mostrar'>Mostrar senha</label>
-              <input id='mostrar-senha' class='checked' type='checkbox'>
-              <div class='centralizar' align='center'>
-                <input class='bt' type='submit' value='Confirmar'>
-              </div>
-            </form>
-            <div class='baixo'><a href='ec-cadastro.php'>Criar conta</a></div>
-            <div class='baixo'><a href='#'>Esqueci a senha</a></div>
+    echo "
+<!DOCTYPE html>
+<html lang='pt-br'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Login</title>
+    <link rel='stylesheet' href='../css/cadastro.css' />
+    <link rel='icon' href='../img/Logos.svg' />
+  </head>
+  <body>
+    <div class='container'>
+      <div class='menu'>
+        <div class='cadastro'>Faça seu Login</div>
+        <form action='' method='POST'>
+          <label for='email' class='em'>Email</label>
+          <input id='email' class='escrita' type='text' name='email' required>
+          <label for='senha' class='se'>Senha</label>
+          <input id='senha' class='escrita' type='password' name='senha' required>
+          <label for='lembrar' class='salvar'>Lembrar sempre</label>
+          <input id='lembrar' class='checked' type='checkbox'><br>
+          <label for='mostrar-senha' class='mostrar'>Mostrar senha</label>
+          <input id='mostrar-senha' class='checked' type='checkbox'>
+          <div class='centralizar' align='center'>
+            <input class='bt' type='submit' value='Confirmar'>
           </div>
-        </div>
-        <script>
-        const senha = document.getElementById('senha');
+        </form>
+        <div class='baixo'><a href='ec-cadastro.php'>Criar conta</a></div>
+        <div class='baixo'><a href='#'>Esqueci a senha</a></div>
+      </div>
+    </div>
+  </body>
+  <script>
+  const senha = document.getElementById('senha');
         const mostrarSenha = document.getElementById('mostrar-senha');
       
         mostrarSenha.addEventListener('click', function (e) {
           senha.type = mostrarSenha.checked ? 'text' : 'password';
         });
-      </script>
-      </body>
-    </html>
-  ";
-}
-function login_sessao()
-{
-  session_start();
-
-  // login que veio do form
-  $login = $_POST['login'];
-  $senha = $_POST['senha'];
-  $eh_admin = false;
-
-  if ($login <> '') {
-    DefineCookie('loginCookie', $login, 60);
-    $_SESSION['sessaoConectado'] = funcaoLogin($login, $senha, $eh_admin);
-    $_SESSION['sessaoAdmin']     = $eh_admin;
-  }
-
-  header('Location: ../html/login.php');
+  </script>
+</html>
+";
 }
 
-function funcaoLogin($paramLogin, $paramSenha, &$paramAdmin)
-{
-  $paramAdmin = ($paramLogin == 'admin' and
-    $paramSenha == 'admin');
-  // vc tb poderia procurar numa tabela de usuarios pra 
-  // validar o usuario, eqto isso, .......
-  return true;  // ...........todos sao validos!
-
-}
 
 function DefineCookie($paramNome, $paramValor, $paramMinutos)
 {
-  echo "Cookie: $paramNome Valor: $paramValor";
   setcookie($paramNome, $paramValor, time() + $paramMinutos * 60);
 }
 
+function lerCookie($nome)
+{
+  if (isset($_COOKIE[$nome])) {
+    return $_COOKIE[$nome];
+  }
+  return null;
+}
+
+function excluirCookie($nome)
+{
+  if (isset($_COOKIE[$nome])) {
+    setcookie($nome, '', time() - 3600, '/');
+  }
+}
+
+function setarCookies() {
+  if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
+      // Obtenha os valores da sessão que você deseja armazenar em cookies
+      $userId = $_SESSION['userId'];
+      $userName = $_SESSION['userName'];
+      $userEmail = $_SESSION['userEmail'];
+
+      // Defina cookies com os valores da sessão
+      defineCookie('userId', $userId, 3600); // Exemplo: cookie expira em 1 hora
+      defineCookie('userName', $userName, 3600); // Exemplo: cookie expira em 1 hora
+      defineCookie('userEmail', $userEmail, 3600); // Exemplo: cookie expira em 1 hora
+  } else {
+      // O usuário não está conectado
+      // Exclua os cookies definindo o tempo de expiração no passado
+      excluirCookie('userId');
+      excluirCookie('userName');
+      excluirCookie('userEmail');
+  }
+}
 function crud()
 {
   ini_set('display_errors', 1);
@@ -258,12 +279,13 @@ function crud()
         $cor = $row['cor'];
         $categoria = $row['categoria'];
         $quantidade = $row['quantidade'];
+        $excluido_texto = $excluido ? 'Excluído' : 'Não Excluído';
 
         echo "<tr>";
         echo "<td>" . $id_produto . "</td>";
         echo "<td>" . $nome . "</td>";
         echo "<td>" . $descricao . "</td>";
-        echo "<td>" . $excluido . "</td>";
+        echo "<td>" . $excluido_texto . "</td>";
         echo "<td>" . $preco . "</td>";
         echo "<td>" . $data_exclusao . "</td>";
         echo "<td>" . $codigovisual . "</td>";
@@ -328,6 +350,8 @@ function crud_usuarios()
         $estado = $row['endereco_estado'];
         $tipo_usuario = $row['tipo_usuario'];
 
+        $texto_usuario = $tipo_usuario ? 'Administrador' : 'Usuário Comum';
+
         echo "<tr>";
         echo "<td>" . $id_usuario . "</td>";
         echo "<td>" . $nome . "</td>";
@@ -339,7 +363,7 @@ function crud_usuarios()
         echo "<td>" . $numero . "</td>";
         echo "<td>" . $cidade . "</td>";
         echo "<td>" . $estado . "</td>";
-        echo "<td>" . $tipo_usuario . "</td>";
+        echo "<td>" . $texto_usuario . "</td>";
         echo "<td><a href='../html/ec-cadastro.php'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
         echo "<td><a href='../php/excluir_usuarios.php?id_usuario=" . $id_usuario . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
         echo "<td><a href='../php/alterar_usuarios.php?id_usuario=" . $id_usuario . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";
@@ -390,10 +414,11 @@ function calcularTotalPedido($carrinho, $produtos)
 
 
 
-function exibirConteudoComBaseNoPapel() {
+function exibirConteudoComBaseNoPapel()
+{
   if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === true) {
-      // O usuário é um administrador
-      echo "
+    // O usuário é um administrador
+    echo "
       <div class='cabecalho'>
         <img class='logo' src='../img/Logos.svg' />
         <a class='b' href='index.php'>HOME</a>
@@ -406,8 +431,8 @@ function exibirConteudoComBaseNoPapel() {
       </div>
       ";
   } else {
-      // O usuário não é um administrador
-      echo "
+    // O usuário não é um administrador
+    echo "
       <div class='cabecalho'>
         <img class='logo' src='../img/Logos.svg' />
         <a class='b' href='index.php'>HOME</a>
@@ -419,4 +444,3 @@ function exibirConteudoComBaseNoPapel() {
       ";
   }
 }
-

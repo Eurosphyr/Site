@@ -18,6 +18,7 @@ $total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
     <div class="fundo"></div>
         <?php include '../php/funcoes.php';
         session_start();
+        setarCookies(); 
         exibirConteudoComBaseNoPapel();?>
         <div class="tipo">
             <p>Selecione o tipo de pagamento</p>

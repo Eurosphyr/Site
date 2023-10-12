@@ -45,7 +45,7 @@ h1 {
 }
 
 form {
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -63,7 +63,7 @@ label {
 input[type="text"],
 input[type="datetime-local"],
 textarea {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;

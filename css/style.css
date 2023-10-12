@@ -10,94 +10,29 @@
 }
 
 /*Onde é mostrado os dados da tabela do banco de dados*/
-.dados {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-left: 5vh;
-}
-
-/*Aqui é o forms no qual serão alterados os dados da tabela*/
-.alterar_dados {
-  display: flex;
-  background-size: cover;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-right: 20vh;
-}
-
-/*Centraliza o texto*/
-.centered-text {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  font-size: 15px;
-  font-family: "Arial", sans-serif;
-}
-
-/*Botão alterar dados no forms*/
-.bt-altera_dados {
-  cursor: pointer;
-  margin: 0px 50px;
-  font-size: 15px;
-  border: none;
-  width: 130px;
-  height: 45px;
-  border-radius: 5px;
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
-}
-
-/*Foto do perfil*/
-.foto {
-  width: 15vh;
-  height: 15vh;
-  border-radius: 100%;
+/* Estilos para o formulário */
+.formulario {
+  max-width: 600px;
   margin: 0 auto;
-  position: absolute;
-  padding-top: 10vh;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  padding: 20px;
+  border: 2px solid var(--accent-color);
+  border-radius: 5px;
 }
 
-
-.alterar_dados {
-  display: flex;
-  background-size: cover;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-right: 20vh;
-  margin-top: 150px; 
+.campo {
+  margin-bottom: 20px;
+  margin-right: 10px;
 }
-
-
-@media screen and (max-width: 768px) {
-  .cabecalho {
-    padding: 0px 20px;
-  }
-
-  .b {
-    margin: 0px 20px;
-  }
-
-  
-}
-
 
 label {
-  margin-left: 30px;
+  display: block;
+  margin-bottom: 10px;
   font-size: 15px;
   font-family: "Arial", sans-serif;
-  display: inline-block;
 }
 
-/*Campos do formulário*/
 input {
-  width: 100%;
+  width: 99%;
   padding: 10px;
   font-size: 16px;
   border: 2px solid var(--accent-color);
@@ -110,14 +45,51 @@ input:focus {
   border-color: var(--accent-hover-color);
 }
 
-.bt-altera_dados:hover,
-.bt-altera_dados:active,
-.bt-altera_dados:focus,
-.bt-altera_dados:visited,
-.bt-altera_dados:link {
-  background-color: var(--button-bg-color);
+.botoes {
+  text-align: center; /* Centraliza os botões horizontalmente */
 }
 
-input::placeholder {
-  color: var(--placeholder-color);
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  margin-right: 10px;
+}
+
+.logout-form {
+  text-align: center; /* Centraliza o botão de logout */
+}
+
+button[type="submit"] {
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--accent-color);
+}
+
+/* Estilos para as informações do usuário */
+.informacao-usuario {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.nome-usuario {
+  color: #3498db; /* Cor para o nome do usuário */
+}
+
+.email-usuario {
+  color: #2ecc71; /* Cor para o email do usuário */
+}
+
+.telefone-usuario {
+  color: #e74c3c; /* Cor para o telefone do usuário */
 }

@@ -10,7 +10,8 @@
   </head>
   <body>
     <div class="container"><?php include "../php/funcoes.php";
-  session_start(); 
+  session_start();
+  setarCookies(); 
   exibirConteudoComBaseNoPapel();?>
         </div>
       </div>
