@@ -1,3 +1,10 @@
+<?php
+include "../php/funcoes.php";
+$produtoId = 3;
+$produtoNome = "Mousepad Azul";
+$precoProduto = 6.00;
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -40,9 +47,9 @@
       <div class="compra">
         <p class="preco">R$5,99</p>
         <?php $produtoId = 3; ?>
-        <<a href="ec-carrinho.php?produto_id=<?= $produtoId; ?>">Adicionar ao Carrinho</a>
+        <a href="ec-carrinho.php" onclick="adicionarAoCarrinho(<?= $produtoId ?>, '<?= $produtoNome ?>', <?= $precoProduto ?>)">Adicionar ao Carrinho</a>
         <a href="">
-        <input type="hidden" id="produtos-carrinho" name="produtos-carrinho" value="">
+          <input type="hidden" id="produtos-carrinho" name="produtos-carrinho" value="">
 
           <p class="tipo2">Comprar agora</p>
         </a>
@@ -108,16 +115,19 @@
     let totalCarrinho = 0;
 
     function adicionarAoCarrinho(nomeProduto, precoProduto) {
-    carrinho.push({ nome: nomeProduto, preco: precoProduto });
-    totalCarrinho += precoProduto;
-    atualizarCarrinho();
+      carrinho.push({
+        nome: nomeProduto,
+        preco: precoProduto
+      });
+      totalCarrinho += precoProduto;
+      atualizarCarrinho();
 
-    // Crie uma lista de produtos em formato JSON
-    const listaProdutosJSON = JSON.stringify(carrinho);
+      // Crie uma lista de produtos em formato JSON
+      const listaProdutosJSON = JSON.stringify(carrinho);
 
-    // Atualize o valor do campo de entrada oculto com a lista de produtos
-    document.getElementById("produtos-carrinho").value = listaProdutosJSON;
-}
+      // Atualize o valor do campo de entrada oculto com a lista de produtos
+      document.getElementById("produtos-carrinho").value = listaProdutosJSON;
+    }
 
     function atualizarCarrinho() {
       const itensCarrinho = document.getElementById("itens-carrinho");
@@ -134,11 +144,28 @@
     }
 
     function verCarrinho() {
-    // Redirecione o usuário para ec-carrinho.php com os produtos no carrinho na URL
-    const listaProdutosJSON = document.getElementById("produtos-carrinho").value;
-    window.location.href = `ec-carrinho.php?produtos=${encodeURIComponent(listaProdutosJSON)}`;
-}
+      // Redirecione o usuário para ec-carrinho.php com os produtos no carrinho na URL
+      const listaProdutosJSON = document.getElementById("produtos-carrinho").value;
+      window.location.href = `ec-carrinho.php?produtos=${encodeURIComponent(listaProdutosJSON)}`;
+    }
+    // Função para adicionar um produto ao carrinho
+    function adicionarAoCarrinho(idProduto, nomeProduto, precoProduto) {
+      // Verifique se o produto já está no carrinho
+      var produtoExistente = carrinho.find(item => item.id === idProduto);
+      if (produtoExistente) {
+        produtoExistente.quantidade++;
+      } else {
+        carrinho.push({
+          id: idProduto,
+          nome: nomeProduto,
+          preco: precoProduto,
+          quantidade: 1
+        });
+      }
 
+      totalCarrinho += precoProduto;
+      atualizarCarrinho();
+    }
   </script>
 </body>
 

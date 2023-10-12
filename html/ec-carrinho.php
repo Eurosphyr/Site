@@ -4,8 +4,11 @@ session_start();
 include "../php/funcoes.php";
 
 $total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
-$conn = conectarAoBanco();
+$produtoId = isset($_GET['produto_id']) ? $_GET['produto_id'] : null;
+$produtoNome = isset($_GET['produto_nome']) ? urldecode($_GET['produto_nome']) : null;
+$produtoPreco = isset($_GET['produto_preco']) ? floatval($_GET['produto_preco']) : null;
 
+$conn = conectarAoBanco();
 
 if (!$conn) {
   die("Falha na conexão com o banco de dados.");
@@ -19,7 +22,7 @@ $produtosJSON = isset($_GET['produtos']) ? $_GET['produtos'] : null;
 $produtosNoCarrinho = [];
 
 if ($produtosJSON) {
-    $produtosNoCarrinho = json_decode(urldecode($produtosJSON), true);
+  $produtosNoCarrinho = json_decode(urldecode($produtosJSON), true);
 }
 
 
@@ -28,29 +31,29 @@ $produtosNoCarrinho = isset($_SESSION['carrinho']) ? $_SESSION['carrinho'] : [];
 
 
 if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
-    $produtoId = $_GET['produto_id'];
-    $produtoNome = $_GET['produto_nome'];
-    $produtoPreco = floatval($_GET['produto_preco']);
+  $produtoId = $_GET['produto_id'];
+  $produtoNome = $_GET['produto_nome'];
+  $produtoPreco = floatval($_GET['produto_preco']);
 
-    // Adicione o produto ao carrinho
-    if (isset($produtosNoCarrinho[$produtoId])) {
-        // Se o produto já estiver no carrinho, aumente a quantidade
-        $produtosNoCarrinho[$produtoId]['quantidade']++;
-    } else {
-        // Se o produto não estiver no carrinho, adicione-o ao carrinho
-        $produtosNoCarrinho[$produtoId] = [
-            'nome' => $produtoNome,
-            'preco' => $produtoPreco,
-            'quantidade' => 1,
-        ];
-    }
+  // Adicione o produto ao carrinho
+  if (isset($produtosNoCarrinho[$produtoId])) {
+    // Se o produto já estiver no carrinho, aumente a quantidade
+    $produtosNoCarrinho[$produtoId]['quantidade']++;
+  } else {
+    // Se o produto não estiver no carrinho, adicione-o ao carrinho
+    $produtosNoCarrinho[$produtoId] = [
+      'nome' => $produtoNome,
+      'preco' => $produtoPreco,
+      'quantidade' => 1,
+    ];
+  }
 
-    // Atualize a sessão com o carrinho atualizado
-    $_SESSION['carrinho'] = $produtosNoCarrinho;
+  // Atualize a sessão com o carrinho atualizado
+  $_SESSION['carrinho'] = $produtosNoCarrinho;
 
-    // Redirecione o usuário de volta para a página de compra
-    header("Location: ec-telacompra.php");
-    exit();
+  // Redirecione o usuário de volta para a página de compra
+  header("Location: ec-telacompra.php");
+  exit();
 }
 ?>
 
@@ -100,9 +103,6 @@ if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
         $quantidadeProduto = isset($_SESSION['carrinho'][$index]) ? $_SESSION['carrinho'][$index] : 0;
         $totalProduto = $precoProduto * $quantidadeProduto;
         $subtotal += $totalProduto;
-        var_dump($subtotal);
-        var_dump($total);
-
       ?>
         <div class="prod1">
           <div class="desing-p">
@@ -229,6 +229,36 @@ if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
           });
         }
       }
+
+      function atualizarCarrinhoNaInterface() {
+        var carrinhoContainer = document.getElementById("carrinho");
+
+        // Limpe o conteúdo atual do carrinho
+        carrinhoContainer.innerHTML = "";
+
+        // Preencha o carrinho com os produtos
+        carrinho.forEach(function(produto) {
+          var produtoDiv = document.createElement("div");
+          produtoDiv.classList.add("produto-no-carrinho");
+
+          var nomeDiv = document.createElement("div");
+          nomeDiv.textContent = "Nome: " + produto.nome;
+
+          var precoDiv = document.createElement("div");
+          precoDiv.textContent = "Preço: R$ " + produto.preco.toFixed(2);
+
+          var quantidadeDiv = document.createElement("div");
+          quantidadeDiv.textContent = "Quantidade: " + produto.quantidade;
+
+          produtoDiv.appendChild(nomeDiv);
+          produtoDiv.appendChild(precoDiv);
+          produtoDiv.appendChild(quantidadeDiv);
+
+          carrinhoContainer.appendChild(produtoDiv);
+        });
+      }
+
+
 
       function enviarFormularioPagamento() {
         // Defina os valores de subtotal e total nos campos do formulário
