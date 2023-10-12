@@ -6,13 +6,15 @@
   <meta charset="utf-8">
   <title>CRUD</title>
   <link rel="stylesheet" href="../css/crud.css">
+  <link rel="stylesheet" href="../css/cabecalho.css">
   <link rel="icon" href="../img/Logos.svg">
 </head>
 
 <body>
-
   <?php
   include("../php/funcoes.php");
+  session_start();
+  exibirConteudoComBaseNoPapel();
   crud();
   ?>
   </table>

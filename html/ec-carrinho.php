@@ -71,14 +71,8 @@ if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
 
 <body>
   <div class="container">
-    <div class="cabecalho">
-      <img class="logo" src="../img/Logos.svg" />
-      <a class="b" href="index.php">HOME</a>
-      <a class="b" href="ec-sobre.php">SOBRE</a>
-      <a class="b" href="ec-telacompra.php">COMPRAR</a>
-      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" /></a>
-      <a href="perfil.php"><img class="perfil" src="../img/user.png" /></a>
-    </div>
+  <?php 
+        exibirConteudoComBaseNoPapel();?>
     <div class="apresentacao">
       <img class="foto-ca" src="../img/cart_circle.png" />
       <div class="escrita-ca">

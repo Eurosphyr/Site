@@ -105,15 +105,29 @@ function login()
         // Dados do usuário encontrados
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Armazene os dados do usuário na sessão
+        if ($userData['tipo_usuario'] == 1) {
+          // O usuário é um administrador
+          $_SESSION['tipo_usuario'] = true;
+        } else {
+          // O usuário não é um administrador
+          $_SESSION['tipo_usuario'] = false;
+        }
+
+        // Defina outras informações do usuário na sessão
         $_SESSION['sessaoConectado'] = true;
         $_SESSION['userId'] = $userData['id_usuario'];
         $_SESSION['userName'] = $userData['nome'];
         $_SESSION['userEmail'] = $userData['email'];
         $_SESSION['userTelefone'] = $userData['telefone'];
 
-        // Redirecione para a página de perfil
-        header('Location: ../html/perfil.php');
+        // Redirecione com base no papel do usuário
+        if ($_SESSION['tipo_usuario']) {
+          header('Location: ../html/crud.php');
+          exibirConteudoComBaseNoPapel(); // Página de administrador
+        } else {
+          header('Location: ../html/index.php');
+          exibirConteudoComBaseNoPapel(); // Página de perfil do usuário comum
+        }
         exit;
       } else {
         throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
@@ -373,3 +387,36 @@ function calcularTotalPedido($carrinho, $produtos)
 
   return $totalPedido;
 }
+
+
+
+function exibirConteudoComBaseNoPapel() {
+  if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === true) {
+      // O usuário é um administrador
+      echo "
+      <div class='cabecalho'>
+        <img class='logo' src='../img/Logos.svg' />
+        <a class='b' href='index.php'>HOME</a>
+        <a class='b' href='ec-sobre.php'>SOBRE</a>
+        <a class='b' href='ec-telacompra.php'>COMPRAR</a>
+        <a class='b' href='crud.php'>CRUD PRODUTOS</a>
+        <a class='b' href='crud_usuarios.php'>CRUD USUÁRIOS</a>
+        <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
+        <a href='perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+      </div>
+      ";
+  } else {
+      // O usuário não é um administrador
+      echo "
+      <div class='cabecalho'>
+        <img class='logo' src='../img/Logos.svg' />
+        <a class='b' href='index.php'>HOME</a>
+        <a class='b' href='ec-sobre.php'>SOBRE</a>
+        <a class='b' href='ec-telacompra.php'>COMPRAR</a>
+        <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
+        <a href='perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+      </div>
+      ";
+  }
+}
+

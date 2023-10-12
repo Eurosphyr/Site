@@ -16,15 +16,9 @@ $total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
 </head>
 <body>
     <div class="fundo"></div>
-    <div class="container">
-        <div class="cabecalho">
-            <img class="logo" src="../img/Logos.svg" />
-            <a class="b" href="index.php">HOME</a>
-            <a class="b" href="ec-sobre.php">SOBRE</a>
-            <a class="b" href="ec-telacompra.php">COMPRAR</a>
-            <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" alt="Carrinho" /></a>
-            <a href="perfil.php"><img class="perfil" src="../img/user.png" alt="Perfil" /></a>
-        </div>
+        <?php include '../php/funcoes.php';
+        session_start();
+        exibirConteudoComBaseNoPapel();?>
         <div class="tipo">
             <p>Selecione o tipo de pagamento</p>
             <div>

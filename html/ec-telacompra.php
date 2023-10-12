@@ -21,15 +21,9 @@ $precoProduto = 6.00;
 <body>
   <div class="container">
     <div class="nada"></div>
-    <div class="cabecalho">
-      <img class="logo" src="../img/Logos.svg" />
-      <a class="b" href="index.php">HOME</a>
-      <a class="b" href="ec-sobre.php">SOBRE</a>
-      <a class="b" href="ec-telacompra.php">COMPRAR</a>
-      <a href="ec-carrinho.php"><img class="carrinho" src="../img/cart.png" alt="Carrinho" /></a>
-      <a href="perfil.php"><img class="perfil" src="../img/user.png" alt="Perfil" /></a>
-      <button onclick="verCarrinho()" class="b">Ver Carrinho</button>
-
+    <?php
+    session_start();
+    exibirConteudoComBaseNoPapel(); ?>
     </div>
     <div class="ft-prod1 imagem-wrapper">
       <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" alt="Mousepad" onclick="proximaImagem()" /></div>
