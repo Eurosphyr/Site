@@ -139,7 +139,7 @@ function login()
 
             // Redirecione com base no papel do usuário
             if ($_SESSION['tipo_usuario']) {
-                header('Location: ../html/crud.php');
+                header('Location: ../html/index.php');
                 exibirConteudoComBaseNoPapel(); // Página de administrador
             } else {
                 header('Location: ../html/index.php');
