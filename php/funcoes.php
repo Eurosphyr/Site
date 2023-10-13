@@ -30,7 +30,7 @@ function logout()
     excluirCookie('userId');
     excluirCookie('userName');
     excluirCookie('userEmail');
-    
+
     // Encerre a sessão
     session_unset();
     session_destroy();
@@ -82,76 +82,81 @@ function pesquisa()
 }
 function login()
 {
-    session_start();
+  session_start();
 
-    // Verifica se o usuário já está logado com base nos cookies
-    if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
-        // Se o usuário já está logado, redirecione para a página de perfil
-        header('Location: ../html/perfil.php');
-        exit;
+  // Verifica se o usuário já está logado com base nos cookies
+  if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
+    // Se o usuário já está logado, redirecione para a página de perfil
+    header('Location: ../html/perfil.php');
+    exit;
+  }
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    
+
+    $conn = conectarAoBanco();
+
+    if (!$conn) {
+      throw new Exception("Falha na conexão com o banco de dados.");
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
+    $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha AND desativado = false";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':senha', $senha);
+    $stmt->execute();
 
-        $conn = conectarAoBanco();
+    if ($stmt->rowCount() == 1) {
+      // Dados do usuário encontrados
+      $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$conn) {
-            throw new Exception("Falha na conexão com o banco de dados.");
-        }
+      if ($userData['desativado'] == true) {
+        throw new Exception("Sua conta foi desativada. Entre em contato com o administrador.");
+      }
 
-        $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->execute();
+      if ($userData['tipo_usuario'] == 1) {
+        // O usuário é um administrador
+        $_SESSION['tipo_usuario'] = true;
+      } else {
+        // O usuário não é um administrador
+        $_SESSION['tipo_usuario'] = false;
+      }
 
-        if ($stmt->rowCount() == 1) {
-            // Dados do usuário encontrados
-            $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+      // Defina outras informações do usuário na sessão
+      $_SESSION['sessaoConectado'] = true;
+      $_SESSION['userId'] = $userData['id_usuario'];
+      $_SESSION['userName'] = $userData['nome'];
+      $_SESSION['userEmail'] = $userData['email'];
+      $_SESSION['userTelefone'] = $userData['telefone'];
 
-            if ($userData['tipo_usuario'] == 1) {
-                // O usuário é um administrador
-                $_SESSION['tipo_usuario'] = true;
-            } else {
-                // O usuário não é um administrador
-                $_SESSION['tipo_usuario'] = false;
-            }
+      // Verifique se o usuário marcou "Lembrar sempre"
+      $lembrarUsuario = isset($_POST['lembrar']) ? true : false;
 
-            // Defina outras informações do usuário na sessão
-            $_SESSION['sessaoConectado'] = true;
-            $_SESSION['userId'] = $userData['id_usuario'];
-            $_SESSION['userName'] = $userData['nome'];
-            $_SESSION['userEmail'] = $userData['email'];
-            $_SESSION['userTelefone'] = $userData['telefone'];
+      if ($lembrarUsuario) {
+        // Defina os cookies com base nos dados do usuário e tempo de expiração
+        setcookie('lembrar_usuario', true, time() + 3600 * 24 * 7); // Expira em uma semana
+        setcookie('userId', $userData['id_usuario'], time() + 3600 * 24 * 7);
+        setcookie('userName', $userData['nome'], time() + 3600 * 24 * 7);
+        setcookie('userEmail', $userData['email'], time() + 3600 * 24 * 7);
+      }
 
-            // Verifique se o usuário marcou "Lembrar sempre"
-            $lembrarUsuario = isset($_POST['lembrar']) ? true : false;
-
-            if ($lembrarUsuario) {
-                // Defina os cookies com base nos dados do usuário e tempo de expiração
-                setcookie('lembrar_usuario', true, time() + 3600 * 24 * 7); // Expira em uma semana
-                setcookie('userId', $userData['id_usuario'], time() + 3600 * 24 * 7);
-                setcookie('userName', $userData['nome'], time() + 3600 * 24 * 7);
-                setcookie('userEmail', $userData['email'], time() + 3600 * 24 * 7);
-            }
-
-            // Redirecione com base no papel do usuário
-            if ($_SESSION['tipo_usuario']) {
-                header('Location: ../html/index.php');
-                exibirConteudoComBaseNoPapel(); // Página de administrador
-            } else {
-                header('Location: ../html/index.php');
-                exibirConteudoComBaseNoPapel(); // Página de perfil do usuário comum
-            }
-            exit;
-        } else {
-            throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
-        }
+      // Redirecione com base no papel do usuário
+      if ($_SESSION['tipo_usuario']) {
+        header('Location: ../html/index.php');
+        exibirConteudoComBaseNoPapel(); // Página de administrador
+      } else {
+        header('Location: ../html/index.php');
+        exibirConteudoComBaseNoPapel(); // Página de perfil do usuário comum
+      }
+      exit;
+    } else {
+      throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
     }
+  }
 
-    echo "
+  echo "
 <!DOCTYPE html>
 <html lang='pt-br'>
   <head>
@@ -216,23 +221,24 @@ function excluirCookie($nome)
   }
 }
 
-function setarCookies() {
+function setarCookies()
+{
   if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
-      // Obtenha os valores da sessão que você deseja armazenar em cookies
-      $userId = $_SESSION['userId'];
-      $userName = $_SESSION['userName'];
-      $userEmail = $_SESSION['userEmail'];
+    // Obtenha os valores da sessão que você deseja armazenar em cookies
+    $userId = $_SESSION['userId'];
+    $userName = $_SESSION['userName'];
+    $userEmail = $_SESSION['userEmail'];
 
-      // Defina cookies com os valores da sessão
-      defineCookie('userId', $userId, 3600); // Exemplo: cookie expira em 1 hora
-      defineCookie('userName', $userName, 3600); // Exemplo: cookie expira em 1 hora
-      defineCookie('userEmail', $userEmail, 3600); // Exemplo: cookie expira em 1 hora
+    // Defina cookies com os valores da sessão
+    defineCookie('userId', $userId, 3600); // Exemplo: cookie expira em 1 hora
+    defineCookie('userName', $userName, 3600); // Exemplo: cookie expira em 1 hora
+    defineCookie('userEmail', $userEmail, 3600); // Exemplo: cookie expira em 1 hora
   } else {
-      // O usuário não está conectado
-      // Exclua os cookies definindo o tempo de expiração no passado
-      excluirCookie('userId');
-      excluirCookie('userName');
-      excluirCookie('userEmail');
+    // O usuário não está conectado
+    // Exclua os cookies definindo o tempo de expiração no passado
+    excluirCookie('userId');
+    excluirCookie('userName');
+    excluirCookie('userEmail');
   }
 }
 function crud()
@@ -333,6 +339,7 @@ function crud_usuarios()
             <th>Cidade</th>
             <th>Estado</th>
             <th>Tipo de Usuário</th>
+            <th>Desativado</th>
             <th colspan='3'>Ações</th>
           </tr>";
 
@@ -349,8 +356,10 @@ function crud_usuarios()
         $cidade = $row['endereco_cidade'];
         $estado = $row['endereco_estado'];
         $tipo_usuario = $row['tipo_usuario'];
+        $desativado = $row['desativado'];
 
         $texto_usuario = $tipo_usuario ? 'Administrador' : 'Usuário Comum';
+        $texto_desativado = $desativado ? 'Desativado' : 'Não Desativado';
 
         echo "<tr>";
         echo "<td>" . $id_usuario . "</td>";
@@ -364,6 +373,7 @@ function crud_usuarios()
         echo "<td>" . $cidade . "</td>";
         echo "<td>" . $estado . "</td>";
         echo "<td>" . $texto_usuario . "</td>";
+        echo "<td>" . $texto_desativado . "</td>";
         echo "<td><a href='../html/ec-cadastro.php'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
         echo "<td><a href='../php/excluir_usuarios.php?id_usuario=" . $id_usuario . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
         echo "<td><a href='../php/alterar_usuarios.php?id_usuario=" . $id_usuario . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";

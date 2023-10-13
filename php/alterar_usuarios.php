@@ -27,6 +27,7 @@ if (isset($_GET['id_usuario'])) {
         $endereco_cidade = $row['endereco_cidade'];
         $endereco_estado = $row['endereco_estado'];
         $tipo_usuario = $row['tipo_usuario'];
+        $desativado = $row['desativado'];
         
 
         // Resto do código HTML para exibir o formulário com os valores das variáveis
@@ -75,6 +76,8 @@ if (isset($_GET['id_usuario'])) {
         <input type="text" id="endereco_estado" name="endereco_estado" placeholder="Estado do usuário" value="<?php echo $endereco_estado ?>">
         <label for="tipo_usuario">Administrador:</label>
         <input type="checkbox" id="tipo_usuario" name="tipo_usuario" placeholder="Tipo de usuário" value="1" <?php if ($tipo_usuario == 1) echo 'checked'; ?>><br>
+        <label for="desativado">Desativado:</label>
+        <input type="checkbox" id="desativado" name="desativado" placeholder="Desativado" value="1" <?php if ($desativado == 1) echo 'checked'; ?>><br>
         <input type="submit" value="Enviar">
     </form>
 </body>

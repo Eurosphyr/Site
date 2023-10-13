@@ -30,20 +30,27 @@
         <label class="Cse">Confirmar Senha</label>
         <input class="escrita" type="password" name="confirmar_senha" />
 
-        <label class="rua">Rua</label>
-        <input class="escrita" type="text" name="endereco_rua" />
+        <?php
+        session_start();
+        if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario']) {
+        ?>
+          <label class="rua">Rua</label>
+          <input class="escrita" type="text" name="endereco_rua" />
 
-        <label class="num">Número</label>
-        <input class="escrita" type="text" name="endereco_num" />
+          <label class="num">Número</label>
+          <input class="escrita" type="text" name="endereco_num" />
 
-        <label class="bai">Bairro</label>
-        <input class="escrita" type="text" name="endereco_bairro" />
+          <label class="bai">Bairro</label>
+          <input class="escrita" type="text" name="endereco_bairro" />
 
-        <label class="cid">Cidade</label>
-        <input class="escrita" type="text" name="endereco_cidade" />
+          <label class="cid">Cidade</label>
+          <input class="escrita" type="text" name="endereco_cidade" />
 
-        <label class="est">Estado</label>
-        <input class="escrita" type="text" name="endereco_estado" />
+          <label class="est">Estado</label>
+          <input class="escrita" type="text" name="endereco_estado" />
+        <?php
+        }
+        ?>
 
         <div class="centralizar" align="center">
           <input class="bt" type="submit" value="Confirmar" />

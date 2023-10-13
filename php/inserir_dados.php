@@ -11,20 +11,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $senha = $_POST['senha']; // Use hash para armazenar a senha com segurança
 
         // Use placeholders para evitar SQL Injection
-        $query = "INSERT INTO tbl_usuario (nome, senha, email, telefone, endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado) VALUES (:nome, :senha, :email, :telefone, :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado)";
-        $stmt = $conn->prepare($query);
+        $query = "INSERT INTO tbl_usuario (nome, senha, email, telefone";
+        $values = " VALUES (:nome, :senha, :email, :telefone";
+        
+        session_start();
+        if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario']) {
+            $query .= ", endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado";
+            $values .= ", :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado";
+        }
+        
+        $query .= ")";
+        $values .= ")";
+        
+        $stmt = $conn->prepare($query . $values);
 
         // Associe os valores aos placeholders
         $stmt->bindParam(':nome', $_POST['nome']);
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':email', $_POST['email']);
         $stmt->bindParam(':telefone', $_POST['telefone']);
-        $stmt->bindParam(':endereco_rua', $_POST['endereco_rua']);
-        $stmt->bindParam(':endereco_bairro', $_POST['endereco_bairro']);
-        $stmt->bindParam(':endereco_num', $_POST['endereco_num']);
-        $stmt->bindParam(':endereco_cidade', $_POST['endereco_cidade']);
-        $stmt->bindParam(':endereco_estado', $_POST['endereco_estado']);
         
+        if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario']) {
+            $stmt->bindParam(':endereco_rua', $_POST['endereco_rua']);
+            $stmt->bindParam(':endereco_bairro', $_POST['endereco_bairro']);
+            $stmt->bindParam(':endereco_num', $_POST['endereco_num']);
+            $stmt->bindParam(':endereco_cidade', $_POST['endereco_cidade']);
+            $stmt->bindParam(':endereco_estado', $_POST['endereco_estado']);
+        }
 
         // Execute a consulta
         if ($stmt->execute()) {

@@ -15,7 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $endereco_bairro = $_POST['endereco_bairro'];
     $endereco_cidade = $_POST['endereco_cidade'];
     $endereco_estado = $_POST['endereco_estado'];
-    $tipo_usuario = isset($_POST['tipo_usuario']) ? 1 : 0; // Se a caixa de seleção foi marcada, defina 1; caso contrário, defina 0.
+    $tipo_usuario = isset($_POST['tipo_usuario']) ? 1 : 0;
+    $desativado = isset($_POST['desativado']) ? 1 : 0;
+     // Se a caixa de seleção foi marcada, defina 1; caso contrário, defina 0.
 
     // SQL para atualizar os dados do usuário
     $sql = "UPDATE tbl_usuario SET 
@@ -28,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             endereco_bairro = :endereco_bairro,
             endereco_cidade = :endereco_cidade,
             endereco_estado = :endereco_estado,
-            tipo_usuario = :tipo_usuario
+            tipo_usuario = :tipo_usuario,
+            desativado = :desativado
             WHERE id_usuario = :id_usuario";
 
     try {
@@ -46,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':endereco_bairro', $endereco_bairro, PDO::PARAM_STR);
         $stmt->bindParam(':endereco_cidade', $endereco_cidade, PDO::PARAM_STR);
         $stmt->bindParam(':endereco_estado', $endereco_estado, PDO::PARAM_STR);
-        $stmt->bindParam(':tipo_usuario', $tipo_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':tipo_usuario', $tipo_usuario, PDO::PARAM_BOOL);
+        $stmt->bindParam(':desativado', $desativado, PDO::PARAM_BOOL);
 
         // Executar a consulta
         if ($stmt->execute()) {
