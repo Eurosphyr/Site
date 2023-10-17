@@ -48,6 +48,9 @@
 
           <label class="est">Estado</label>
           <input class="escrita" type="text" name="endereco_estado" />
+
+          <label class="tp">Administrador</label>
+          <input class="escrita" type="checkbox" name="tipo_usuario" />
         <?php
         }
         ?>

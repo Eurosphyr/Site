@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         session_start();
         if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario']) {
-            $query .= ", endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado";
-            $values .= ", :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado";
+            $query .= ", endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado, tipo_usuario";
+            $values .= ", :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado, :tipo_usuario";
         }
         
         $query .= ")";
@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':endereco_num', $_POST['endereco_num']);
             $stmt->bindParam(':endereco_cidade', $_POST['endereco_cidade']);
             $stmt->bindParam(':endereco_estado', $_POST['endereco_estado']);
+            $stmt->bindParam(':tipo_usuario', $_POST['tipo_usuario']);
         }
 
         // Execute a consulta
