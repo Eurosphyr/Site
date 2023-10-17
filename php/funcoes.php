@@ -87,7 +87,7 @@ function login()
   // Verifica se o usuário já está logado com base nos cookies
   if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
     // Se o usuário já está logado, redirecione para a página de perfil
-    header('Location: ../html/perfil.php');
+    header('Location: ../html/ec-perfil.php');
     exit;
   }
 
@@ -434,10 +434,10 @@ function exibirConteudoComBaseNoPapel()
         <a class='b' href='index.php'>HOME</a>
         <a class='b' href='ec-sobre.php'>SOBRE</a>
         <a class='b' href='ec-telacompra.php'>COMPRAR</a>
-        <a class='b' href='crud.php'>CRUD PRODUTOS</a>
-        <a class='b' href='crud_usuarios.php'>CRUD USUÁRIOS</a>
+        <a class='b' href='ec-crud.php'>CRUD PRODUTOS</a>
+        <a class='b' href='ec-crud_usuarios.php'>CRUD USUÁRIOS</a>
         <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
-        <a href='perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+        <a href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
       </div>
       ";
   } else {
@@ -449,7 +449,7 @@ function exibirConteudoComBaseNoPapel()
         <a class='b' href='ec-sobre.php'>SOBRE</a>
         <a class='b' href='ec-telacompra.php'>COMPRAR</a>
         <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
-        <a href='perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+        <a href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
       </div>
       ";
   }

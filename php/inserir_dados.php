@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             // Inserção bem-sucedida
             echo "Usuário cadastrado com sucesso!";
-            header("Location: ../html/perfil.php");
+            header("Location: ../html/ec-perfil.php");
         } else {
             // Se a inserção falhar, você pode lidar com isso de acordo com sua lógica
             echo "Erro ao cadastrar o usuário.";

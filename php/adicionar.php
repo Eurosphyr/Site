@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = $conn->prepare($sql);
         if ($stmt->execute($params)) {
-            header("Location: ../html/crud.php");
+            header("Location: ../html/ec-crud.php");
             exit();
         } else {
             echo "Erro ao inserir o produto no banco de dados.";

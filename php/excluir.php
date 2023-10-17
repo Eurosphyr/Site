@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
   $delete->bindParam(':id', $id_produto, PDO::PARAM_INT);
 
   if ($delete->execute()) {
-    header('Location: ../html/crud.php');
+    header('Location: ../html/ec-crud.php');
   } else {
     echo "Erro ao excluir o registro: " . $delete->errorInfo()[2];
   }

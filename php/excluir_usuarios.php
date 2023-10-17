@@ -19,7 +19,7 @@ if (isset($_GET['id_usuario']) && isset($_GET['acao']) && $_GET['acao'] === 'exc
         // Executar a consulta
         if ($stmt->execute()) {
             echo "Usuário excluído com sucesso.";
-            header("Location: ../html/crud_usuarios.php");
+            header("Location: ../html/ec-crud_usuarios.php");
         } else {
             echo "Erro ao excluir o usuário.";
         }

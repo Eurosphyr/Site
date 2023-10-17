@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo "Produto atualizado com sucesso.";
-        header("Location: ../html/crud.php");
+        header("Location: ../html/ec-crud.php");
     } else {
         echo "Erro ao atualizar o produto.";
     }
