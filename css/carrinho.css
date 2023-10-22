@@ -89,8 +89,8 @@
   border-right: 1px solid var(--button-bg-color);
 }
 .ft-prod {
-  width: 106px;
-  height: 106px;
+  width: 150px;
+  height: 100px;
   background-color: var(--button-bg-color);
 }
 .nm-prod {

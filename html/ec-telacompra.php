@@ -1,161 +1,133 @@
-<?php
-include "../php/funcoes.php";
-$produtoId = 3;
-$produtoNome = "Mousepad Azul";
-$produtoPreco = 6.00;
-?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tela de Compra</title>
   <link rel="stylesheet" href="../css/telacompra.css" />
   <link rel="stylesheet" href="../css/cabecalho.css" />
+  <title>MIPRON</title>
   <link rel="icon" href="../img/Logos.svg" />
-  <script src="../php/script.js"></script>
 </head>
 
 <body>
   <div class="container">
-    <div class="nada"></div>
     <?php
+    include "../php/funcoes.php";
     session_start();
     setarCookies();
-    exibirConteudoComBaseNoPapel(); ?>
-  </div>
-  <div class="ft-prod1 imagem-wrapper">
-    <div class="zoom"><img class="prod" id="zoomImg" src="../img/mousepad.png" alt="Mousepad" onclick="proximaImagem()" /></div>
-
-  </div>
-  <div class="desc">
-    <p class="titulo-prod">Mousepad Preto</p>
-    <p class="desc-prod">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-      ante leo, tempus quis dignissim at, ullamcorper at quam. Mauris
-      eleifend congue lectus ac luctus.
-    </p>
-  </div>
-  <div class="compra-prod">
-    <div class="compra">
-      <p class="preco">R$5,99</p>
-      <form name="frmcarrinho" action="ec-carrinho.php" method="post">
-        <input type="hidden" name="produto_id" value="<?php echo $produtoId; ?>">
-        <input type="hidden" name="produto_nome" value="<?php echo $produtoNome; ?>">
-        <input type="hidden" name="produto_preco" value="<?php echo $produtoPreco; ?>">
-        <input type="submit" value="Adicionar ao Carrinho">
-      </form>
-      <p class="tipo2">Comprar agora</p>
-      </a>
+    exibirConteudoComBaseNoPapel();
+    $conn = conectarAoBanco();
+    ?>
+    <form action="ec-carrinho.php" method="get" id="productForm">
+      <input type="hidden" name="id_produto" value="" id="id_produto_input">
+      <input type="submit" value="COMPRAR" class="b1">
+    </form>
+    <div class="b2">COMPRAR</div>
+    <div class="prod-1">
+      <p>MOUSE PAD</p>
+      <div class="bola-1">
+        <div class="cima">
+          <img class="prods" src="../img/mousepad.png">
+          <div class="imagens-1">
+            <img class="exemplos" src="../img/mousepad.png">
+            <img class="exemplos" src="../img/mousepad.png">
+            <img class="exemplos" src="../img/mousepad.png">
+          </div>
+        </div>
+        <div class="desc-prod1">
+          <p class="texto">O Mouse Pad Premium é a escolha ideal para gamers, profissionais de design e qualquer pessoa
+            que valorize o desempenho e a estética.
+            Melhore a sua precisão nos jogos, simplifique o seu fluxo de trabalho e dê um toque de classe ao seu espaço
+            de trabalho com o nosso mouse pad.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="imgs-prod">
-    <div class="setas">
-      <img id="seta-esquerda" class="setas seta-esquerda" src="../img/seta_esquerda.svg" alt="Seta Esquerda" onclick="imagemAnterior()" />
-      <img class="prod2" src="../img/mousepad_front.png" alt="Mousepad Frente" />
-      <img class="prod2" src="../img/mousepad.png" alt="Mousepad" />
-      <img class="prod2" src="../img/mini_mousepad.png" alt="Mini Mousepad" />
-      <img id="seta-direita" class="setas seta-direita" src="../img/seta_direita.svg" alt="Seta Direita" onclick="proximaImagem()" />
+    <div class="prod-2">
+      <p>CADERNETA</p>
+      <div class="bola-1">
+        <div class="cima">
+          <img class="prods" src="../img/mousepad.png">
+          <div class="imagens-1">
+            <img class="exemplos" src="../img/mousepad.png">
+            <img class="exemplos" src="../img/mousepad.png">
+            <img class="exemplos" src="../img/mousepad.png">
+          </div>
+        </div>
+        <div class="desc-prod1">
+          <p class="texto">O Mouse Pad Premium é a escolha ideal para gamers, profissionais de design e qualquer pessoa
+            que valorize o desempenho e a estética.
+            Melhore a sua precisão nos jogos, simplifique o seu fluxo de trabalho e dê um toque de classe ao seu espaço
+            de trabalho com o nosso mouse pad.
+          </p>
+        </div>
+      </div>
     </div>
-
-
-  </div>
-  <div class="esp">
-    <p>Especificações Técnicas</p>
-    <p class="desc-esp">
-      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-      posuere cubilia curae; Nam efficitur in lorem quis vulputate. Praesent
-      iaculis, sapien at dapibus luctus, lorem nisi ultrices arcu, eget
-      finibus ipsum arcu eget nibh. Vestibulum cursus nec ante id facilisis.
-      Fusce nec rutrum velit. Quisque nunc massa, porttitor nec nibh sed,
-      tincidunt lacinia felis. Mauris ornare lectus mi, quis sagittis libero
-      consequat at. Aliquam interdum risus sit amet mi faucibus luctus.
-      Aenean tincidunt justo at pulvinar faucibus.
-    </p>
-  </div>
-  <div class="video">
-    <p>Video do produto</p>
-    <iframe class="video-css" src="https://www.youtube.com/embed/faoDlV3YlFE" title="Star Wars: Duel of The Fates | EPIC VERSION (Remastered V2)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </iframe>
-  </div>
-  </div>
-  <script>
-    var imagens = [
-      "../img/mousepad.png",
-      "../img/mousepad_front.png",
-      "../img/mini_mousepad.png"
-    ];
-
-    var imagemAtual = 0;
-
-    function exibirImagemAtual() {
-      var imagemPrincipal = document.getElementById('zoomImg');
-      imagemPrincipal.src = imagens[imagemAtual];
-    }
-
-    function proximaImagem() {
-      imagemAtual = (imagemAtual + 1) % imagens.length;
-      exibirImagemAtual();
-    }
-
-    function imagemAnterior() {
-      imagemAtual = (imagemAtual - 1 + imagens.length) % imagens.length;
-      exibirImagemAtual();
-    }
-
-    exibirImagemAtual();
-
-    var carrinho = [];
-    var totalCarrinho = 0;
-
-    function adicionarAoCarrinho(idProduto, nomeProduto, precoProduto) {
-      // Verifique se o produto já está no carrinho
-      var produtoExistente = carrinho.find(item => item.id === idProduto);
-
-      if (produtoExistente) {
-        produtoExistente.quantidade++;
-      } else {
-        carrinho.push({
-          id: idProduto,
-          nome: nomeProduto,
-          preco: precoProduto,
-          quantidade: 1
-        });
+    <div class="desc-1">
+      <div class="opc-1">
+        <p class="desc">OPÇÕES</p>
+        <div class="linha"></div>
+        <div class="curso">
+          <p class="cursos">Cursos</p>
+          <div class="curso1">
+            <label class="l1">Info</label>
+            <input type="radio" name="opcao" value="1" onclick="updateProductId(1)">
+          </div>
+          <div class="curso1">
+            <label class="l2">Eletro</label>
+            <input type="radio" name="opcao" value="2" onclick="updateProductId(2)">
+          </div>
+          <div class="curso1">
+            <label class="l3">Mec</label>
+            <input type="radio" name="opcao" value="3" onclick="updateProductId(3)">
+          </div>
+        </div>
+        <div class="cores">
+          <p class="cursos">Cores</p>
+          <label>Escolha</label>
+          <input type="color">
+        </div>
+      </div>
+    </div>
+    <div class="desc-2">
+      <div class="opc-1">
+        <p class="desc">OPÇÕES</p>
+        <div class="linha"></div>
+        <div class="curso">
+          <p class="cursos">Cursos</p>
+          <div class="curso1">
+            <label class="l1">Info</label>
+            <input type="radio" name="opcao" value="1">
+          </div>
+          <div class="curso1">
+            <label class="l2">Eletro</label>
+            <input type="radio" name="opcao" value="2">
+          </div>
+          <div class="curso1">
+            <label class="l3">Mec</label>
+            <input type="radio" name="opcao" value="3">
+          </div>
+          <div class="curso1">
+            <label class="l4">Viva CTI</label>
+            <input type="radio" name="opcao" value="4">
+          </div>
+          <div class="cores">
+            <p class="cursos">Cores</p>
+            <label>Escolha</label>
+            <input type="color">
+          </div>
+        </div>
+      </div>
+      <div class="suporte">
+        <div class="redes">Test</div>
+      </div>
+    </div>
+    <script>
+      function updateProductId(value) {
+        document.getElementById("id_produto_input").value = value;
       }
-
-      totalCarrinho += precoProduto;
-      atualizarCarrinho();
-
-      // Crie uma lista de produtos em formato JSON
-      const listaProdutosJSON = JSON.stringify(carrinho);
-
-      // Atualize o valor do campo de entrada oculto com a lista de produtos
-      document.getElementById("produtos-carrinho").value = listaProdutosJSON;
-      document.getElementById("carrinhoForm").submit();
-    }
-
-    function atualizarCarrinho() {
-      const itensCarrinho = document.getElementById("itens-carrinho");
-      const totalCarrinhoElement = document.getElementById("total-carrinho");
-
-      itensCarrinho.innerHTML = "";
-      carrinho.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.nome} - Quantidade: ${item.quantidade} - R$ ${(item.preco * item.quantidade).toFixed(2)}`;
-        itensCarrinho.appendChild(li);
-      });
-
-      totalCarrinhoElement.textContent = totalCarrinho.toFixed(2);
-    }
-
-    function verCarrinho() {
-      // Redirecione o usuário para ec-carrinho.php com os produtos no carrinho na URL
-      const listaProdutosJSON = document.getElementById("produtos-carrinho").value;
-      window.location.href = `ec-carrinho.php?produtos=${encodeURIComponent(listaProdutosJSON)}`;
-    }
-  </script>
+    </script>
 </body>
 
 </html>

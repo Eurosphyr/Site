@@ -1,61 +1,59 @@
 <?php
-// ec-carrinho.php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 session_start();
 include "../php/funcoes.php";
 
-$total = isset($_GET['total']) ? floatval($_GET['total']) : 0;
-$produtoId = isset($_GET['produto_id']) ? $_GET['produto_id'] : null;
-$produtoNome = isset($_GET['produto_nome']) ? urldecode($_GET['produto_nome']) : null;
-$produtoPreco = isset($_GET['produto_preco']) ? floatval($_GET['produto_preco']) : null;
-
 $conn = conectarAoBanco();
+// Certifique-se de que a conexão com o banco de dados foi estabelecida
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_produto'])) {
+  $id_produto = intval($_GET['id_produto']);
+
+  // Use o ID do produto para pesquisar no banco de dados
+  $conn = conectarAoBanco();
+  $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE id_produto = :id");
+  $stmt->bindParam(':id', $id_produto);
+  $stmt->execute();
+  $produto = $stmt->fetch();
+
+  // Verifique se a consulta encontrou um produto
+  if ($produto) {
+    // Use os dados do produto conforme necessário
+    $id_produto = $produto['id_produto'];
+    $nome_produto = $produto['nome'];
+    $vunit = $produto['preco'];
+    $quant = 1;
+    $imagem = $produto['imagem'];
+    $total = $vunit * $quant;
+    // ... e assim por diante
+  }
+}
 
 if (!$conn) {
   die("Falha na conexão com o banco de dados.");
 }
 
-// Recupere todos os produtos
-$produtos = recuperarProdutos();
+if (isset($_POST['action']) && $_POST['action'] === 'atualizarQuantidade') {
+  $id_produto = isset($_POST['id_produto']) ? $_POST['id_produto'] : null;
+  $quantidade = isset($_POST['quantidade']) ? $_POST['quantidade'] : null;
 
-$subtotal = 0;
-$produtosJSON = isset($_GET['produtos']) ? $_GET['produtos'] : null;
-$produtosNoCarrinho = [];
-
-if ($produtosJSON) {
-  $produtosNoCarrinho = json_decode(urldecode($produtosJSON), true);
-}
-
-
-$produtosNoCarrinho = isset($_SESSION['carrinho']) ? $_SESSION['carrinho'] : [];
-
-
-
-if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
-  $produtoId = $_GET['produto_id'];
-  $produtoNome = $_GET['produto_nome'];
-  $produtoPreco = floatval($_GET['produto_preco']);
-
-  // Adicione o produto ao carrinho
-  if (isset($produtosNoCarrinho[$produtoId])) {
-    // Se o produto já estiver no carrinho, aumente a quantidade
-    $produtosNoCarrinho[$produtoId]['quantidade']++;
-  } else {
-    // Se o produto não estiver no carrinho, adicione-o ao carrinho
-    $produtosNoCarrinho[$produtoId] = [
-      'nome' => $produtoNome,
-      'preco' => $produtoPreco,
-      'quantidade' => 1,
-    ];
+  // Adicione o código para atualizar a quantidade do produto no carrinho aqui
+  if ($id_produto !== null && $quantidade !== null) {
+    if ($quantidade === 0) {
+      $codigoCompra = 1; // Defina o valor adequado para $codigoCompra
+      ExecutaSQL($conn, "DELETE FROM tbl_carrinho WHERE fk_cod_produto = $id_produto AND fk_cod_compra = $codigoCompra");
+    } else {
+      $codigoCompra = 1; // Defina o valor adequado para $codigoCompra
+      ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = $quantidade WHERE fk_cod_produto = $id_produto AND fk_cod_compra = $codigoCompra");
+    }
   }
-
-  // Atualize a sessão com o carrinho atualizado
-  $_SESSION['carrinho'] = $produtosNoCarrinho;
-
-  // Redirecione o usuário de volta para a página de compra
-  header("Location: ec-telacompra.php");
-  exit();
 }
+
+
+// Chamada da função carrinhoCompras
+carrinhoCompras($conn);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -71,9 +69,10 @@ if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
 
 <body>
   <div class="container">
-  <?php 
-        setarCookies(); 
-        exibirConteudoComBaseNoPapel();?>
+    <?php
+    $conn = conectarAoBanco();
+    setarCookies();
+    exibirConteudoComBaseNoPapel(); ?>
     <div class="apresentacao">
       <img class="foto-ca" src="../img/cart_circle.png" />
       <div class="escrita-ca">
@@ -91,182 +90,94 @@ if (isset($_GET['produto_id'], $_GET['produto_nome'], $_GET['produto_preco'])) {
       <p class="font escrita-t">Total</p>
 
       <?php
-      foreach ($produtos as $index => $produto) :
-        $produtoId = $produto['id_produto'];
-        $nomeProduto = $produto['nome'];
-        $precoProduto = $produto['preco'];
-        $quantidadeProduto = isset($_SESSION['carrinho'][$index]) ? $_SESSION['carrinho'][$index] : 0;
-        $totalProduto = $precoProduto * $quantidadeProduto;
-        $subtotal += $totalProduto;
-      ?>
-        <div class="prod1">
-          <div class="desing-p">
-            <div class="ft-prod"></div>
-            <p class="nm-prod"><?= $nomeProduto; ?></p>
-          </div>
-          <div class="desing-v">
-            <p class="v-prod">R$<?= number_format($precoProduto, 2); ?></p>
-          </div>
-          <div class="desing-v">
-            <button onclick="diminuirValor(<?= $index; ?>)">-</button>
-            <input class="q-prod" id="input-<?= $index; ?>" type="number" value="<?= $quantidadeProduto; ?>" readonly data-valor="<?= $precoProduto; ?>" />
-            <button onclick="aumentarValor(<?= $index; ?>)">+</button>
-          </div>
-          <div class="desing-t">
-            <p class="v-prod">R$<?= number_format($totalProduto, 2); ?></p>
-          </div>
-          <a class="retirar" href="#" onclick="removerProduto(<?= $index; ?>)">Remover</a>
-        </div>
-      <?php
-      endforeach;
+      if (isset($id_produto) && isset($vunit) && isset($nome_produto) && isset($quant) && isset($imagem)) {
+        echo "<div class='prod1'>
+            <div class='desing-p'>
+                <div class='ft-prod'><img src='$imagem' alt='imagem_produto' class='ft-prod'></div>
+                <p class='nm-prod'>$nome_produto</p>
+            </div>
+            <div class='desing-v'>
+                <p class='v-prod'>R$" . number_format($vunit, 2) . "</p>
+            </div>
+            <div class='desing-v'>
+                <button onclick='diminuirQuantidade($id_produto)'>-</button>
+                <input class='q-prod' id='input-$id_produto' type='number' value='$quant' readonly data-valor='$vunit' />
+                <button onclick='adicionarQuantidade($id_produto)'>+</button>
+            </div>
+            <div class='desing-t'>
+                <p class='v-prod'>R$" . number_format($total, 2) . "</p>
+            </div>
+            <a class='retirar' href='#' onclick='removerProduto($id_produto)'>Remover</a>
+        </div>";
+      } else {
+        echo "<p class=''>Não há produtos no carrinho.</p>";
+      }
       ?>
 
       <div class="valores">
-        <p class="escrita" id="subtotal">Subtotal: R$0.00</p>
-        <p class="escrita" id="total">Total: R$0.00</p>
+        <p class="escrita" id="subtotal">Subtotal: R$<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?></p>
+        <p class="escrita" id="total">Total: R$<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?></p>
       </div>
       <form id="formulario-pagamento" action="ec-telapag.php" method="get" style="display: none;">
-        <input type="hidden" name="subtotal" id="input-subtotal" value="">
-        <input type="hidden" name="total" id="input-total" value="">
+        <input type="hidden" name="subtotal" id="input-subtotal" value="<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?>">
+        <input type="hidden" name="total" id="input-total" value="<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?>">
+        <button type="submit" id="btn-submit" style="display: none;"></button>
       </form>
-
-      <a href="#" id="botao-pagar" class="comprar" onclick="enviarFormularioPagamento(); return false;">Pagar</a>
-
-
-
+      <button onclick="atualizarEEnviarFormularioPagamento()" class="pagar">Pagar</button>
     </div>
+  </div>
+  <script>
+    function atualizarEEnviarFormularioPagamento() {
+      var totalElement = document.getElementById('total');
+      var total = totalElement.textContent.replace('Total: R$', '');
+      enviarFormularioPagamento(total);
+    }
 
-    <script>
-      const input = document.getElementById("meuInput");
-      let subtotal = 0;
-      let total = 0;
+    function enviarFormularioPagamento(total) {
+      var totalFormatted = parseFloat(total).toFixed(2);
 
-      function atualizarTotais() {
-        subtotal = 0;
+      document.getElementById("input-subtotal").value = totalFormatted;
+      document.getElementById("input-total").value = totalFormatted;
+      document.getElementById("formulario-pagamento").submit();
+    }
 
+    function adicionarQuantidade(id_produto) {
+      var input = document.getElementById('input-' + id_produto);
+      if (input) {
+        var valor = input.getAttribute('data-valor');
+        var quantidade = parseInt(input.value);
+        quantidade++;
+        input.value = quantidade;
+        atualizarTotal(id_produto, quantidade, valor);
+      } else {
+        console.error('Elemento não encontrado.');
+      }
+    }
 
-        const produtos = document.querySelectorAll(".prod1");
-        produtos.forEach((produto, index) => {
-          const input = document.getElementById(`input-${index}`);
-          const valorProduto = parseFloat(input.getAttribute("data-valor"));
-          const quantidade = parseInt(input.value);
-          subtotal += valorProduto * quantidade;
-        });
-
-        // Atualize o total somando o subtotal e o frete
-        total = subtotal;
-
-        // Atualize os elementos HTML correspondentes
-        document.getElementById("subtotal").textContent = `Subtotal: R$${subtotal.toFixed(2)}`;
-        document.getElementById("total").textContent = `Total: R$${total.toFixed(2)}`;
-
-        const botaoPagar = document.getElementById("botao-pagar");
-        if (subtotal > 0) {
-          botaoPagar.style.display = "block";
-        } else {
-          botaoPagar.style.display = "none";
+    function diminuirQuantidade(id_produto) {
+      var input = document.getElementById('input-' + id_produto);
+      if (input) {
+        var valor = input.getAttribute('data-valor');
+        var quantidade = parseInt(input.value);
+        if (quantidade > 0) {
+          quantidade--;
+          input.value = quantidade;
+          atualizarTotal(id_produto, quantidade, valor);
         }
+      } else {
+        console.error('Elemento não encontrado.');
       }
+    }
 
-      function aumentarValor(index) {
-        const input = document.getElementById(`input-${index}`);
-        input.value = parseInt(input.value) + 1;
-        atualizarCarrinho(index, parseInt(input.value));
-        atualizarTotais();
-      }
+    function atualizarTotal(id_produto, quantidade, valorUnitario) {
+      var totalElement = document.getElementById('total');
+      var subtotalElement = document.getElementById('subtotal');
+      var total = parseFloat(quantidade) * parseFloat(valorUnitario);
 
-      function diminuirValor(index) {
-        const input = document.getElementById(`input-${index}`);
-        const valorAtual = parseInt(input.value);
-        if (valorAtual > 0) {
-          input.value = valorAtual - 1;
-          atualizarCarrinho(index, parseInt(input.value));
-          atualizarTotais();
-        }
-      }
-
-      function removerProduto(index) {
-        const input = document.getElementById(`input-${index}`);
-        input.value = 0;
-        atualizarCarrinho(index, 0);
-        atualizarTotais();
-      }
-
-      function atualizarCarrinho(index, quantidade) {
-        const produtoId = <?= $produtos[$index]['id_produto']; ?>;
-        const formData = new FormData();
-        formData.append('action', 'atualizarQuantidade');
-        formData.append('produtoId', produtoId);
-        formData.append('quantidade', quantidade);
-
-        fetch('ec-carrinho.php', {
-            method: 'POST',
-            body: formData
-          }).then(response => response.text())
-          .then(data => {
-            // Atualize o subtotal, frete e total aqui (se necessário)
-          });
-      }
-      // Chame a função de atualização de totais inicialmente
-      atualizarTotais();
-
-      function mostrarProdutos() {
-        const produtos = document.querySelectorAll(".prod1");
-        const valorInput = parseInt(input.value);
-
-        if (valorInput > 0) {
-          produtos.forEach((produto) => {
-            produto.classList.remove("oculto");
-          });
-        } else {
-          produtos.forEach((produto) => {
-            produto.classList.add("oculto");
-          });
-        }
-      }
-
-      function atualizarCarrinhoNaInterface() {
-        var carrinhoContainer = document.getElementById("carrinho");
-
-        // Limpe o conteúdo atual do carrinho
-        carrinhoContainer.innerHTML = "";
-
-        // Preencha o carrinho com os produtos
-        carrinho.forEach(function(produto) {
-          var produtoDiv = document.createElement("div");
-          produtoDiv.classList.add("produto-no-carrinho");
-
-          var nomeDiv = document.createElement("div");
-          nomeDiv.textContent = "Nome: " + produto.nome;
-
-          var precoDiv = document.createElement("div");
-          precoDiv.textContent = "Preço: R$ " + produto.preco.toFixed(2);
-
-          var quantidadeDiv = document.createElement("div");
-          quantidadeDiv.textContent = "Quantidade: " + produto.quantidade;
-
-          produtoDiv.appendChild(nomeDiv);
-          produtoDiv.appendChild(precoDiv);
-          produtoDiv.appendChild(quantidadeDiv);
-
-          carrinhoContainer.appendChild(produtoDiv);
-        });
-      }
-
-
-
-      function enviarFormularioPagamento() {
-        // Defina os valores de subtotal e total nos campos do formulário
-        document.getElementById("input-subtotal").value = subtotal.toFixed(2);
-        document.getElementById("input-total").value = total.toFixed(2);
-
-        // Envie o formulário
-        document.getElementById("formulario-pagamento").submit();
-      }
-
-
-      mostrarProdutos();
-    </script>
+      totalElement.textContent = "Total: R$" + total.toFixed(2);
+      subtotalElement.textContent = "Subtotal: R$" + total.toFixed(2);
+    }
+  </script>
 </body>
 
 </html>
