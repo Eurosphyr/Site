@@ -1,134 +1,264 @@
-:root {
-    --main-bg-color: #000000;
-    --accent-bg-color: #ffffff;
-    --text-color: #b8aeae;
-    --title-color: #ffffff;
-    --line-color: #000000;
-    --font-family: 'Courier New', Courier, monospace;
-    --font-size: 25px;
-  }
-  
-  * {
+*{
     margin: 0px;
     padding: 0px;
-  }
-  
-  .container {
+}
+a{
+    text-decoration: none;
+}
+.container{
     display: grid;
-    grid-template-areas:
-      "cabecalho cabecalho"
-      "sobre sobre"
-      "escrita1 img1"
-      "img2 escrita2"
-      "banner banner";
+    grid-template-areas: "cabecalho cabelho"
+                         "sobre sobre"
+                         "escrita1 img1"
+                         "img2 escrita2"
+                         "banner banner"
+                         "grupo prof";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.26fr 1fr 2.5fr 2fr 2.5fr;
+    grid-template-rows: 0.15fr 1.2fr 2fr 2fr 2.5fr 1fr;
     z-index: 3;
-    grid-area: baixo;
-    background-color: var(--main-bg-color);
-    height: auto;
+    background-color: #000000;
+    height: 450vh;
+}
+/*Parte cabecalho*/
+/* Define color variables */
+:root {
+    --main-bg-color: #ffffff;
+    --header-bg-color: #14213d;
+    --text-color: #000000;
+    --button-bg-color: #14213d;
+    --button-text-color: #e5e5e5;
+    --accent-color: #3498db;
+    --accent-hover-color: #2ecc71;
+    --placeholder-color: #666262;
   }
   
+  /* Rest of your CSS with variables and font-family */
+  .cabecalho {
+    width: 100%;
+    z-index: 999;
+    position: fixed;
+    padding: 0px 1vw;
+    grid-area: cabecalho;
+    background-color: var(--main-bg-color);
+    justify-content: space-around; /* Alinhar ícones à direita */
+    align-items: center; /* Alinhar verticalmente no centro */
+    display: flex;
+    border-bottom: 1px solid var(--text-color);
+    font-family: "Arial", sans-serif;
+    color: var(--text-color);
+  }
+  
+  .logo{
+    width: 2.9vw;
+    height: 5.3vh;
+    border-radius: 100%;
+  }
+  .b{
+    cursor: pointer;
+    font-size: 0.8vw;
+    border: none;
+    width: 7vw;
+    height: 5.3vh;
+    border-radius: 0.25vw;
+    background-color: #14213D;
+    color: #ffffff;
+  }
+  .perfil{
+    margin-left: 20vw;
+    width: 5.7vw;
+  }
+  .carrinho{
+    width: 3.4vw;
+  }
   /* Parte Apresentacao */
-  .sobre {
+.sobre{
     flex-direction: column;
     grid-area: sobre;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--accent-bg-color);
-  }
-  
-  .apresentacao {
+    background-color: #ffffff;
+}
+.apresentacao{
     font-weight: bold;
-    font-size: 60px;
-    color: var(--line-color);
-  }
-  
-  .linha {
-    width: 800px;
+    font-size: 3vw;
+}
+.linha{
+    width: 40vw;
     height: 1px;
-    background-color: var(--line-color);
-  }
-  
-  /* Parte corpo texto cima */
-  .part-img1 {
+    background-color: #000000;
+}
+/* Parte corpo texto cima */
+.part-img1{
     padding: 20px 0px;
     grid-area: img1;
-    background-color: var(--accent-bg-color);
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .imagem1 {
-    width: 400px;
-    height: 500px;
-    background-color: var(--text-color);
-  }
-  
-  /* Parte Escrita1 */
-  .escrita1 {
+}
+.imagem1{
+    border-radius: 80% 20% 81% 19% / 16% 81% 19% 84% ;
+    width: 22vw;
+    height: 57vh;
+    background-color: #b8aeae;
+}
+/* Parte Escrita1 */
+.escrita1{
     grid-area: escrita1;
-    background-color: var(--accent-bg-color);
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .escritaL {
-    padding: 0px 300px 0px 350px;
-    font-size: var(--font-size);
-    font-family: var(--font-family);
-    color: var(--line-color);
-  }
-  
-  /* Parte corpo texto baixo */
-  .part-img2 {
+}
+.escritaL{
+    padding: 0px 14vw 0px 14vw;
+    font-size: 1.4vw;
+    font-family: 'Courier New', Courier, monospace;
+}
+/* Parte corpo texto baixo */
+.part-img2{
     padding: 20px 0px;
     grid-area: img2;
-    background-color: var(--accent-bg-color);
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .imagem2 {
-    width: 400px;
-    height: 500px;
-    background-color: var(--text-color);
-  }
-  
-  /* Parte Escrita2 */
-  .escrita2 {
+}
+.imagem2{
+    border-radius: 15% 85% 17% 83% / 79% 13% 87% 21% ;
+    width: 22vw;
+    height: 57vh;
+    background-color: #b8aeae;
+}
+/* Parte Escrita2 */
+.escrita2{
     grid-area: escrita2;
-    background-color: var(--accent-bg-color);
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .escritaD {
-    padding: 0px 300px 0px 350px;
-    font-size: var(--font-size);
-    font-family: var(--font-family);
-    color: var(--line-color);
-  }
-  
-  /* Parte Banner */
-  .part-banner {
+}
+.escritaD{
+    padding: 0px 14vw 0px 14vw;
+    font-size: 1.4vw;
+    font-family: 'Courier New', Courier, monospace;
+}
+/* Parte Banner */
+.part-banner{
     grid-area: banner;
-    background-color: var(--accent-bg-color);
-    font-family: var(--font-family);
-    font-size: var(--font-size);
+    background-color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .banner {
-    background-color: var(--text-color);
-    height: 400px;
-    width: 1350px;
-  }
-  
+}
+.banner{
+    background-color: #b8aeae;
+    height: 45vh;
+    width: 76vw;
+}
+.nos{
+    font-size: 2vw;
+    font-weight: bold;
+}
+.grupo{
+    padding-left: 2vw;
+    grid-area: grupo;
+    background-color: #ffffff;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+}
+.p1, .p2, .p3, .p4, .p5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vw 0px;
+}
+.imagemf{
+    width: 5vw;
+    margin: 0px 2vw;
+}
+.professores{
+    padding-left: 2vw;
+    grid-area: prof;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #ffffff;
+}
+@media screen and (max-width: 1080px) {
+    .container
+    {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 0.15fr 1fr 1.5fr 1.5fr 2fr;
+        height: 250vh;   
+    }
+
+    .cabecalho
+    {
+      height: 70px;
+    }
+    .logo
+    {
+      width: 30px;
+      height: 30px;
+    }
+    .b
+    {
+      font-size: 8px;
+      border-radius: 5px;
+      width: 60px;
+      height: 30px;
+    }
+    .perfil
+    {
+      width: 50px;
+      height: 30px;
+      margin-left: 20px;
+    }
+    .carrinho
+    {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    .apresentacao
+    {
+        font-size: 30px;
+    }
+    .linha
+    {
+        width: 200px;
+    }
+    .imagem1{
+        width: 135px;
+        height: 200px;
+    }
+    .imagem2{
+        width: 135px;
+        height: 200px;
+    }
+    .escritaL, .escritaD
+    {
+        padding: 0px 25px 0px 25px;
+        font-size: 11px;
+    }
+    .banner{
+        background-color: #b8aeae;
+        height: 200px;
+        width: 300px;
+    }
+    .nos{
+        font-size: 17px;
+    }
+    .imagemf{
+        width: 40px;
+    }
+    p{
+        font-size: 10px;
+    }
+}

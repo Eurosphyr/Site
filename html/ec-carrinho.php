@@ -5,56 +5,124 @@ session_start();
 include "../php/funcoes.php";
 
 $conn = conectarAoBanco();
+
 // Certifique-se de que a conexão com o banco de dados foi estabelecida
+// Código PHP para inserir o produto no carrinho
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_produto'])) {
-  $id_produto = intval($_GET['id_produto']);
+  $id_produto = $_GET['id_produto'];
+  $statusCompra = 'Pendente';
+  $dataHoje = date('Y-m-d');
+  $session_id = session_id();
 
-  // Use o ID do produto para pesquisar no banco de dados
-  $conn = conectarAoBanco();
-  $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE id_produto = :id");
-  $stmt->bindParam(':id', $id_produto);
-  $stmt->execute();
-  $produto = $stmt->fetch();
+  $conn->beginTransaction();
 
-  // Verifique se a consulta encontrou um produto
-  if ($produto) {
-    // Use os dados do produto conforme necessário
-    $id_produto = $produto['id_produto'];
-    $nome_produto = $produto['nome'];
-    $vunit = $produto['preco'];
-    $quant = 1;
-    $imagem = $produto['imagem'];
-    $total = $vunit * $quant;
-    // ... e assim por diante
+  try {
+    $stmt = $conn->prepare("INSERT INTO tbl_compra (id_usuario, status, data) VALUES (NULL, :statusCompra, :dataHoje)");
+    $stmt->execute(array(':statusCompra' => $statusCompra, ':dataHoje' => $dataHoje));
+    $codigoCompra = $conn->lastInsertId();
+
+    $stmt = $conn->prepare("INSERT INTO tbl_compratmp (id_compra, sessao) VALUES (:codigoCompra, :session_id)");
+    $stmt->execute(array(':codigoCompra' => $codigoCompra, ':session_id' => $session_id));
+
+    $stmt = $conn->prepare("INSERT INTO tbl_carrinho (id_compra, id_produto, quantidade) VALUES (:codigoCompra, :id_produto, 1)");
+    $stmt->execute(array(':codigoCompra' => $codigoCompra, ':id_produto' => $id_produto));
+
+    $conn->commit();
+  } catch (PDOException $e) {
+    $conn->rollBack();
+    echo "Error: " . $e->getMessage();
   }
+
+  header("Location: ec-carrinho.php");
+  exit;
 }
 
 if (!$conn) {
   die("Falha na conexão com o banco de dados.");
 }
+function aumentarQuantidadeProduto($idProduto, $quantidade)
+{
+  global $conn;
 
-if (isset($_POST['action']) && $_POST['action'] === 'atualizarQuantidade') {
+  // Atualize a quantidade na tabela de produtos
+  $sql = "UPDATE tbl_carrinho SET quantidade = quantidade + :quantidade WHERE id_produto = :id_produto";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
+  $stmt->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+
+  if ($stmt->execute() === TRUE) {
+    echo "Quantidade de produto atualizada com sucesso!";
+  } else {
+    echo "Erro ao atualizar a quantidade do produto: " . $stmt->errorInfo(); // Adicionado para mostrar informações detalhadas do erro
+  }
+}
+
+// ...
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aumentar_quantidade']) && isset($_POST['id_produto']) && isset($_POST['quantidade'])) {
   $id_produto = isset($_POST['id_produto']) ? $_POST['id_produto'] : null;
-  $quantidade = isset($_POST['quantidade']) ? $_POST['quantidade'] : null;
+  $quantidade = isset($_POST['quantidade']) ? intval($_POST['quantidade']) : 0;
 
-  // Adicione o código para atualizar a quantidade do produto no carrinho aqui
-  if ($id_produto !== null && $quantidade !== null) {
-    if ($quantidade === 0) {
-      $codigoCompra = 1; // Defina o valor adequado para $codigoCompra
-      ExecutaSQL($conn, "DELETE FROM tbl_carrinho WHERE fk_cod_produto = $id_produto AND fk_cod_compra = $codigoCompra");
-    } else {
-      $codigoCompra = 1; // Defina o valor adequado para $codigoCompra
-      ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = $quantidade WHERE fk_cod_produto = $id_produto AND fk_cod_compra = $codigoCompra");
-    }
+  if ($id_produto && $quantidade > 0) {
+    aumentarQuantidadeProduto($id_produto, $quantidade);
+  }
+}
+
+function diminuirQuantidadeProduto($idProduto, $quantidade)
+{
+  global $conn;
+
+  // Atualize a quantidade na tabela de produtos
+  $sql = "UPDATE tbl_carrinho SET quantidade = quantidade - :quantidade WHERE id_produto = :id_produto";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
+  $stmt->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+
+  if ($stmt->execute() === TRUE) {
+    echo "Quantidade de produto diminuída com sucesso!";
+  } else {
+    echo "Erro ao diminuir a quantidade do produto: " . $stmt->errorInfo(); // Adicionado para mostrar informações detalhadas do erro
+  }
+}
+
+// ...
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['diminuir_quantidade']) && isset($_POST['id_produto']) && isset($_POST['quantidade'])) {
+  $id_produto = isset($_POST['id_produto']) ? $_POST['id_produto'] : null;
+  $quantidade = isset($_POST['quantidade']) ? intval($_POST['quantidade']) : 0;
+
+  if ($id_produto && $quantidade > 0) {
+    diminuirQuantidadeProduto($id_produto, $quantidade);
   }
 }
 
 
-// Chamada da função carrinhoCompras
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
+  $conn->beginTransaction();
+
+  try {
+    // Limpar a tabela do carrinho
+    $conn->exec("DELETE FROM tbl_carrinho");
+
+    // Limpar a tabela temporária de compra
+    $conn->exec("DELETE FROM tbl_compratmp");
+
+    // Limpar a tabela de compra
+    $conn->exec("DELETE FROM tbl_compra");
+
+    $conn->commit();
+
+    header("Location: ec-carrinho.php");
+    exit;
+  } catch (PDOException $e) {
+    $conn->rollBack();
+    echo "Error: " . $e->getMessage();
+  }
+}
+
 carrinhoCompras($conn);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -70,9 +138,9 @@ carrinhoCompras($conn);
 <body>
   <div class="container">
     <?php
-    $conn = conectarAoBanco();
     setarCookies();
-    exibirConteudoComBaseNoPapel(); ?>
+    exibirConteudoComBaseNoPapel();
+    ?>
     <div class="apresentacao">
       <img class="foto-ca" src="../img/cart_circle.png" />
       <div class="escrita-ca">
@@ -81,17 +149,35 @@ carrinhoCompras($conn);
         <div class="reta2"></div>
       </div>
     </div>
-
-
     <div class="produtos">
       <p class="font escrita-p">Produto</p>
       <p class="font escrita-v">Valor</p>
       <p class="font escrita-q">Quant</p>
-      <p class="font escrita-t">Total</p>
-
       <?php
-      if (isset($id_produto) && isset($vunit) && isset($nome_produto) && isset($quant) && isset($imagem)) {
-        echo "<div class='prod1'>
+      // Código PHP para obter os produtos do carrinho
+      $stmt = $conn->query("SELECT * FROM tbl_carrinho");
+      $produtos_no_carrinho = $stmt->fetchAll();
+
+      $subtotal = 0;
+      $total = 0;
+      // Se houver produtos no carrinho, exiba-os na seção HTML
+      if ($produtos_no_carrinho) {
+        foreach ($produtos_no_carrinho as $produto) {
+          $id_produto = $produto['id_produto'];
+          $quantidade = $produto['quantidade'];
+          // Busque informações adicionais sobre o produto no banco de dados
+          $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE id_produto = :id_produto");
+          $stmt->bindParam(':id_produto', $id_produto);
+          $stmt->execute();
+          $dados_produto = $stmt->fetch();
+
+          $nome_produto = $dados_produto['nome']; // Supondo que o nome do produto está na coluna 'nome'
+          $vunit = $dados_produto['preco']; // Supondo que o preço do produto está na coluna 'preco'
+          $imagem = $dados_produto['imagem']; // Supondo que o caminho da imagem está na coluna 'imagem'
+          $subtotal += $vunit * $quantidade;
+          $total += $vunit * $quantidade;
+          // Seção HTML para exibir detalhes do produto no carrinho
+          echo "<div class='prod1'>
             <div class='desing-p'>
                 <div class='ft-prod'><img src='$imagem' alt='imagem_produto' class='ft-prod'></div>
                 <p class='nm-prod'>$nome_produto</p>
@@ -100,23 +186,33 @@ carrinhoCompras($conn);
                 <p class='v-prod'>R$" . number_format($vunit, 2) . "</p>
             </div>
             <div class='desing-v'>
-                <button onclick='diminuirQuantidade($id_produto)'>-</button>
-                <input class='q-prod' id='input-$id_produto' type='number' value='$quant' readonly data-valor='$vunit' />
-                <button onclick='adicionarQuantidade($id_produto)'>+</button>
-            </div>
+            <form method='post' action=''>
+                <input type='hidden' name='id_produto' value='$id_produto'>
+                <input type='hidden' name='quantidade' value='1'>
+                <button type='submit' name='diminuir_quantidade'>-</button>
+            </form>
+                <input class='q-prod' id='input-$id_produto' type='number' value='$quantidade' readonly data-valor='$vunit' />";
+          // Botão para aumentar a quantidade do produto
+          echo "<form method='post' action=''>
+            <input type='hidden' name='id_produto' value='$id_produto'>
+            <input type='hidden' name='quantidade' value='1'>
+            <button type='submit' name='aumentar_quantidade'>+</button>
+            </form>";
+          echo "</div>
             <div class='desing-t'>
-                <p class='v-prod'>R$" . number_format($total, 2) . "</p>
+                <p class='v-prod'>R$" . number_format($vunit * $quantidade, 2) . "</p>
             </div>
             <a class='retirar' href='#' onclick='removerProduto($id_produto)'>Remover</a>
         </div>";
+        }
       } else {
+        // Caso não haja produtos no carrinho, exiba uma mensagem apropriada
         echo "<p class=''>Não há produtos no carrinho.</p>";
       }
       ?>
-
-      <div class="valores">
-        <p class="escrita" id="subtotal">Subtotal: R$<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?></p>
-        <p class="escrita" id="total">Total: R$<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?></p>
+      <div class='valores'>
+        <p class='escrita' id='subtotal'>Subtotal: R$<?php echo number_format($subtotal, 2); ?></p>
+        <p class='escrita' id='total'>Total: R$<?php echo number_format($total, 2); ?></p>
       </div>
       <form id="formulario-pagamento" action="ec-telapag.php" method="get" style="display: none;">
         <input type="hidden" name="subtotal" id="input-subtotal" value="<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?>">
@@ -124,6 +220,7 @@ carrinhoCompras($conn);
         <button type="submit" id="btn-submit" style="display: none;"></button>
       </form>
       <button onclick="atualizarEEnviarFormularioPagamento()" class="pagar">Pagar</button>
+      <button onclick="limparCarrinho()" class="limpar">Limpar Carrinho</button>
     </div>
   </div>
   <script>
@@ -139,43 +236,6 @@ carrinhoCompras($conn);
       document.getElementById("input-subtotal").value = totalFormatted;
       document.getElementById("input-total").value = totalFormatted;
       document.getElementById("formulario-pagamento").submit();
-    }
-
-    function adicionarQuantidade(id_produto) {
-      var input = document.getElementById('input-' + id_produto);
-      if (input) {
-        var valor = input.getAttribute('data-valor');
-        var quantidade = parseInt(input.value);
-        quantidade++;
-        input.value = quantidade;
-        atualizarTotal(id_produto, quantidade, valor);
-      } else {
-        console.error('Elemento não encontrado.');
-      }
-    }
-
-    function diminuirQuantidade(id_produto) {
-      var input = document.getElementById('input-' + id_produto);
-      if (input) {
-        var valor = input.getAttribute('data-valor');
-        var quantidade = parseInt(input.value);
-        if (quantidade > 0) {
-          quantidade--;
-          input.value = quantidade;
-          atualizarTotal(id_produto, quantidade, valor);
-        }
-      } else {
-        console.error('Elemento não encontrado.');
-      }
-    }
-
-    function atualizarTotal(id_produto, quantidade, valorUnitario) {
-      var totalElement = document.getElementById('total');
-      var subtotalElement = document.getElementById('subtotal');
-      var total = parseFloat(quantidade) * parseFloat(valorUnitario);
-
-      totalElement.textContent = "Total: R$" + total.toFixed(2);
-      subtotalElement.textContent = "Subtotal: R$" + total.toFixed(2);
     }
   </script>
 </body>

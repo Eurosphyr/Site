@@ -618,96 +618,24 @@ function carrinhoCompras($conn)
   }
 
   // Verifica se o carrinho foi chamado por COMPRAR, EXCLUIR ou FECHAR
-  if ($_GET) {
-    if (isset($_GET['operacao']) && isset($_GET['id_produto'])) {
-      $operacao = $_GET['operacao'];
-      $id_produto = $_GET['id_produto'];
-      $quantidade = intval(ValorSQL($conn, "SELECT quantidade FROM tbl_carrinho WHERE id_compra = $codigoCompra AND id_produto = $id_produto"));
-      if ($operacao === 'incluir') {
-        if ($quantidade === 0) {
-          ExecutaSQL($conn, "INSERT INTO tbl_carrinho (id_compra, id_produto, quantidade) VALUES ($codigoCompra, $id_produto, 1)");
-        } else {
-          ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = quantidade + 1 WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
-        }
-      } else if ($operacao === 'excluir') {
-        if ($quantidade <= 1) {
-          ExecutaSQL($conn, "DELETE FROM tbl_carrinho WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
-        } else {
-          ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = quantidade - 1 WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
-        }
-      } else if ($operacao === 'fechar') {
-        // Adicione o código necessário para fechar a compra aqui
+  if ($_GET && isset($_GET['operacao']) && isset($_GET['id_produto'])) {
+    $operacao = $_GET['operacao'];
+    $id_produto = $_GET['id_produto'];
+    $quantidade = intval(ValorSQL($conn, "SELECT quantidade FROM tbl_carrinho WHERE id_compra = $codigoCompra AND id_produto = $id_produto"));
+    if ($operacao === 'incluir') {
+      if ($quantidade === 0) {
+        ExecutaSQL($conn, "INSERT INTO tbl_carrinho (id_compra, id_produto, quantidade) VALUES ($codigoCompra, $id_produto, 1)");
+      } else {
+        ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = quantidade + 1 WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
       }
+    } elseif ($operacao === 'excluir') {
+      if ($quantidade <= 1) {
+        ExecutaSQL($conn, "DELETE FROM tbl_carrinho WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
+      } else {
+        ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = quantidade - 1 WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
+      }
+    } elseif ($operacao === 'fechar') {
+      // Adicione o código necessário para fechar a compra aqui
     }
   }
-
-
-  // Mostra os itens do carrinho e o total
-  $output = '';
-
-  $output .= "<br><strong>Compras até o momento...</strong><br>
-    <table border='1'>
-    <tr>
-      <td>Produto</td>
-      <td>Descrição</td>
-      <td>Qtd</td>
-      <td>\$ unit</td>
-      <td>\$ sub</td>
-      <td></td>
-    </tr>";
-
-  $sql = "SELECT p.id_produto, 
-                p.descricao as descprod, 
-                c.quantidade, 
-                p.preco, 
-                p.preco * c.quantidade as sub  
-          FROM tbl_produto p
-          INNER JOIN tbl_carrinho c ON p.id_produto = c.id_produto 
-          WHERE c.id_compra = $codigoCompra  
-          ORDER BY p.descricao ";
-
-  $select = $conn->query($sql);
-
-  $carrinhoProdutos = '';
-  while ($linha = $select->fetch()) {
-    $id_produto = $linha['id_produto'];
-    $nome_produto = $linha['nome'];
-    $descProd = $linha['descprod'];
-    $quant = $linha['quantidade'];
-    $vunit = $linha['preco'];
-    $sub = $linha['sub'];
-    $imagem = $linha['imagem'];
-    
-
-    $carrinhoProdutos .= "<tr>
-        <td>$nome_produto</td>
-        <td>$descProd</td>
-        <td>$quant</td>
-        <td>$vunit</td>
-        <td>$sub</td>
-        <td>$imagem</td>
-        <td><a href='carrinho.php?operacao=incluir&id_produto=$id_produto'>Incluir</a></td>
-        <td><a href='carrinho.php?operacao=excluir&id_produto=$id_produto'>Excluir</a></td>
-      </tr>";
-  }
-
-  $output .= $carrinhoProdutos;
-  $output .= "</table>";
-
-  $total = ValorSQL($conn, "SELECT SUM(p.preco * c.quantidade) FROM tbl_produto p INNER JOIN tbl_carrinho c ON p.id_produto = c.id_produto WHERE c.id_compra = $codigoCompra");
-
-  $statusCompraHTML = "Status da compra: $statusCompra<br>";
-  $totalHTML = "Total: $total <br><br>";
-
-  $fecharCarrinhoHTML = "";
-  if ($statusCompra === 'Pendente' && isset($_SESSION['sessaoLogin']) && $_SESSION['sessaoLogin'] !== '') {
-    $fecharCarrinhoHTML = "<a href='carrinho.php?operacao=fechar&id_produto=0'>Fechar o carrinho</a>";
-  }
-
-  $output .= $statusCompraHTML;
-  $output .= $totalHTML;
-  $output .= "<br><a href='index.php'>Home</a>";
-
-  return array('carrinhoHTML' => $output, 'total' => $total);
 }
-
