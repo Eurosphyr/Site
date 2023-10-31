@@ -12,9 +12,12 @@
 
 <body>
   <div class="container">
+    <?php
+    include "../php/funcoes.php";
+    ?>
     <div class="menu">
       <div class="cadastro">Cadastre-se</div>
-      <form action="../php/inserir_dados.php" method="POST">
+      <form action="../php/inserir_dados.php" method="POST" onsubmit="return validarFormulario()">
         <label class="nm">Nome</label>
         <input class="escrita" type="text" name="nome" />
 
@@ -51,6 +54,7 @@
 
           <label class="tp">Administrador</label>
           <input class="escrita" type="checkbox" name="tipo_usuario" />
+
         <?php
         }
         ?>
@@ -63,6 +67,18 @@
       <div class="baixo"><a href="ec-login.php">Já possuo conta</a></div>
     </div>
   </div>
+  <script>
+    function validarFormulario() {
+      var inputs = document.querySelectorAll('.escrita');
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value.trim() === '') {
+          alert('Preencha todos os campos!');
+          return false;
+        }
+      }
+      return true;
+    }
+  </script>
 </body>
 
 </html>

@@ -3,85 +3,115 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
 include "../php/funcoes.php";
-
+$session_id = session_id();
 $conn = conectarAoBanco();
+// Verificar se a conexão com o banco de dados foi estabelecida
+if (!$conn) {
+  die("Falha na conexão com o banco de dados.");
+}
 
-// Certifique-se de que a conexão com o banco de dados foi estabelecida
+// Obter o ID do usuário da sessão
+$id_usuario = null;
+if (isset($_SESSION['userId'])) {
+  $id_usuario = $_SESSION['userId'];
+}
+
 // Código PHP para inserir o produto no carrinho
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_produto'])) {
-  $id_produto = $_GET['id_produto'];
-  $statusCompra = 'Pendente';
-  $dataHoje = date('Y-m-d');
-  $session_id = session_id();
+  // Verificar se a sessão do usuário existe e está definida
+  if ($id_usuario) {
+    $id_produto = $_GET['id_produto'];
+    $statusCompra = 'Pendente';
+    $dataHoje = date('Y-m-d H:i:s');
 
-  $conn->beginTransaction();
 
-  try {
-    $stmt = $conn->prepare("INSERT INTO tbl_compra (id_usuario, status, data) VALUES (NULL, :statusCompra, :dataHoje)");
-    $stmt->execute(array(':statusCompra' => $statusCompra, ':dataHoje' => $dataHoje));
-    $codigoCompra = $conn->lastInsertId();
+    $conn->beginTransaction();
 
-    $stmt = $conn->prepare("INSERT INTO tbl_compratmp (id_compra, sessao) VALUES (:codigoCompra, :session_id)");
-    $stmt->execute(array(':codigoCompra' => $codigoCompra, ':session_id' => $session_id));
+    try {
+      $stmt = $conn->prepare("INSERT INTO tbl_compra (id_usuario, status, data) VALUES (:id_usuario, :statusCompra, :dataHoje)");
+      $stmt->execute(array(':id_usuario' => $id_usuario, ':statusCompra' => $statusCompra, ':dataHoje' => $dataHoje));
+      $codigoCompra = $conn->lastInsertId();
 
-    $stmt = $conn->prepare("INSERT INTO tbl_carrinho (id_compra, id_produto, quantidade) VALUES (:codigoCompra, :id_produto, 1)");
-    $stmt->execute(array(':codigoCompra' => $codigoCompra, ':id_produto' => $id_produto));
+      $stmt = $conn->prepare("INSERT INTO tbl_compratmp (id_compra, sessao) VALUES (:codigoCompra, :session_id)");
+      $stmt->execute(array(':codigoCompra' => $codigoCompra, ':session_id' => $session_id));
 
-    $conn->commit();
-  } catch (PDOException $e) {
-    $conn->rollBack();
-    echo "Error: " . $e->getMessage();
+      $stmt = $conn->prepare("INSERT INTO tbl_carrinho (id_compra, id_produto, quantidade) VALUES (:codigoCompra, :id_produto, 1)");
+      $stmt->execute(array(':codigoCompra' => $codigoCompra, ':id_produto' => $id_produto));
+
+      $conn->commit();
+    } catch (PDOException $e) {
+      $conn->rollBack();
+      echo '<script>alert("Erro ao inserir produto no carrinho"); window.location.href = "../html/ec-telacompra.php";</script>';
+    }
+
+    header("Location: ec-carrinho.php");
+    exit;
   }
-
-  header("Location: ec-carrinho.php");
-  exit;
 }
 
 if (!$conn) {
   die("Falha na conexão com o banco de dados.");
 }
-function aumentarQuantidadeProduto($idProduto, $quantidade)
+// ...
+
+function aumentarQuantidadeProduto($idProduto, $quantidade, $session_id)
 {
   global $conn;
 
-  // Atualize a quantidade na tabela de produtos
-  $sql = "UPDATE tbl_carrinho SET quantidade = quantidade + :quantidade WHERE id_produto = :id_produto";
-  $stmt = $conn->prepare($sql);
-  $stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
-  $stmt->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+  $sql_update = "UPDATE tbl_carrinho 
+                SET quantidade = quantidade + :quantidade 
+                WHERE id_produto = :id_produto 
+                AND id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)";
 
-  if ($stmt->execute() === TRUE) {
-    echo "Quantidade de produto atualizada com sucesso!";
+  $stmt_update = $conn->prepare($sql_update);
+  $stmt_update->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
+  $stmt_update->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+  $stmt_update->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+
+  if ($stmt_update->execute() === TRUE) {
   } else {
-    echo "Erro ao atualizar a quantidade do produto: " . $stmt->errorInfo(); // Adicionado para mostrar informações detalhadas do erro
+    echo '<script>alert("Erro ao aumentar quantidade do produto!"); window.location.href = "../html/ec-carrinho.php";</script>';
   }
 }
+function diminuirQuantidadeProduto($idProduto, $quantidade, $session_id)
+{
+  global $conn;
+
+  $sql_update = "UPDATE tbl_carrinho 
+                SET quantidade = GREATEST(0, quantidade - :quantidade) 
+                WHERE id_produto = :id_produto 
+                AND id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)";
+
+  $stmt_update = $conn->prepare($sql_update);
+  $stmt_update->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
+  $stmt_update->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+  $stmt_update->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+
+  if ($stmt_update->execute() === TRUE) {
+    if ($quantidade <= 0) {
+      $sql_delete = "DELETE FROM tbl_carrinho 
+                    WHERE id_produto = :id_produto 
+                    AND id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)";
+      $stmt_delete = $conn->prepare($sql_delete);
+      $stmt_delete->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+      $stmt_delete->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+      $stmt_delete->execute();
+    }
+  } else {
+    echo '<script>alert("Erro ao diminuir quantidade do produto"); window.location.href = "../html/ec-carrinho.php";</script>';
+  }
+}
+
 
 // ...
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aumentar_quantidade']) && isset($_POST['id_produto']) && isset($_POST['quantidade'])) {
   $id_produto = isset($_POST['id_produto']) ? $_POST['id_produto'] : null;
   $quantidade = isset($_POST['quantidade']) ? intval($_POST['quantidade']) : 0;
+  $session_id = session_id();
 
   if ($id_produto && $quantidade > 0) {
-    aumentarQuantidadeProduto($id_produto, $quantidade);
-  }
-}
-
-function diminuirQuantidadeProduto($idProduto, $quantidade)
-{
-  global $conn;
-
-  // Atualize a quantidade na tabela de produtos
-  $sql = "UPDATE tbl_carrinho SET quantidade = quantidade - :quantidade WHERE id_produto = :id_produto";
-  $stmt = $conn->prepare($sql);
-  $stmt->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
-  $stmt->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
-
-  if ($stmt->execute() === TRUE) {
-    echo "Quantidade de produto diminuída com sucesso!";
-  } else {
-    echo "Erro ao diminuir a quantidade do produto: " . $stmt->errorInfo(); // Adicionado para mostrar informações detalhadas do erro
+    aumentarQuantidadeProduto($id_produto, $quantidade, $session_id);
   }
 }
 
@@ -90,26 +120,37 @@ function diminuirQuantidadeProduto($idProduto, $quantidade)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['diminuir_quantidade']) && isset($_POST['id_produto']) && isset($_POST['quantidade'])) {
   $id_produto = isset($_POST['id_produto']) ? $_POST['id_produto'] : null;
   $quantidade = isset($_POST['quantidade']) ? intval($_POST['quantidade']) : 0;
+  $session_id = session_id();
 
-  if ($id_produto && $quantidade > 0) {
-    diminuirQuantidadeProduto($id_produto, $quantidade);
+  if ($id_produto) {
+    diminuirQuantidadeProduto($id_produto, $quantidade, $session_id);
   }
 }
 
-
+// ...
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
+  $session_id = session_id();
+
   $conn->beginTransaction();
 
   try {
-    // Limpar a tabela do carrinho
-    $conn->exec("DELETE FROM tbl_carrinho");
+    $sql_clear_cart = "DELETE tbl_carrinho 
+                       FROM tbl_carrinho 
+                       INNER JOIN tbl_compratmp ON tbl_carrinho.id_compra = tbl_compratmp.id_compra
+                       WHERE tbl_compratmp.sessao = :session_id";
 
-    // Limpar a tabela temporária de compra
-    $conn->exec("DELETE FROM tbl_compratmp");
+    $stmt_clear_cart = $conn->prepare($sql_clear_cart);
+    $stmt_clear_cart->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+    $stmt_clear_cart->execute();
 
-    // Limpar a tabela de compra
-    $conn->exec("DELETE FROM tbl_compra");
+    $stmt_clear_temp = $conn->prepare("DELETE FROM tbl_compratmp WHERE sessao = :session_id");
+    $stmt_clear_temp->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+    $stmt_clear_temp->execute();
+
+    $stmt_clear_compra = $conn->prepare("DELETE FROM tbl_compra WHERE id_usuario = :id_usuario");
+    $stmt_clear_compra->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+    $stmt_clear_compra->execute();
 
     $conn->commit();
 
@@ -117,12 +158,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
     exit;
   } catch (PDOException $e) {
     $conn->rollBack();
-    echo "Error: " . $e->getMessage();
+    echo '<script>alert("Erro!"); window.location.href = "../html/ec-carrinho.php";</script>';
   }
 }
-
-carrinhoCompras($conn);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -142,7 +183,7 @@ carrinhoCompras($conn);
     exibirConteudoComBaseNoPapel();
     ?>
     <div class="apresentacao">
-      <img class="foto-ca" src="../img/cart_circle.png" />
+      <img class="foto-ca" src="../img/cart_circle.svg" />
       <div class="escrita-ca">
         <div class="reta1"></div>
         <p class="carrinho">Carrinho</p>
@@ -155,7 +196,9 @@ carrinhoCompras($conn);
       <p class="font escrita-q">Quant</p>
       <?php
       // Código PHP para obter os produtos do carrinho
-      $stmt = $conn->query("SELECT * FROM tbl_carrinho");
+      $stmt = $conn->prepare("SELECT * FROM tbl_carrinho WHERE id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)");
+      $stmt->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+      $stmt->execute();
       $produtos_no_carrinho = $stmt->fetchAll();
 
       $subtotal = 0;
@@ -165,6 +208,7 @@ carrinhoCompras($conn);
         foreach ($produtos_no_carrinho as $produto) {
           $id_produto = $produto['id_produto'];
           $quantidade = $produto['quantidade'];
+          $id_compra = $produto['id_compra'];
           // Busque informações adicionais sobre o produto no banco de dados
           $stmt = $conn->prepare("SELECT * FROM tbl_produto WHERE id_produto = :id_produto");
           $stmt->bindParam(':id_produto', $id_produto);
@@ -178,32 +222,32 @@ carrinhoCompras($conn);
           $total += $vunit * $quantidade;
           // Seção HTML para exibir detalhes do produto no carrinho
           echo "<div class='prod1'>
-            <div class='desing-p'>
-                <div class='ft-prod'><img src='$imagem' alt='imagem_produto' class='ft-prod'></div>
-                <p class='nm-prod'>$nome_produto</p>
-            </div>
-            <div class='desing-v'>
-                <p class='v-prod'>R$" . number_format($vunit, 2) . "</p>
-            </div>
-            <div class='desing-v'>
-            <form method='post' action=''>
-                <input type='hidden' name='id_produto' value='$id_produto'>
-                <input type='hidden' name='quantidade' value='1'>
-                <button type='submit' name='diminuir_quantidade'>-</button>
-            </form>
-                <input class='q-prod' id='input-$id_produto' type='number' value='$quantidade' readonly data-valor='$vunit' />";
-          // Botão para aumentar a quantidade do produto
-          echo "<form method='post' action=''>
+        <div class='desing-p'>
+            <div class='ft-prod'><img src='$imagem' alt='imagem_produto' class='ft-prod'></div>
+            <p class='nm-prod'>$nome_produto</p>
+        </div>
+        <div class='desing-v'>
+            <p class='v-prod'>R$" . number_format($vunit, 2) . "</p>
+        </div>
+        <div class='desing-v'>
+        <form method='post' action=''>
             <input type='hidden' name='id_produto' value='$id_produto'>
             <input type='hidden' name='quantidade' value='1'>
-            <button type='submit' name='aumentar_quantidade'>+</button>
-            </form>";
+            <button type='submit' name='diminuir_quantidade'>-</button>
+        </form>
+            <input class='q-prod' id='input-$id_produto' type='number' value='$quantidade' readonly data-valor='$vunit' />";
+          // Botão para aumentar a quantidade do produto
+          echo "<form method='post' action=''>
+        <input type='hidden' name='id_produto' value='$id_produto'>
+        <input type='hidden' name='quantidade' value='1'>
+        <button type='submit' name='aumentar_quantidade'>+</button>
+        </form>";
           echo "</div>
-            <div class='desing-t'>
-                <p class='v-prod'>R$" . number_format($vunit * $quantidade, 2) . "</p>
-            </div>
-            <a class='retirar' href='#' onclick='removerProduto($id_produto)'>Remover</a>
-        </div>";
+        <div class='desing-t'>
+            <p class='v-prod'>R$" . number_format($vunit * $quantidade, 2) . "</p>
+        </div>
+        <a class='retirar' href='#' onclick='removerProduto($id_produto)'>Remover</a>
+    </div>";
         }
       } else {
         // Caso não haja produtos no carrinho, exiba uma mensagem apropriada
@@ -217,6 +261,7 @@ carrinhoCompras($conn);
       <form id="formulario-pagamento" action="ec-telapag.php" method="get" style="display: none;">
         <input type="hidden" name="subtotal" id="input-subtotal" value="<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?>">
         <input type="hidden" name="total" id="input-total" value="<?php echo isset($total) ? number_format($total, 2) : '0.00'; ?>">
+        <input type="hidden" name="id_compra" id="input-id-compra" value="<?php echo isset($id_compra); ?>">
         <button type="submit" id="btn-submit" style="display: none;"></button>
       </form>
       <button onclick="atualizarEEnviarFormularioPagamento()" class="pagar">Pagar</button>
@@ -232,10 +277,18 @@ carrinhoCompras($conn);
 
     function enviarFormularioPagamento(total) {
       var totalFormatted = parseFloat(total).toFixed(2);
+      var idCompra = "<?php echo isset($id_compra) ? $id_compra : ''; ?>"
 
       document.getElementById("input-subtotal").value = totalFormatted;
       document.getElementById("input-total").value = totalFormatted;
+      document.getElementById("input-id-compra").value = idCompra;
       document.getElementById("formulario-pagamento").submit();
+    }
+
+    function limparCarrinho() {
+      if (confirm('Tem certeza que deseja limpar o carrinho?')) {
+        window.location.href = 'ec-carrinho.php?limpar_carrinho=true';
+      }
     }
   </script>
 </body>

@@ -9,87 +9,90 @@
   --placeholder-color: #666262;
 }
 
-/*Onde é mostrado os dados da tabela do banco de dados*/
-/* Estilos para o formulário */
 .formulario {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 2px solid var(--accent-color);
-  border-radius: 5px;
+  max-width: 80%;
+  margin: 2% auto;
+  padding: 1%;
+  border: 0.1vw solid var(--accent-color);
+  border-radius: 1vw;
+  background-color: var(--main-bg-color);
 }
 
 .campo {
-  margin-bottom: 20px;
-  margin-right: 10px;
+  margin-bottom: 1%;
+  margin-right: 0.5%;
 }
 
 label {
   display: block;
-  margin-bottom: 10px;
-  font-size: 15px;
+  margin-bottom: 0.5%;
+  font-size: 1.2vw;
   font-family: "Arial", sans-serif;
 }
 
 input {
-  width: 99%;
-  padding: 10px;
-  font-size: 16px;
-  border: 2px solid var(--accent-color);
-  border-radius: 5px;
+  width: 97%;
+  padding: 0.5%;
+  font-size: 1.2vw;
+  border: 0.1vw solid var(--accent-color);
+  border-radius: 0.1vw;
   outline: none;
   transition: border-color 0.3s ease-in-out;
+  text-align: center;
 }
 
 input:focus {
-  border-color: var(--accent-hover-color);
+  border-color: var(--header-bg-color);
 }
 
 .botoes {
-  text-align: center; /* Centraliza os botões horizontalmente */
+  text-align: center;
+  margin-top: 1%;
 }
 
 input[type="submit"],
 input[type="reset"] {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 1.2vw;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 0.7%;
+  border-radius: 0.5vw;
   background-color: var(--button-bg-color);
   color: var(--button-text-color);
-  margin-right: 10px;
+  margin-right: 0.5%;
 }
 
 .logout-form {
-  text-align: center; /* Centraliza o botão de logout */
+  text-align: center;
+  margin-top: 1%;
 }
 
 button[type="submit"] {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 1.2vw;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 0.7%;
+  border-radius: 0.5vw;
   background-color: transparent;
   color: var(--accent-color);
+  text-align: center;
 }
 
-/* Estilos para as informações do usuário */
 .informacao-usuario {
-  font-size: 16px;
+  font-size: 1.2vw;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.5%;
+  padding-top: 4%;
 }
 
 .nome-usuario {
-  color: #3498db; /* Cor para o nome do usuário */
+  color: #3498db;
 }
 
 .email-usuario {
-  color: #2ecc71; /* Cor para o email do usuário */
+  color: #2ecc71;
 }
 
 .telefone-usuario {
-  color: #e74c3c; /* Cor para o telefone do usuário */
+  color: #e74c3c; 
 }

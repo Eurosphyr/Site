@@ -14,6 +14,11 @@
 }
 
 .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "cabecalho"
+                        "menu";
   width: auto;
   min-height: 100vh;
   display: flex;
@@ -22,6 +27,7 @@
 }
 
 .menu {
+  grid-area: menu;
   border-radius: 5px;
   flex-direction: column;
   width: 100%;
@@ -120,7 +126,8 @@ a {
   }
 
   .escrita {
-    width: 100%; 
+    width: 100%;
+    color: var(--text-color); 
   }
 
   .bt {
