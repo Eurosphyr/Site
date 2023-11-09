@@ -5,121 +5,167 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sobre Nós</title>
-  <link rel="stylesheet" href="../css/sobre.css" />
-  <link rel="stylesheet" href="../css/cabecalho.css" />
-  <link rel="icon" href="../img/Logos.svg" />
+  <link type="text/css" rel="stylesheet" href="../css/sobre.css" />
+  <link type="text/css" rel="stylesheet" href="../css/cabecalho.css" />
+  <link rel="icon" href="../img/Logos.svg">
 </head>
 
 <body>
   <div class="container">
-    <?php include '../php/funcoes.php';
-    session_start();
-    exibirConteudoComBaseNoPapel(); ?>
+    <?php
+    include("../php/funcoes.php");
+    setarCookies();
+    exibirConteudoComBaseNoPapel();
+    ?>
     <div class="sobre">
-      <div class="apresentacao">Sobre Nós</div>
-      <div class="linha"></div>
-    </div>
-    <div class="part-img1">
-      <div class="imagem1">
-        <div class="logo">
-          <img src="../img/Logos.svg" alt="Logo" class="imagem1" />
+      <div class="s">
+        <div class="tSN">Nós</div>
+        <div class="tSP">Professores</div>
+        <div class="tSSN">Somos</div>
+      </div>
+      <div class="f">
+        <img class="setaL" id="setaL" src="../img/seta_esquerda.png" alt="Seta Esquerda">
+        <div class="nos">
+          <div class="dl d" id="f1">
+            <img class="ft" src="../img/fotos/p1.jpeg">
+          </div>
+          <div class="dm d" id="f2">
+            <img class="ft" src="../img/fotos/p2.jpeg">
+          </div>
+          <div class="d3 d" id="f3">
+            <img class="ft" src="../img/fotos/p3.jpeg">
+          </div>
+          <div class="dm d" id="f4">
+            <img class="ft" src="../img/fotos/p4.jpeg">
+          </div>
+          <div class="dl d" id="f5">
+            <img class="ft" src="../img/fotos/p5.jpeg">
+          </div>
+        </div>
+        <div class="prof">
+          <div class="pl d" id="p1">
+            <img class="ft" src="../img/fotos/pcastro.jpeg" alt="Professor Castro">
+          </div>
+          <div class="pm d" id="p2">
+            <img class="ft" src="../img/fotos/pdebora.jpeg" alt="Professora Débora">
+          </div>
+          <div class="p3 d" id="p3">
+            <img class="ft" src="../img/fotos/pjose.jpeg" alt="Professor José">
+          </div>
+          <div class="pm d" id="p4">
+            <img class="ft" src="../img/fotos/pjovita.jpeg" alt="Professora Jovita">
+          </div>
+          <div class="pl d" id="p5">
+            <img class="ft" src="../img/fotos/pcabello.jpg" alt="Professor Cabello">
+          </div>
+        </div>
+        <div class="somos">
+          <div class="sms1 smsf1">
+            <img src="../img/logo-MIPRON.jpeg" class="logo-s" alt="Logo MIPRON">
+          </div>
+          <div class="sms1 smst">
+            <p class="t2" align="center">Nossa Logo</p>
+            <p class="txt1">
+              O logotipo da MIPRON reflete a tendência atual
+              do minimalismo objetivo, que é amplamente dominante no design web.
+              Nossa abordagem para desenvolver o logotipo é transformar as
+              letras da marca em uma logomarca única que seja facilmente identificável e
+              distinta de outras empresas. Para manter o estilo minimalista,
+              usamos variações em preto e branco que se integram perfeitamente
+              à nossa paleta de cores escolhida.</p>
+          </div>
+          <div class="sms1 smsf2">
+            <img src="../img/fotos/Vivacti.png" class="logo-v" alt="Logo Vivacti">
+          </div>
+          <div class="sms1 sms">
+            <p class="t2" align="center">Quem somos?</p>
+            <p class="txt2">
+              A marca MIPRON tem suas raízes profundas na identidade
+              de seus fundadores: MI para Mizael e Miguel, P para Pedro,
+              R para Richard e N para Nicole. A inclusão da letra O foi
+              uma decisão estratégica para conferir à marca um tom e uma
+              sonoridade mais tecnológica, o que a torna autêntica e
+              sintonizada com os avanços tecnológicos. Isso é reflexo do
+              compromisso da MIPRON em manter uma identidade singular
+              que ressoa com a era digital e incorpora a essência de seus criadores.</p>
+          </div>
+        </div>
+        <img class="setaR" id="setaR" src="../img/seta_direita.png" alt="Seta Direita">
+      </div>
+      <div class="explic1">
+        <div class="sobreD sobreD1">
+          <p class="sob"><strong>Nome: </strong>Miguel Angelo de Lima Godoi</p>
+          <p class="sob"><strong>Função: </strong>Gerente Financeiro</p>
+        </div>
+        <div class="sobreD sobreD2">
+          <p class="sob"><strong>Nome: </strong>Mizael Martins Barreto</p>
+          <p class="sob"><strong>Função: </strong>Gerente de Marketing</p>
+        </div>
+        <div class="sobreD sobreD3">
+          <p class="sob"><strong>Nome: </strong>Nicole dos Santos Quadroz</p>
+          <p class="sob"><strong>Função: </strong>Gerente de Qualidade</p>
+        </div>
+        <div class="sobreD sobreD4">
+          <p class="sob"><strong>Nome: </strong>Pedro Augusto de Oliveira Galdino Ribeiro</p>
+          <p class="sob"><strong>Função: </strong>Gerente Geral</p>
+        </div>
+        <div class="sobreD sobreD5">
+          <p class="sob"><strong>Nome: </strong>Richard Walace de Oliveira Camargo</p>
+          <p class="sob"><strong>Função: </strong>Gerente de Produção e Gerente Técnico</p>
         </div>
       </div>
-    </div>
-    <div class="escrita1">
-      <div class="escritaL">
-        A marca MIPRON foi criada a partir
-        das iniciais de seus fundadores MI
-        para Mizael e
-        Miguel, P para Pedro, R para
-        Richard e N para Nicole, a letra O
-        foi inserida para dar
-        a marca o tom e sonoridade mais
-        tecnológico, deste modo a marca
-        ganha um tom
-        autêntico com uma sonoridade
-        mais tecnológica.
-      </div>
-    </div>
-    <div class="part-img2">
-      <div class="imagem2">
-        <div class="logo">
-          <img src="../img/Logos.svg" alt="Logo"  class="imagem2"/>
+      <div class="explic2">
+        <div class="sobreP sobreP1">
+          <p class="sob"><strong>Nome: </strong>André Luiz Ferraz Castro</p>
+          <p class="sob"><strong>Matéria: </strong>Cordenador do Curso</p>
         </div>
-      </div>
-    </div>
-    <div class="escrita2">
-      <div class="escritaD">
-        A logo da MIPRON baseia se na
-        tendência mais que atual do
-        minimalismo objetivo,
-        que atualmente é a técnica mais
-        dominante no meio da web design
-        que trata se no
-        desenvolvimento da logo a partir
-        das letras da marca,
-        transformando as letras da
-        marca numa logomarca única e
-        que demarque nosso símbolo para
-        todos que o
-        verem, sem nos confundirem com
-        outras empresas. Para manter o
-        objetivo
-        minimalista aplicamos o positivo e
-        negativo com o preto em branco
-        que se aplicou
-        facilmente sob nossa palheta de
-        cores selecionada.
-      </div>
-    </div>
-    <div class="part-banner">
-      <div class="banner">
-        <img src="../img/banner.jpg" alt="Banner" class="banner" />
-      </div>
-    </div>
-    <div class="grupo">
-      <p class="nos">Grupo de Desenvolvedores</p>
-      <div class="p1">
-        <img class="imagemf" src="../img/fotos/Miguel.jpg">
-        <p>Miguel Angelo de Lima Godoi - Gerente Financeiro / Email: miguel.godoi@unesp.br</p>
-      </div>
-      <div class="p2">
-        <img class="imagemf" src="../img/fotos/Mizael.jpg">
-        <p>Mizael Martins Barreto - Gerente de Marketing / Email: mizael.martins@unesp.br</p>
-      </div>
-      <div class="p3">
-        <img class="imagemf" src="../img/fotos/Nicole.jpg">
-        <p>Nicole dos Santos Quadros - Gerente de Qualidade / Email: n.quadros@unesp.br</p>
-      </div>
-      <div class="p4">
-        <img class="imagemf" src="../img/fotos/Pedro.jpg">
-        <p>Pedro Augusto de Oliveira Galdino Ribeiro - Líder / Email: paog.ribeiro@unesp.br</p>
-      </div>
-      <div class="p5">
-        <img class="imagemf" src="../img/fotos/Richard.jpg">
-        <p>Richard Walace de Oliveira Camargo - Líder Técnico e Gerente de Produção / Email: rwo.camargo@unesp.br</p>
-      </div>
-    </div>
-    <div class="professores">
-      <p class="nos">Orientadores</p>
-      <div class="p1">
-        <img class="imagemf" src="../img/fotos/Debora.jpeg">
-        <p>Debora Barbosa Aires - Aplicativos I / Email: debora.aires@unesp.br</p>
-      </div>
-      <div class="p2">
-        <img class="imagemf" src="../img/fotos/Jose.jpeg">
-        <p>José Vieira Junior - Banco de Dados / Email: vieira.junior@unesp.br</p>
-      </div>
-      <div class="p3">
-        <img class="imagemf" src="../img/fotos/Jovita.jpeg">
-        <p>Jovita Mercedes Hojas Baenas - Gestão de Negócios / Email: jovita.baenas@unesp.br</p>
-      </div>
-      <div class="p4">
-        <img class="imagemf" src="../img/fotos/Cabello.jpg">
-        <p>Marcelo Cabello Peres - PHP / Email: marcelo.peres@unesp.br</p>
+        <div class="sobreP sobreP2">
+          <p class="sob"><strong>Nome: </strong>Debora Barbosa Aires</p>
+          <p class="sob"><strong>Matéria: </strong>Aplicativos I</p>
+        </div>
+        <div class="sobreP sobreP3">
+          <p class="sob"><strong>Nome: </strong>José Vieira Junior</p>
+          <p class="sob"><strong>Matéria: </strong>Banco de Dados</p>
+        </div>
+        <div class="sobreP sobreP4">
+          <p class="sob"><strong>Nome: </strong>Jovita Mercedes Hojas Baenas</p>
+          <p class="sob"><strong>Matéria: </strong>Gestão de Negócios</p>
+        </div>
+        <div class="sobreP sobreP5">
+          <p class="sob"><strong>Nome: </strong>Marcelo Cabello Peres</p>
+          <p class="sob"><strong>Matéria: </strong>PHP</p>
+        </div>
       </div>
     </div>
   </div>
+  <div class="rodape">
+    <div class="most">
+      <div class="redes">
+        <img src="../img/logo-MIPRON.jpeg" alt="Logo MIPRON">
+        <span class="background">
+          <span class="social-media-buttons">
+            <span class="social-media-button">
+              <a href="https://www.instagram.com/mipron_startup/"><img src="../img/instagram.png" alt="Instagram"></a>
+            </span>
+          </span>
+        </span>
+      </div>
+      <div class="mebros">
+        <p class="desen">Desenvolvedores</p>
+        <div class="traco1"></div>
+        <p class="p">Miguel Angelo de Lima Godoi - Gerente Financeiro / Email: miguel.godoi@unesp.br</p>
+        <p class="p">Mizael Martins Barreto - Gerente de Marketing / Email: mizael.martins@unesp.br</p>
+        <p class="p">Nicole dos Santos Quadros - Gerente de Qualidade / Email: n.quadros@unesp.br</p>
+        <p class="p">Pedro Augusto de Oliveira Galdino Ribeiro - Líder / Email: paog.ribeiro@unesp.br</p>
+        <p class="p">Richard Walace de Oliveira Camargo - Líder Técnico e Gerente de Produção / Email:
+          rwo.camargo@unesp.br</p>
+      </div>
+    </div>
+  </div>
+  <script src="../php/jstst1.js"></script>
+  <script src="../php/jstst2.js"></script>
+  <script src="../php/jstst3.js"></script>
+  </div>
 </body>
 
-</html
+</html>

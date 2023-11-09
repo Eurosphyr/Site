@@ -3,24 +3,28 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 session_start();
-include("../php/funcoes.php");
+include("util.php");
 $conn = conectarAoBanco();
-
-if ($_POST) { //Verifica se a nova senha e o código foram enviados.
-    if ($_SESSION['codigo'] == $_POST['paramCodigo']) { //Verifica se o código enviado é igual ao código gerado.
-        //Atualiza a senha do usuário no banco de dados.
+if ($_POST) {
+    if ($_SESSION['codigo'] == $_POST['paramCodigo']) {
+        $select = $conn->prepare("SELECT nome FROM tbl_usuario WHERE email = :email");
+        $select->bindParam(':email', $_GET['email']);
+        $select->execute();
+        $nome = $select->fetch()['nome'];
         $update = $conn->prepare("UPDATE tbl_usuario SET senha = :novaSenha WHERE email = :email");
-        $update->bindParam(':novaSenha', $_POST['novaSenha'], PDO::PARAM_STR);
-        $update->bindParam(':email', $_GET['email'], PDO::PARAM_STR);
+        $update->bindParam(':novaSenha', $_POST['novaSenha']);
+        $update->bindParam(':email', $_GET['email']);
         $update->execute();
 
         unset($update);
         unset($conn);
         unset($_SESSION['codigo']);
 
-        //Aviso de mudança de senha.
-        $html = "<h1>Olá!</h1><br><h3>Sua senha foi modificada, caso não reconheça essa mudança, por favor entre em contato</h3><br>";
-        enviaEmail($_GET['email'], "Nome Usuário", "Alteração de senha", $html);
+
+       
+        $html = "<h1>Olá, $nome!</h1><br><h3>Sua senha foi modificada, caso não reconheça essa mudança, por favor entre em contato</h3><br>";
+
+        enviaEmail($_GET['email'], "Usuário", "Mudança de senha", $html);
 
         header("Location: ec-login.php");
         exit();
