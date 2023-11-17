@@ -2,22 +2,21 @@
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-include("../php/funcoes.php");
+include("util.php");
 session_start();
 
-//Verifica se email foi enviado.
 if ($_POST) {
     $email = $_POST['email'];
-
+    // Verifica se o email existe no banco de dados
     if (verificaEmail($email)) {
         $_SESSION['codigo'] = geraSenha();
         $html = "<h1>Olá!</h1><br><h3>Seu código de recuperação de senha é: " . $_SESSION['codigo'] . "</h3><br>";
-        enviaEmail($email, "Nome Usuário", "Código de recuperação de senha", $html);
+        enviaEmail($email, "Usuário", "Código de recuperação de senha", $html);
 
-        header("Location:ec-trocarsenha.php?email=$email");
+        header("Location:alterar_senha.php?email=$email");
         exit();
     } else {
-        header("Location: ec-esqueci.php");
+        header("Location: esqueci.php");
         exit();
     }
 }

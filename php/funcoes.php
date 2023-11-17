@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 function conectarAoBanco()
 {
   $host = "pgsql.projetoscti.com.br";
@@ -99,10 +100,10 @@ function login()
     $conn = conectarAoBanco();
 
     if (!$conn) {
-      throw new Exception("Falha na conexão com o banco de dados.");
+      echo '<script>alert("Erro na conexão com o banco de dados"); window.location.href = "../html/ec-login.php";</script>';
     }
 
-    $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha AND desativado = false";
+    $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':senha', $senha);
@@ -113,7 +114,7 @@ function login()
       $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if ($userData['desativado'] == true) {
-        throw new Exception("Sua conta foi desativada. Entre em contato com o administrador.");
+        echo '<script>alert("Sua conta está desativada!"); window.location.href = "../html/ec-login.php";</script>';;
       }
 
       if ($userData['tipo_usuario'] == 1) {
@@ -123,33 +124,6 @@ function login()
         // O usuário não é um administrador
         $_SESSION['tipo_usuario'] = false;
       }
-
-      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['recuperar_senha'])) {
-        $email = $_POST['email'];
-
-        if (verificaEmail($email)) {
-          $novaSenha = geraSenha(8, true, true, false); // Gera uma nova senha aleatória
-          $assunto = "Recuperação de Senha";
-          $mensagem = "Sua nova senha é: $novaSenha";
-
-          // Tente enviar o e-mail para o usuário
-          $enviado = enviaEmail($email, $assunto, $mensagem);
-
-          if ($enviado) {
-            // Atualize a senha do usuário no banco de dados aqui
-            // ...
-            // Exiba uma mensagem para o usuário informando que a nova senha foi enviada por e-mail
-            echo "Uma nova senha foi enviada para o seu e-mail. Verifique sua caixa de entrada.";
-          } else {
-            // Se houver um erro no envio do e-mail, exiba uma mensagem de erro para o usuário
-            echo "Houve um problema ao enviar o e-mail. Por favor, tente novamente mais tarde.";
-          }
-        } else {
-          // Se o e-mail não existir no banco de dados, informe ao usuário que o e-mail não está registrado
-          echo "O e-mail fornecido não está registrado. Verifique se o e-mail está correto ou registre uma nova conta.";
-        }
-      }
-
       // Defina outras informações do usuário na sessão
       $_SESSION['sessaoConectado'] = true;
       $_SESSION['userId'] = $userData['id_usuario'];
@@ -178,7 +152,9 @@ function login()
       }
       exit;
     } else {
-      throw new Exception("Credenciais inválidas. Por favor, tente novamente.");
+      echo '<script>alert("Credenciais inválidas. Por favor, tente novamente.");
+      window.location.href = "../html/ec-login.php";
+      </script>';
     }
   }
 
@@ -455,13 +431,13 @@ function exibirConteudoComBaseNoPapel()
     echo "
       <div class='cabecalho'>
         <img class='logo' src='../img/Logos.svg' />
-        <a class='b' href='index.php'><input type = 'button' class='b' value='HOME'></a>
-        <a class='b' href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
-        <a class='b' href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
-        <a class='b' href='ec-crud.php'><input type = 'button' class='b' value='CRUD PRODUTOS'></a>
-        <a class='b' href='ec-crud_usuarios.php'><input type = 'button' class='b' value='CRUD USUÁRIOS'></a>
-        <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
-        <a href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+        <a href='index.php'><input type = 'button' class='b' value='HOME'></a>
+        <a  href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
+        <a  href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
+        <a  href='ec-crud.php'><input type = 'button' class='b' value='CRUD PRODUTOS'></a>
+        <a  href='ec-crud_usuarios.php'><input type = 'button' class='b' value='CRUD USUÁRIOS'></a>
+        <a  href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
+        <a  href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
       </div>
       ";
   } else {
@@ -469,69 +445,81 @@ function exibirConteudoComBaseNoPapel()
     echo "
       <div class='cabecalho'>
         <img class='logo' src='../img/Logos.svg' />
-        <a class='b' href='index.php'><input type = 'button' class='b' value='HOME'></a>
-        <a class='b' href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
-        <a class='b' href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
-        <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
-        <a href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+        <a  href='index.php'><input type = 'button' class='b' value='HOME'></a>
+        <a  href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
+        <a  href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
+        <a  href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
+        <a  href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
       </div>
       ";
   }
 }
 
-function enviaEmail(
-  $pEmailDestino,
-  $pAssunto,
-  $pHtml,
-  $pUsuario = "mipron@projetoscti.com.br",
-  $pSenha = "M1pr0n2023",
-  $pSMTP = "smtp.projetoscti.com.br"
-) {
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
-  // Troque o usuário e a senha se necessário.
+function enviaEmail($pDestinatario, $pNome, $pAssunto, $pHtml)
+{
+  require 'PHPMailer/src/PHPMailer.php';
+  require 'PHPMailer/src/Exception.php';
+  require 'PHPMailer/src/SMTP.php';
+
+  //Variaveis de configuração do email(DEVE SER ALTERADO)
+  $pRemetente = "mipron@projetoscti.com.br";
+  $pSenha = "M1#pr0n2023";
+  $pSMTP = "smtp.projetoscti.com.br";
+
+  //Configuração do PHP, para exibir erros
   error_reporting(E_ALL);
   ini_set("display_errors", 1);
 
-  require "PHPMailer/PHPMailer.php";
-  require "PHPMailer/Exception.php";
-  require "PHPMailer/SMTP.php";
-
   try {
+    $mail = new PHPMailer(); //Instancia a classe PHPMailer
 
-    // Cria uma instância do PHPMailer
-    echo "<br>Tentando enviar para $pEmailDestino...";
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
-
-    // Servidor SMTP
-    $mail->isSMTP();
-    $mail->Host = $pSMTP;
-    $mail->SMTPAuth = true;      // Requer autenticação com o servidor
-    $mail->SMTPSecure = 'tls';
+    //Configuração do servidor de email
+    $mail->IsSMTP(); //Define que a mensagem será SMTP
+    $mail->Host = $pSMTP; //Endereço do servidor SMTP
+    $mail->SMTPAuth = true; //Autenticação SMTP    
+    $mail->SMTPSecure = 'tls'; //Tipo de segurança
+    $mail->Port = 587; //Porta de comunicação SMTP
+    $mail->Username = $pRemetente; //Usuário do servidor SMTP
+    $mail->Password = $pSenha; //Senha do servidor SMTP
+    $mail->SMTPDebug = 2; //Habilita o debug do SMTP
     $mail->SMTPOptions = array(
       'ssl' => array(
-        'verify_peer' => false,
+        'verificar_peer' => false,
         'verify_peer_name' => false,
         'allow_self_signed' => true
       )
-    );
-    $mail->Port = 587;
-    $mail->Username = $pUsuario;
-    $mail->Password = $pSenha;
-    $mail->setFrom($pUsuario, "Suporte de senhas");
-    $mail->addAddress($pEmailDestino, "Usuario");
-    $mail->isHTML(true);
-    $mail->Subject = $pAssunto;
-    $mail->Body = $pHtml;
-    $enviado = $mail->send();
+    ); //Permite que o PHPMailer aceite certificados SSL não confiáveis
 
-    if (!$enviado) {
-      echo "<br>Erro: " . $mail->ErrorInfo;
+    //Configuração dos emails do remetente e do destinatário
+    $mail->setFrom($pRemetente, 'Mipron'); //email do remetente
+    $mail->addReplyTo($pUsuario); //Email para respossta, caso não queira que o usuário responda, coloque no.reply@...
+    $mail->addAddress($pDestinatario, $pNome); //email do destinatário
+
+    //Conteúdo do email
+    $mail->IsHTML(true); //Se o email vai ser em HTML ou não 
+    $mail->Subject = $pAssunto; //O assunto do email
+    $mail->Body = $pHtml; //O conteúdo(corpo) do email em HTML
+    $mail->CharSet = 'UTF-8'; //Codificação do email
+    $mail->AltBody = 'seu email nao suporta html'; //Uma mensagem avisando destinatário que o seu email não suporta HTML
+    $enviado = $mail->Send(); //Envia o email
+
+    //Verifica se o email foi enviado
+    if ($enviado) {
+      echo "E-mail enviado com sucesso!";
     } else {
-      echo "<br><b>Enviado!</b>";
+      echo "Não foi possível enviar o e-mail.";
+      echo "<b>Informações do erro:</b> " . $mail->ErrorInfo;
     }
-    return $enviado;
+
+    //Execeções da biblioteca PHPMailer e do PHP(Instaciamento da classe exception)
   } catch (Exception $e) {
-    echo $e->getMessage();
+    echo $e->errorMessage(); //mensagens de erro do PHPMailer 
+  } catch (\Exception $e) {
+    echo $e->getMessage(); //mensagens de erro do PHP
   }
 }
 
@@ -592,122 +580,3 @@ function ExecutaSQL($paramConn, $paramSQL)
     return FALSE;
   }
 }
-function carrinhoCompras($conn)
-{
-  $existe = 0;
-  $codigoCompra = 0;
-  $statusCompra = 'Pendente';
-  $session_id = session_id();
-
-  // Verifica se existe compra associada ao session_id
-  $stmt = $conn->prepare("SELECT COUNT(*) FROM tbl_compratmp WHERE sessao = :sessao");
-  $stmt->bindParam(':sessao', $session_id);
-  $stmt->execute();
-  $result = $stmt->fetchColumn();
-  $existe = intval($result) == 1;
-
-  // Cria ou recupera o código da compra
-  if (!$existe) {
-    $dataHoje = date('Y-m-d');
-    ExecutaSQL($conn, "INSERT INTO tbl_compra (id_usuario, status, data) VALUES (NULL, '$statusCompra', '$dataHoje')");
-    $codigoCompra = $conn->lastInsertId();
-    ExecutaSQL($conn, "INSERT INTO tbl_compratmp (id_compra, sessao) VALUES ($codigoCompra, '$session_id')");
-  } else {
-    $codigoCompra = intval(ValorSQL($conn, "SELECT id_compra FROM tbl_compratmp WHERE sessao = '$session_id'"));
-    $statusCompra = ValorSQL($conn, "SELECT status FROM tbl_compra WHERE id_compra = $codigoCompra");
-  }
-
-  // Verifica se o carrinho foi chamado por COMPRAR, EXCLUIR ou FECHAR
-  if ($_GET) {
-    if (isset($_GET['operacao']) && isset($_GET['id_produto'])) {
-      $operacao = $_GET['operacao'];
-      $id_produto = $_GET['id_produto'];
-      $quantidade = intval(ValorSQL($conn, "SELECT quantidade FROM tbl_carrinho WHERE id_compra = $codigoCompra AND id_produto = $id_produto"));
-      if ($operacao === 'incluir') {
-        if ($quantidade === 0) {
-          ExecutaSQL($conn, "INSERT INTO tbl_carrinho (id_compra, id_produto, quantidade) VALUES ($codigoCompra, $id_produto, 1)");
-        } else {
-          ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = quantidade + 1 WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
-        }
-      } else if ($operacao === 'excluir') {
-        if ($quantidade <= 1) {
-          ExecutaSQL($conn, "DELETE FROM tbl_carrinho WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
-        } else {
-          ExecutaSQL($conn, "UPDATE tbl_carrinho SET quantidade = quantidade - 1 WHERE id_compra = $codigoCompra AND id_produto = $id_produto");
-        }
-      } else if ($operacao === 'fechar') {
-        // Adicione o código necessário para fechar a compra aqui
-      }
-    }
-  }
-
-
-  // Mostra os itens do carrinho e o total
-  $output = '';
-
-  $output .= "<br><strong>Compras até o momento...</strong><br>
-    <table border='1'>
-    <tr>
-      <td>Produto</td>
-      <td>Descrição</td>
-      <td>Qtd</td>
-      <td>\$ unit</td>
-      <td>\$ sub</td>
-      <td></td>
-    </tr>";
-
-  $sql = "SELECT p.id_produto, 
-                p.descricao as descprod, 
-                c.quantidade, 
-                p.preco, 
-                p.preco * c.quantidade as sub  
-          FROM tbl_produto p
-          INNER JOIN tbl_carrinho c ON p.id_produto = c.id_produto 
-          WHERE c.id_compra = $codigoCompra  
-          ORDER BY p.descricao ";
-
-  $select = $conn->query($sql);
-
-  $carrinhoProdutos = '';
-  while ($linha = $select->fetch()) {
-    $id_produto = $linha['id_produto'];
-    $nome_produto = $linha['nome'];
-    $descProd = $linha['descprod'];
-    $quant = $linha['quantidade'];
-    $vunit = $linha['preco'];
-    $sub = $linha['sub'];
-    $imagem = $linha['imagem'];
-    
-
-    $carrinhoProdutos .= "<tr>
-        <td>$nome_produto</td>
-        <td>$descProd</td>
-        <td>$quant</td>
-        <td>$vunit</td>
-        <td>$sub</td>
-        <td>$imagem</td>
-        <td><a href='carrinho.php?operacao=incluir&id_produto=$id_produto'>Incluir</a></td>
-        <td><a href='carrinho.php?operacao=excluir&id_produto=$id_produto'>Excluir</a></td>
-      </tr>";
-  }
-
-  $output .= $carrinhoProdutos;
-  $output .= "</table>";
-
-  $total = ValorSQL($conn, "SELECT SUM(p.preco * c.quantidade) FROM tbl_produto p INNER JOIN tbl_carrinho c ON p.id_produto = c.id_produto WHERE c.id_compra = $codigoCompra");
-
-  $statusCompraHTML = "Status da compra: $statusCompra<br>";
-  $totalHTML = "Total: $total <br><br>";
-
-  $fecharCarrinhoHTML = "";
-  if ($statusCompra === 'Pendente' && isset($_SESSION['sessaoLogin']) && $_SESSION['sessaoLogin'] !== '') {
-    $fecharCarrinhoHTML = "<a href='carrinho.php?operacao=fechar&id_produto=0'>Fechar o carrinho</a>";
-  }
-
-  $output .= $statusCompraHTML;
-  $output .= $totalHTML;
-  $output .= "<br><a href='index.php'>Home</a>";
-
-  return array('carrinhoHTML' => $output, 'total' => $total);
-}
-

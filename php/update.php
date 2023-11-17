@@ -5,7 +5,7 @@ $conn = conectarAoBanco();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recuperando os dados do formulário
-    $id_usuario = $_POST['id_usuario'];
+    $id_usuario = !empty($_POST['id_usuario']) ? intval($_POST['id_usuario']) : 0;
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
