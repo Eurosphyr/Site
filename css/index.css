@@ -26,8 +26,7 @@ p {
 .container {
   overflow: hidden;
   display: grid;
-  grid-template-areas:
-    "cabecalho cabecalho cabecalho"
+  grid-template-areas: "cabecalho cabecalho cabecalho"
     "centro centro centro"
     "baixo baixo baixo"
     "rodape rodape rodape";
@@ -39,13 +38,14 @@ p {
 
 /* Parte do cabecalho */
 
+
 /* Parte centro */
 .centro {
   display: flex;
   justify-content: center;
   align-items: center;
   grid-area: centro;
-  background-image: linear-gradient(to left, #fdf497, #fca311, #fca311);
+  background-image: linear-gradient(to left, #fdf497, #fca311, #FCA311);
   padding-bottom: 10px;
 }
 
@@ -166,6 +166,7 @@ p {
   align-items: center;
 }
 
+
 /* Parte de baixo */
 .baixo {
   display: flex;
@@ -173,14 +174,7 @@ p {
   justify-content: center;
   z-index: 3;
   grid-area: baixo;
-  background-image: linear-gradient(
-    to right,
-    black,
-    #14213d,
-    #14213d,
-    #14213d,
-    black
-  );
+  background-image: linear-gradient(to right, black, #14213d, #14213d, #14213d, black);
 }
 
 .p-2 {
@@ -222,6 +216,8 @@ p {
   border-radius: 50%;
   box-shadow: white 1px 1px 15px 15px;
 }
+
+.
 @media screen and (max-width: 1080px) {
   .container {
     grid-template-columns: 0.4fr 1.25fr 0.4fr;
@@ -299,7 +295,7 @@ p {
     font-size: 8px;
     width: 55px;
     height: 25px;
-    top: 450px;
+    top: 450px
   }
 
   .baixo {
