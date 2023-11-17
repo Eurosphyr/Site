@@ -27,24 +27,21 @@
   color: var(--text-color);
 }
 .logo {
-  width: 2.9vw;
-  height: 5.3vh;
+  width: 2.5vw; /* Reduza o tamanho da largura */
+  height: 4vh;
   border-radius: 100%;
 }
 /* Style for the link buttons */
 .b {
-  width: 7vw;
-  height: 5.3vh;
-  font-size: 0.8vw;
+  width: 5vw; /* Reduza o tamanho da largura */
+  height: 3vh;
+  font-size: 0.6vw;
   background-color: var(--button-bg-color); /* Button background color */
   color: var(--button-text-color); /* Button text color */
-  border-radius: 0.25vw; /* Rounded corners */
+  border-radius: 0.15vw; /* Rounded corners */
   border: none; /* Remove border */
   cursor: pointer;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  text-align: center; /* Show hand cursor on hover */
+  text-decoration: none; /* Show hand cursor on hover */
 }
 
 .b:hover {
@@ -54,11 +51,11 @@
 /* Perfil */
 
 .carrinho{
-  width: 3.4vw;
+  width: 2.5vw;
 }
 .perfil {
-  margin-left: 20vw;
-  width: 5.7vw;
+  margin-left: 10vw;
+  width: 2.5vw;
   /* Manter seu estilo existente */
 }
 /* Estilo para a barra de pesquisa */
@@ -91,5 +88,31 @@
   }
   100% {
     transform: rotate(360deg); /* Completa uma rotação de 360 graus */
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .cabecalho {
+    height: 70px;
+  }
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+  .b {
+    font-size: 8px;
+    border-radius: 5px;
+    width: 60px;
+    height: 30px;
+  }
+  .perfil {
+    width: 50px;
+    height: 30px;
+    margin-left: 20px;
+  }
+  .carrinho {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
   }
 }
