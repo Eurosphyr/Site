@@ -24,12 +24,10 @@ Este projeto é um website de e-commerce para a empresa MIPRON, onde os usuário
 ## Instruções de Instalação
 
 1. Clone o repositório: `git clone https://github.com/Eurosphyr/Site.git`
-2. Instale as dependências do frontend: `cd frontend && npm install` (se você não estiver utilizando o React, pode remover esta linha).
-3. Instale as dependências do backend: `cd backend && composer install` (ou o comando específico para o seu gerenciador de dependências do PHP, como `composer` ou `php composer.phar`).
-4. Configure as credenciais do banco de dados PostgreSQL no arquivo de configuração do backend.
-5. Inicie o servidor: `php -S localhost:8000` (ou o comando específico para iniciar o servidor PHP).
+2. Configure as credenciais do banco de dados PostgreSQL no arquivo de configuração do backend.
+3. Inicie o servidor: `php -S localhost:8000` (ou o comando específico para iniciar o servidor PHP).
 
-Certifique-se de ter o Node.js, npm, Composer (ou outro gerenciador de dependências do PHP) e PHP instalados em sua máquina antes de seguir as instruções acima.
+Certifique-se de ter o Composer (ou outro gerenciador de dependências do PHP) e PHP instalados em sua máquina antes de seguir as instruções acima.
 
 ## Contribuições
 
