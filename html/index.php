@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" rel="stylesheet" href="../css/index.css">
   <link type="text/css" rel="stylesheet" href="../css/cabecalho.css">
+  <link rel="stylesheet" href="../css/rodape.css">
   <title>Mipron</title>
   <link rel="icon" href="../img/Logos.svg">
 
@@ -13,8 +14,10 @@
 
 <body>
   <div class="container">
-    <?php 
+    <a id="topo"></a>
+    <?php
     include("../php/funcoes.php");
+    session_start();
     setarCookies();
     exibirConteudoComBaseNoPapel();
     ?>
@@ -23,15 +26,24 @@
         <img class="setaL" id="setaL" src="../img/seta_esquerda.png" alt="Seta Esquerda">
         <div class="meio1" id="meio1">
           <div class="textdesc">
-            <p class="text1">MousePadGamer</p>
-            <p class="text2">Um texto meio aleatório e chamativo</p>
+            <p class="text1">Mousepad Gamer</p>
+            <p class="text2">Nossos mousepads irão te surpreender com a antiaderência e o conforto no uso.
+              Com nossas estampas únicas, da semana do colégio e dos cursos, você terá um produto exclusivo em suas
+              mãos.
+              Os mousepads da MIPRON são feitos de plástico para baratear a produção, mas não se espante com isso, a
+              qualidade é a mesma que de um mousepad de tecido E.V.A e pano.</p>
           </div>
           <img class="imagem" src="../img/Mousepad_Viva.jpg" alt="Mousepad Viva" class="prod">
         </div>
         <div class="meio2" id="meio2">
           <div class="textdesc">
             <p class="text1">Caderneta</p>
-            <p class="text2">Um texto muito aleatório e chamativo</p>
+            <p class="text2">A companheira ideal para seus momentos criativos! Com
+              uma capa resistente e elegante, esta caderneta oferece 40 folhas de papel de alta qualidade para expressar
+              suas ideias, pensamentos e projetos. Leve e compacta, é perfeita para levar na bolsa ou mochila,
+              proporcionando praticidade no dia a dia. Ideal para trabalho, escola ou qualquer lugar, a caderneta sem
+              estampa é a escolha perfeita para quem busca simplicidade e organização. Mantenha suas anotações sempre à
+              mão, prontas para serem consultadas ou compartilhadas.</p>
           </div>
           <img class="imagem" src="../img/Caderneta_Preta.jpg" alt="Caderneta Preta" class="prod">
         </div>
@@ -50,7 +62,7 @@
     <div class="rodape">
       <div class="most">
         <div class="redes">
-          <img src="../img/logo-MIPRON.jpeg" alt="Logo MIPRON">
+          <img src="../img/Mipron.png" alt="Logo MIPRON">
           <span class="background">
             <span class="social-media-buttons">
               <span class="social-media-button">
@@ -68,6 +80,21 @@
           <p class="p">Pedro Augusto de Oliveira Galdino Ribeiro - Líder / Email: paog.ribeiro@unesp.br</p>
           <p class="p">Richard Walace de Oliveira Camargo - Líder Técnico e Gerente de Produção / Email:
             rwo.camargo@unesp.br</p>
+        </div>
+      </div>
+      <div class="menu">
+        <p class="menuT">Menu</p>
+        <div class="menud">
+          <a href="index.php">
+            <p class="vt">Home</p>
+          </a>
+          <a href="ec-sobre.php">
+            <p class="vt">Sobre</p>
+          </a>
+          <a href="ec-telaproduto.php">
+            <p class="vt">Comprar</p>
+          </a>
+          <a href="#topo"><img width="100" src="../img/seta_cima.png"></a>
         </div>
       </div>
     </div>

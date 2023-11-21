@@ -32,12 +32,14 @@ if (isset($_POST['id_produto'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/telacompra.css" />
     <link rel="stylesheet" href="../css/cabecalho.css" />
+    <link rel="stylesheet" href="../css/rodape.css" />
     <title>MIPRON</title>
     <link rel="icon" href="../img/Logos.svg" />
 </head>
 
 <body>
     <div class="container">
+        <a id="topo"></a>
         <?php
         session_start();
         setarCookies();
@@ -113,15 +115,52 @@ if (isset($_POST['id_produto'])) {
                     </div>
                 </div>
             </div>
-            <div class="suporte">
-                <div class="redes"></div>
+        </div>
+        <div class="rodape">
+            <div class="most">
+                <div class="redes">
+                    <img src="../img/Mipron.png" alt="Logo MIPRON">
+                    <span class="background">
+                        <span class="social-media-buttons">
+                            <span class="social-media-button">
+                                <a href="https://www.instagram.com/mipron_startup/"><img src="../img/instagram.png" alt="Instagram"></a>
+                            </span>
+                        </span>
+                    </span>
+                </div>
+                <div class="mebros">
+                    <p class="desen">Desenvolvedores</p>
+                    <div class="traco1"></div>
+                    <p class="p">Miguel Angelo de Lima Godoi - Gerente Financeiro / Email: miguel.godoi@unesp.br</p>
+                    <p class="p">Mizael Martins Barreto - Gerente de Marketing / Email: mizael.martins@unesp.br</p>
+                    <p class="p">Nicole dos Santos Quadros - Gerente de Qualidade / Email: n.quadros@unesp.br</p>
+                    <p class="p">Pedro Augusto de Oliveira Galdino Ribeiro - Líder / Email: paog.ribeiro@unesp.br</p>
+                    <p class="p">Richard Walace de Oliveira Camargo - Líder Técnico e Gerente de Produção / Email:
+                        rwo.camargo@unesp.br</p>
+                </div>
+            </div>
+            <div class="menu">
+                <p class="menuT">Menu</p>
+                <div class="menud">
+                    <a href="index.php">
+                        <p class="vt">Home</p>
+                    </a>
+                    <a href="ec-sobre.php">
+                        <p class="vt">Sobre</p>
+                    </a>
+                    <a href="ec-telaproduto.php">
+                        <p class="vt">Comprar</p>
+                    </a>
+                    <a href="#topo"><img width="100" src="../img/seta_cima.png"></a>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $(".cadernetas input[type='radio']").change(function () {
+        $(document).ready(function() {
+            $(".cadernetas input[type='radio']").change(function() {
                 var id_produto = $(this).val();
                 $.ajax({
                     url: 'ec-telacompra.php',
@@ -129,27 +168,10 @@ if (isset($_POST['id_produto'])) {
                     data: {
                         id_produto: parseInt(id_produto) // Converta para inteiro usando parseInt
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('.prod-1 .prods').attr('src', response);
                     },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            });
-
-            $(".mousepads input[type='radio']").change(function () {
-                var id_produto = $(this).val();
-                $.ajax({
-                    url: 'ec-telacompra.php',
-                    type: 'post',
-                    data: {
-                        id_produto: parseInt(id_produto) // Converta para inteiro usando parseInt
-                    },
-                    success: function (response) {
-                        $('.prod-2 .prods').attr('src', response);
-                    },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error(error);
                     }
                 });

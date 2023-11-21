@@ -54,7 +54,7 @@ if (isset($_GET['id_usuario'])) {
 
 <body>
     <h2>Formulário de Usuários</h2>
-    <form action="update.php" method="POST">
+    <form action="update_usuarios.php" method="POST">
         <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" placeholder="Nome do usuário" value="<?php echo $nome ?>">

@@ -13,19 +13,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $senha = $_POST['senha'];
             $tipo_usuario = false;
 
-            $query = "INSERT INTO tbl_usuario (nome, senha, email, telefone, tipo_usuario";
-            $values = " VALUES (:nome, :senha, :email, :telefone, :tipo_usuario";
+            $query = "INSERT INTO tbl_usuario (nome, senha, email, telefone, tipo_usuario, desativado";
+            $values = ") VALUES (:nome, :senha, :email, :telefone, :tipo_usuario, false";
 
             session_start();
             if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario']) {
-                $query .= ", endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado, tipo_usuario, desativado";
-                $values .= ", :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado, :tipo_usuario, false";
+                $query .= ", endereco_rua, endereco_bairro, endereco_num, endereco_cidade, endereco_estado";
+                $values .= ", :endereco_rua, :endereco_bairro, :endereco_num, :endereco_cidade, :endereco_estado";
             }
 
-            $query .= ")";
-            $values .= ")";
-
-            $sql = $query . $values;
+            $sql = $query . $values . ")";
 
             $stmt = $conn->prepare($sql);
 
@@ -41,16 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindParam(':endereco_num', $_POST['endereco_num']);
                 $stmt->bindParam(':endereco_cidade', $_POST['endereco_cidade']);
                 $stmt->bindParam(':endereco_estado', $_POST['endereco_estado']);
-                $stmt->bindParam(':tipo_usuario', $tipo_usuario, PDO::PARAM_BOOL);
-                $stmt->bindParam(':desativado', $desativado, PDO::PARAM_BOOL);
-
             }
 
             if ($stmt->execute()) {
                 echo "Usuário cadastrado com sucesso!";
                 header("Location: ../html/index.php");
+                exit;
             } else {
-                echo '<script>alert("Erro ao cadastrar"); window.location.href = "../html/ec-cadastro.php";</>';
+                echo '<script>alert("Erro ao cadastrar"); window.location.href = "../html/ec-cadastro.php";</script>';
             }
         } else {
             echo '<script>alert("As senhas não correspondem!"); window.location.href = "../html/ec-cadastro.php";</script>';

@@ -6,12 +6,14 @@
 
 a {
     text-decoration: none;
+    color: #000;
 }
 
 .container {
     display: grid;
-    grid-template-areas: "cabecalho cabelho"
-        "sobre sobre";
+    grid-template-areas: "cabecalho cabecalho"
+        "sobre sobre"
+        "rodape rodape";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 7vh 98vh;
     z-index: 3;
@@ -31,49 +33,6 @@ a {
     --placeholder-color: #666262;
 }
 
-/* Rest of your CSS with variables and font-family */
-.cabecalho {
-    width: 100%;
-    z-index: 999;
-    position: fixed;
-    padding: 0px 1vw;
-    grid-area: cabecalho;
-    background-color: var(--main-bg-color);
-    justify-content: space-around;
-    /* Alinhar ícones à direita */
-    align-items: center;
-    /* Alinhar verticalmente no centro */
-    display: flex;
-    border-bottom: 1px solid var(--text-color);
-    font-family: "Arial", sans-serif;
-    color: var(--text-color);
-}
-
-.logo {
-    width: 2.9vw;
-    height: 5.3vh;
-    border-radius: 100%;
-}
-
-.b {
-    cursor: pointer;
-    font-size: 0.8vw;
-    border: none;
-    width: 7vw;
-    height: 5.3vh;
-    border-radius: 0.25vw;
-    background-color: #14213D;
-    color: #ffffff;
-}
-
-.perfil {
-    margin-left: 20vw;
-    width: 5.7vw;
-}
-
-.carrinho {
-    width: 3.4vw;
-}
 
 /* Parte Apresentacao */
 .sobre {

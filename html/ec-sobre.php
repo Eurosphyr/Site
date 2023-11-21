@@ -7,13 +7,16 @@
   <title>Sobre Nós</title>
   <link type="text/css" rel="stylesheet" href="../css/sobre.css" />
   <link type="text/css" rel="stylesheet" href="../css/cabecalho.css" />
+  <link rel="stylesheet" href="../css/rodape.css" />
   <link rel="icon" href="../img/Logos.svg">
 </head>
 
 <body>
   <div class="container">
+    <a id="topo"></a>
     <?php
     include("../php/funcoes.php");
+    session_start();
     setarCookies();
     exibirConteudoComBaseNoPapel();
     ?>
@@ -141,7 +144,7 @@
   <div class="rodape">
     <div class="most">
       <div class="redes">
-        <img src="../img/logo-MIPRON.jpeg" alt="Logo MIPRON">
+        <img src="../img/Mipron.png" alt="Logo MIPRON">
         <span class="background">
           <span class="social-media-buttons">
             <span class="social-media-button">
@@ -159,6 +162,21 @@
         <p class="p">Pedro Augusto de Oliveira Galdino Ribeiro - Líder / Email: paog.ribeiro@unesp.br</p>
         <p class="p">Richard Walace de Oliveira Camargo - Líder Técnico e Gerente de Produção / Email:
           rwo.camargo@unesp.br</p>
+      </div>
+    </div>
+    <div class="menu">
+      <p class="menuT">Menu</p>
+      <div class="menud">
+        <a href="index.php">
+          <p class="vt">Home</p>
+        </a>
+        <a href="ec-sobre.php">
+          <p class="vt">Sobre</p>
+        </a>
+        <a href="ec-telacompra.php">
+          <p class="vt">Comprar</p>
+        </a>
+        <a href="#topo"><img width="100" src="../img/seta_cima.png"></a>
       </div>
     </div>
   </div>

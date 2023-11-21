@@ -10,9 +10,10 @@
   grid-template-areas: "cabecalho"
       "meio1"
       "meio2"
-      "pagar";
+      "pagar"
+      "rodape";
   grid-template-columns: 1fr;
-  grid-template-rows: 0.2fr 0.5fr 1.6fr 0.8fr;
+  grid-template-rows: 0.2fr 0.5fr 1.6fr 0.8fr 0.2fr;
   width: 99vw;
   height: auto;
 }

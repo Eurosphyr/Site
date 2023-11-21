@@ -96,14 +96,13 @@ function login()
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-
     $conn = conectarAoBanco();
 
     if (!$conn) {
       echo '<script>alert("Erro na conexão com o banco de dados"); window.location.href = "../html/ec-login.php";</script>';
     }
 
-    $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha";
+    $sql = "SELECT * FROM tbl_usuario WHERE email = :email AND senha = :senha AND desativado = false";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':senha', $senha);
@@ -112,10 +111,6 @@ function login()
     if ($stmt->rowCount() == 1) {
       // Dados do usuário encontrados
       $userData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-      if ($userData['desativado'] == true) {
-        echo '<script>alert("Sua conta está desativada!"); window.location.href = "../html/ec-login.php";</script>';;
-      }
 
       if ($userData['tipo_usuario'] == 1) {
         // O usuário é um administrador
@@ -145,14 +140,14 @@ function login()
       // Redirecione com base no papel do usuário
       if ($_SESSION['tipo_usuario']) {
         header('Location: ../html/index.php');
-        exibirConteudoComBaseNoPapel(); // Página de administrador
+        exibirConteudoComBaseNoPapel(); 
       } else {
         header('Location: ../html/index.php');
-        exibirConteudoComBaseNoPapel(); // Página de perfil do usuário comum
+        exibirConteudoComBaseNoPapel();
       }
       exit;
     } else {
-      echo '<script>alert("Credenciais inválidas. Por favor, tente novamente.");
+      echo '<script>alert("Credenciais inválidas ou conta desativada. Por favor, tente novamente.");
       window.location.href = "../html/ec-login.php";
       </script>';
     }
@@ -187,6 +182,7 @@ function login()
         </form>
         <div class='baixo'><a href='ec-cadastro.php'>Criar conta</a></div>
         <div class='baixo'><a href='ec-esqueci.php'>Esqueci a senha</a></div>
+        <div class='baixo'><a href='index.php'>Voltar</a></div>
       </div>
     </div>
   </body>
@@ -305,8 +301,8 @@ function crud()
         echo "<td>" . $categoria . "</td>";
         echo "<td>" . $quantidade . "</td>";
         echo "<td><a href='../php/form_insert.php?acao=adicionar'><img src='../img/adicionar.png' alt='Adicionar' width='30'></a></td>";
-        echo "<td><a href='../php/excluir.php?id=" . $id_produto . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
-        echo "<td><a href='../php/alterar.php?id=" . $id_produto . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";
+        echo "<td><a href='../php/excluir_produtos.php?id=" . $id_produto . "&acao=excluir'><img src='../img/excluir.png' alt='Excluir' width='30'></a></td>";
+        echo "<td><a href='../php/alterar_dados_produtos.php?id=" . $id_produto . "&acao=alterar'><img src='../img/alterar.png' alt='Alterar' width='30'></a></td>";
         echo "</tr>";
       }
 
@@ -430,7 +426,7 @@ function exibirConteudoComBaseNoPapel()
     // O usuário é um administrador
     echo "
       <div class='cabecalho'>
-        <img class='logo' src='../img/Logos.svg' />
+        <a href= 'index.php'><img class='logo' src='../img/Logos.svg' alt='Logo' /></a>
         <a href='index.php'><input type = 'button' class='b' value='HOME'></a>
         <a  href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
         <a  href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
@@ -444,7 +440,7 @@ function exibirConteudoComBaseNoPapel()
     // O usuário não é um administrador
     echo "
       <div class='cabecalho'>
-        <img class='logo' src='../img/Logos.svg' />
+        <a href= 'index.php'><img class='logo' src='../img/Logos.svg' alt='Logo' /></a>
         <a  href='index.php'><input type = 'button' class='b' value='HOME'></a>
         <a  href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
         <a  href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
@@ -579,4 +575,33 @@ function ExecutaSQL($paramConn, $paramSQL)
   } else {
     return FALSE;
   }
+}
+
+function CriaPDF($paramTitulo, $paramHtml, $paramArquivoPDF)
+{
+  $arq = false;
+  try {
+    require "fpdf/html_table.php";
+    // abre classe fpdf estendida com recurso que converte <table> em pdf
+
+    $pdf = new PDF();
+    // cria um novo objeto $pdf da classe 'pdf' que estende 'fpdf' em 'html_table.php'
+    $pdf->AddPage();  // cria uma pagina vazia
+    $pdf->SetFont('helvetica', 'B', 20);
+    $pdf->Write(5, $paramTitulo);
+    $pdf->SetFont('helvetica', '', 8);
+    $pdf->WriteHTML($paramHtml); // renderiza $html na pagina vazia
+    ob_end_clean();
+    // fpdf requer tela vazia, essa instrucao 
+    // libera a tela antes do output
+
+    // gerando um arquivo 
+    $pdf->Output($paramArquivoPDF, 'F');
+    // gerando um download 
+    $pdf->Output('D', $paramArquivoPDF);  // disponibiliza o pdf gerado pra download
+    $arq = true;
+  } catch (Exception $e) {
+    echo $e->getMessage(); // erros da aplicação - gerais
+  }
+  return $arq;
 }

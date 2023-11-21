@@ -1,15 +1,14 @@
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0px;
-  padding: 0px;
+*{
+  margin : 0px;
 }
 
 p {
-  color: var(--button-bg-color);
-  font-weight: bold;
-  font-size: 2vw;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
 .prods {
   transition: 0.5s;
   width: 10vw;
@@ -62,13 +61,12 @@ p {
 }
 
 .container {
-  overflow: hidden;
   display: grid;
   grid-template-areas:
     "cabecalho cabecalho"
     "prod-1 prod-2"
     "desc-1 desc-2"
-    "suporte suporte";
+    "rodape rodape";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 0.9fr 1.5fr 0.8fr 2fr;
   width: 99vw;
@@ -313,15 +311,6 @@ label {
     white
   );
   padding-bottom: 3vh;
-}
-
-.suporte {
-  grid-area: suporte;
-}
-
-.redes {
-  background-color: var(--header-bg-color);
-  height: 100%;
 }
 
 @keyframes aumentar-diminuir {

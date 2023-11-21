@@ -64,6 +64,7 @@
 
       </form>
       <div class="baixo"><a href="ec-login.php">Já possuo conta</a></div>
+      <div class="baixo"><a href="index.php">Voltar</a></div>
     </div>
   </div>
   <script>
