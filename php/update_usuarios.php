@@ -6,15 +6,15 @@ $conn = conectarAoBanco();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recuperando os dados do formulário
     $id_usuario = !empty($_POST['id_usuario']) ? intval($_POST['id_usuario']) : 0;
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-    $telefone = $_POST['telefone'];
-    $endereco_rua = $_POST['endereco_rua'];
-    $endereco_num = $_POST['endereco_num'];
-    $endereco_bairro = $_POST['endereco_bairro'];
-    $endereco_cidade = $_POST['endereco_cidade'];
-    $endereco_estado = $_POST['endereco_estado'];
+    $nome = !empty($_POST['nome']) ? $_POST['nome'] : '';
+    $email = !empty($_POST['email']) ? $_POST['email'] : '';
+    $senha =  $_POST['senha'];
+    $telefone = !empty($_POST['telefone']) ? $_POST['telefone'] : '';
+    $endereco_rua = !empty($_POST['endereco_rua']) ? $_POST['endereco_rua'] : '';
+    $endereco_num = !empty($_POST['endereco_num']) ? $_POST['endereco_num'] : 0;
+    $endereco_bairro = !empty($_POST['endereco_bairro']) ? $_POST['endereco_bairro'] : '';
+    $endereco_cidade = !empty($_POST['endereco_cidade']) ? $_POST['endereco_cidade'] : '';
+    $endereco_estado = !empty($_POST['endereco_estado']) ? $_POST['endereco_estado'] : '';
     $tipo_usuario = isset($_POST['tipo_usuario']) ? 1 : 0;
     $desativado = isset($_POST['desativado']) ? 1 : 0;
      // Se a caixa de seleção foi marcada, defina 1; caso contrário, defina 0.

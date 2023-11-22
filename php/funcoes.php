@@ -432,6 +432,7 @@ function exibirConteudoComBaseNoPapel()
         <a  href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
         <a  href='ec-crud.php'><input type = 'button' class='b' value='CRUD PRODUTOS'></a>
         <a  href='ec-crud_usuarios.php'><input type = 'button' class='b' value='CRUD USUÁRIOS'></a>
+        <a  href='ec-relatorio.php'><input type = 'button' class='b' value='RELATÓRIO'></a>
         <a  href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
         <a  href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
       </div>

@@ -16,28 +16,28 @@ if (isset($_GET['id_usuario'])) {
     // Verifique se o usuário existe
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        $nome = $row['nome'];
+
+        // Inicialize as variávei com valores padrão se estiverem vazias
+        $nome =  $row['nome'];
         $email = $row['email'];
         $senha = $row['senha'];
         $telefone = $row['telefone'];
-        $endereco_rua = $row['endereco_rua'];
-        $endereco_num = $row['endereco_num'];
-        $endereco_bairro = $row['endereco_bairro'];
-        $endereco_cidade = $row['endereco_cidade'];
-        $endereco_estado = $row['endereco_estado'];
+        $endereco_rua = !empty($row['endereco_rua']) ? $row['endereco_rua'] : '';
+        $endereco_num = !empty($row['endereco_num']) ? $row['endereco_num'] : 0;
+        $endereco_bairro = !empty($row['endereco_bairro']) ? $row['endereco_bairro'] : '';
+        $endereco_cidade = !empty($row['endereco_cidade']) ? $row['endereco_cidade'] : '';
+        $endereco_estado = !empty($row['endereco_estado']) ? $row['endereco_estado'] : '';
         $tipo_usuario = $row['tipo_usuario'];
         $desativado = $row['desativado'];
-        
 
         // Resto do código HTML para exibir o formulário com os valores das variáveis
     } else {
         echo "Usuário não encontrado.";
-         // Ou outra ação apropriada
+        // Ou outra ação apropriada
     }
 } else {
     echo "ID não informado.";
-     // Ou outra ação apropriada
+    // Ou outra ação apropriada
 }
 ?>
 
@@ -61,7 +61,7 @@ if (isset($_GET['id_usuario'])) {
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" placeholder="Email do usuário" value="<?php echo $email ?>">
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" placeholder="Senha do usuário" value="<?php echo $senha ?>">
+        <input type="password" id="senha" name="senha" placeholder="Senha do usuário">
         <label for="telefone">Telefone:</label>
         <input type="text" id="telefone" name="telefone" placeholder="Telefone do usuário" value="<?php echo $telefone ?>">
         <label for="endereco_rua">Endereço:</label>
