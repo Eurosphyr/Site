@@ -102,8 +102,7 @@ function adicionarRecursoParaUsuariosLogados()
         <a href="#topo"><img width="100" src="../img/seta_cima.png"></a>
     </div>
 </div>
-</div>'
-            ;
+</div>';
             echo "</body></html>";
         } else {
             echo "As informações do usuário não estão definidas na sessão.";

@@ -4,7 +4,7 @@ include "funcoes.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Conecte-se ao banco de dados
     $conn = conectarAoBanco();
-    
+
     // Obtenha os dados do formulário
     $id_produto = $_POST['id_produto'];
     $nome = $_POST['nome'];
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare e execute a consulta SQL
     $query = "UPDATE tbl_produto SET nome = :nome, descricao = :descricao, excluido = :excluido, preco = :preco, data_exclusao = :data_exclusao, codigovisual = :codigovisual, custo = :custo, margem_lucro = :margem_lucro, icms = :icms, imagem = :imagem, quantidade = :quantidade WHERE id_produto = :id_produto";
-    
+
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
     $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
@@ -83,4 +83,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Erro ao atualizar o produto.";
     }
 }
-?>

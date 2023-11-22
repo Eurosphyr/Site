@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $endereco_estado = !empty($_POST['endereco_estado']) ? $_POST['endereco_estado'] : '';
     $tipo_usuario = isset($_POST['tipo_usuario']) ? 1 : 0;
     $desativado = isset($_POST['desativado']) ? 1 : 0;
-     // Se a caixa de seleção foi marcada, defina 1; caso contrário, defina 0.
+    // Se a caixa de seleção foi marcada, defina 1; caso contrário, defina 0.
 
     // SQL para atualizar os dados do usuário
     $sql = "UPDATE tbl_usuario SET 
@@ -66,4 +66,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Certifique-se de fechar a conexão com o banco de dados após a conclusão.
 $conn = null;
-?>

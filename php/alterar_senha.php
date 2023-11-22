@@ -21,7 +21,7 @@ if ($_POST) {
         unset($_SESSION['codigo']);
 
 
-       
+
         $html = "<h1>Olá, $nome!</h1><br><h3>Sua senha foi modificada, caso não reconheça essa mudança, por favor entre em contato</h3><br>";
 
         enviaEmail($_GET['email'], "Usuário", "Mudança de senha", $html);

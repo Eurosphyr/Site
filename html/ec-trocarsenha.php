@@ -33,7 +33,8 @@ if ($_POST) { //Verifica se a nova senha e o código foram enviados.
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cabecalho.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <title>Alterar Senha</title>

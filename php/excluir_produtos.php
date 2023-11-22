@@ -19,4 +19,3 @@ if (isset($_GET['id'])) {
 } else {
   echo "ID do produto não fornecido.";
 }
-?>

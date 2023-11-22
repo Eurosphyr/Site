@@ -27,9 +27,10 @@ if ($_POST) {
 <html lang="pt-br">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/cabecalho.css" />
-    <meta charset="utf-8" />
     <title>Esqueci a senha</title>
     <link rel="icon" href="../img/Logos.svg" />
 </head>
@@ -40,7 +41,7 @@ if ($_POST) {
         <br />
 
         <div class="textfield">
-            <input type="email" name="email" placeholder="Email"  required>
+            <input type="email" name="email" placeholder="Email" required>
             <br />
         </div>
 

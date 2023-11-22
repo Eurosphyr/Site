@@ -30,4 +30,3 @@ if (isset($_GET['id_usuario']) && isset($_GET['acao']) && $_GET['acao'] === 'exc
 
 // Certifique-se de fechar a conexão com o banco de dados após a conclusão.
 $conn = null;
-?>

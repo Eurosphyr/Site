@@ -27,67 +27,26 @@ function logout()
   error_reporting(E_ALL);
   session_start();
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'logout') {
-    // Destruir a sessão
     excluirCookie('userId');
     excluirCookie('userName');
     excluirCookie('userEmail');
 
-    // Encerre a sessão
     session_unset();
     session_destroy();
 
-    // Redirecionar para a página de login
     header('Location: ../html/ec-login.php');
     exit;
   }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'logout') {
-  logout(); // Chame a função logout()
+  logout();
 }
 
-function pesquisa()
-{
-  if (isset($_POST['termo_pesquisa'])) {
-    $varNome = $_POST['termo_pesquisa'];
-
-    $sql = "SELECT * FROM tbl_produto 
-            WHERE nome LIKE '%$varNome%'   
-            ORDER BY nome";
-
-    $select = conectarAoBanco()->prepare($sql);
-    $select->execute();
-    $result = $select->fetchAll(PDO::FETCH_ASSOC);
-
-    echo "<table>"; // Abra a tabela aqui
-
-    foreach ($result as $row) {
-      echo "<tr>";
-      echo "<td>" . $row['nome'] . "</td>";
-      echo "</tr>";
-    }
-
-    echo "</table>"; // Feche a tabela aqui
-  }
-
-  echo "
-  <div class='imagem'>
-  <img src='../img/lupa.png' alt='Imagem' id='imagem'>
-</div>
-<div id='barra-pesquisa' class='barra'>
-  <form action='' method='post'>
-      <input type='text' id='pesquisa' name='termo_pesquisa'>
-      <input type='submit' value='Pesquisar'>
-  </form>
-</div>
-  ";
-}
 function login()
 {
   session_start();
 
-  // Verifica se o usuário já está logado com base nos cookies
   if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
-    // Se o usuário já está logado, redirecione para a página de perfil
     header('Location: ../html/ec-perfil.php');
     exit;
   }
@@ -109,38 +68,31 @@ function login()
     $stmt->execute();
 
     if ($stmt->rowCount() == 1) {
-      // Dados do usuário encontrados
       $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if ($userData['tipo_usuario'] == 1) {
-        // O usuário é um administrador
         $_SESSION['tipo_usuario'] = true;
       } else {
-        // O usuário não é um administrador
         $_SESSION['tipo_usuario'] = false;
       }
-      // Defina outras informações do usuário na sessão
       $_SESSION['sessaoConectado'] = true;
       $_SESSION['userId'] = $userData['id_usuario'];
       $_SESSION['userName'] = $userData['nome'];
       $_SESSION['userEmail'] = $userData['email'];
       $_SESSION['userTelefone'] = $userData['telefone'];
 
-      // Verifique se o usuário marcou "Lembrar sempre"
       $lembrarUsuario = isset($_POST['lembrar']) ? true : false;
 
       if ($lembrarUsuario) {
-        // Defina os cookies com base nos dados do usuário e tempo de expiração
-        setcookie('lembrar_usuario', true, time() + 3600 * 24 * 7); // Expira em uma semana
+        setcookie('lembrar_usuario', true, time() + 3600 * 24 * 7);
         setcookie('userId', $userData['id_usuario'], time() + 3600 * 24 * 7);
         setcookie('userName', $userData['nome'], time() + 3600 * 24 * 7);
         setcookie('userEmail', $userData['email'], time() + 3600 * 24 * 7);
       }
 
-      // Redirecione com base no papel do usuário
       if ($_SESSION['tipo_usuario']) {
         header('Location: ../html/index.php');
-        exibirConteudoComBaseNoPapel(); 
+        exibirConteudoComBaseNoPapel();
       } else {
         header('Location: ../html/index.php');
         exibirConteudoComBaseNoPapel();
@@ -388,14 +340,12 @@ function crud_usuarios()
 
 function recuperarProdutos()
 {
-  // Conecte-se ao banco de dados
   $conn = conectarAoBanco();
 
   if (!$conn) {
     die("Falha na conexão com o banco de dados.");
   }
 
-  // Consulta SQL para recuperar todos os produtos
   $sql = "SELECT * FROM tbl_produto";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
@@ -423,7 +373,7 @@ function calcularTotalPedido($carrinho, $produtos)
 function exibirConteudoComBaseNoPapel()
 {
   if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === true) {
-    // O usuário é um administrador
+
     echo "
       <div class='cabecalho'>
         <a href= 'index.php'><img class='logo' src='../img/Logos.svg' alt='Logo' /></a>
@@ -438,7 +388,7 @@ function exibirConteudoComBaseNoPapel()
       </div>
       ";
   } else {
-    // O usuário não é um administrador
+
     echo "
       <div class='cabecalho'>
         <a href= 'index.php'><img class='logo' src='../img/Logos.svg' alt='Logo' /></a>

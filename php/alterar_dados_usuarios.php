@@ -5,27 +5,26 @@ error_reporting(E_ALL);
 
 session_start();
 
-// Verifique se o usuário está autenticado
 if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true) {
-    // ID do usuário da sessão
+
     $userId = isset($_SESSION['userId']) ? $_SESSION['userId'] : null;
 
     if ($userId !== null) {
         try {
-            // Obtenha os novos dados do formulário
+            
             $userId = !empty($_POST['id_usuario']) ? intval($_POST['id_usuario']) : 0;
             $novoNome = $_POST['novo_nome'];
             $novoEmail = $_POST['novo_email'];
             $novoTelefone = $_POST['novo_telefone'];
 
-            // Conecte-se ao banco de dados
+            
             $conn = conectarAoBanco();
 
             if (!$conn) {
                 throw new Exception("Falha na conexão com o banco de dados.");
             }
 
-            // Atualize os dados do usuário no banco de dados
+            
             $sql = "UPDATE tbl_usuario SET nome = :novoNome, email = :novoEmail, telefone = :novoTelefone WHERE id_usuario = :userId";
 
             $stmt = $conn->prepare($sql);
@@ -52,4 +51,3 @@ if (isset($_SESSION['sessaoConectado']) && $_SESSION['sessaoConectado'] === true
     header('Location: ../html/ec-login.php');
     exit;
 }
-?>

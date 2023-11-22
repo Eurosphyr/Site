@@ -3,14 +3,12 @@ include "funcoes.php";
 if (isset($_GET['id'])) {
     $id_produto = $_GET['id'];
 
-    // Conecte-se ao banco de dados e recupere os dados do produto com base no ID
     $conn = conectarAoBanco();
     $query = "SELECT * FROM tbl_produto WHERE id_produto = :id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':id', $id_produto, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Verifique se o produto existe
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -62,7 +60,7 @@ if (isset($_GET['id'])) {
                 <label for="icms">ICMS:</label>
                 <input type="text" name="icms" value="<?php echo $icms; ?>"><br>
                 <label for="imagem">Imagem:</label>
-                <input type="file" name="imagem" value="<?php echo "<img src='$imagem' alt='Imagem do Produto'>"?>" ><br>
+                <input type="file" name="imagem" value="<?php echo "<img src='$imagem' alt='Imagem do Produto'>" ?>"><br>
                 <label for="cor">Cor:</label>
                 <input type="text" name="cor" value="<?php echo $cor; ?>"><br>
                 <label for="categoria">Categoria:</label>
