@@ -397,114 +397,23 @@ a {
     opacity: 0;
 }
 
-.rodape {
-    background-color: #FCA311;
-    padding: 2vw 1vw;
-    display: flex;
-    flex-direction: column;
+@media screen and (max-width: 1440px) {
+    .container {
+        grid-template-areas: "cabecalho cabecalho"
+            "sobre sobre"
+            "rodape rodape";
+        grid-template-rows: 7.8vh 110vh 75vh;
+    }
+
+    .ft{
+        width: 250px;
+        height: 350px;
+    }
+
+    .sobreD, .sobreP{
+        width: 500px;
+        height: 180px;
+    }
 }
 
-.p {
-    margin: 3px;
-}
-
-.mipron {
-    font-size: 35px;
-    font-weight: bold;
-    margin-left: 100px;
-}
-
-.most {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.mebros {
-    font-size: 17px;
-    padding-left: 100px;
-}
-
-.desen,
-.redesS {
-    font-weight: bold;
-    margin-left: 300px;
-}
-
-.traco1 {
-    width: 800px;
-    height: 2px;
-    background-color: #000000;
-}
-
-.traco2 {
-    width: 800px;
-    height: 2px;
-    background-color: #000000;
-    margin-bottom: 158px;
-}
-
-:root {
-    --background: #2c2c2c;
-    --linkedin: #0a66c2;
-    --youtube: #e52d27;
-    --twitter: #1d98f0;
-}
-
-.redes {
-    padding-right: 100px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-.social-media-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.social-media-button {
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    outline: 2px solid black;
-    cursor: pointer;
-    display: grid;
-    transition: all 0.3s;
-    place-items: center;
-}
-
-.social-media-button:hover {
-    outline-offset: 3px;
-    transition: all 0.3s;
-}
-
-.social-media-button img {
-    transition: 0.3s;
-}
-
-.social-media-button:hover img {
-    transform: scale(1.15);
-}
-
-.social-media-button:hover:nth-child(1) {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6429f 60%, #285aeb 90%);
-}
-
-.social-media-button:hover:nth-child(2) {
-    background-color: var(--twitter);
-}
-
-.social-media-button:hover:nth-child(3) {
-    background-color: var(--linkedin);
-}
-
-.social-media-button:hover:nth-child(4) {
-    background-color: var(--youtube);
-}
+    

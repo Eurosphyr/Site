@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt->execute()) {
                 echo "Usuário cadastrado com sucesso!";
-                header("Location: ../html/index.php");
+                echo "<br>Redirecionando para a página de login...";
+                header("Location: ../html/ec-login.php");
                 exit;
             } else {
                 echo '<script>alert("Erro ao cadastrar"); window.location.href = "../html/ec-cadastro.php";</script>';

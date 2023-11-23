@@ -75,7 +75,7 @@
               à nossa paleta de cores escolhida.</p>
           </div>
           <div class="sms1 smsf2">
-            <img src="../img//fotos/Vivacti.png" class="logo-v"  alt="Viva CTI">
+            <img src="../img//fotos/Vivacti.png" class="logo-v" alt="Viva CTI">
           </div>
           <div class="sms1 sms">
             <p class="t2" align="center">Quem somos?</p>
@@ -137,8 +137,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="rodape">
+    <div class="rodape">
       <div class="most">
         <div class="redes">
           <img src="../img/Mipron.png" alt="Logo MIPRON">
@@ -177,6 +176,8 @@
         </div>
       </div>
     </div>
+  </div>
+
   <script src="../php/jstst1.js"></script>
   <script src="../php/jstst2.js"></script>
   <script src="../php/jstst3.js"></script>
