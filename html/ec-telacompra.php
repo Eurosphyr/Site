@@ -66,7 +66,7 @@ if (isset($_POST['id_produto'])) {
             <p>MOUSEPADS</p>
             <div class="bola-1">
                 <div class="cima">
-                    <img class="prods" src="">
+                    <img class="prods" src="../img/Mousepad_Viva.jpg">
                 </div>
                 <div class="desc-prod1">
                     <p class="texto">O Mouse Pad Premium é a escolha ideal para gamers, profissionais de design e qualquer pessoa que valorize o desempenho e a estética. Melhore a sua precisão nos jogos, simplifique o seu fluxo de trabalho e dê um toque de classe ao seu espaço de trabalho com o nosso mouse pad.
@@ -179,8 +179,30 @@ if (isset($_POST['id_produto'])) {
         });
 
         function updateProductId(value) {
-            document.getElementById("id_produto_input").value = parseInt(value); // Use parseInt para converter para inteiro
+            document.getElementById("id_produto_input").value = parseInt(value);
+             // Use parseInt para converter para inteiro
         }
+
+        function marcarRadioButtons(opcoesFiltradas) {
+            // Obtenha todos os radio buttons na tela de pagamento
+            var radioButtons = document.getElementsByName('opcao');
+
+            // Desmarque todos os radio buttons
+            for (var i = 0; i < radioButtons.length; i++) {
+                radioButtons[i].checked = false;
+            }
+
+            // Marque os radio buttons com base nas opções filtradas
+            for (var j = 0; j < opcoesFiltradas.length; j++) {
+                var opcaoFiltrada = opcoesFiltradas[j];
+                var radio = document.querySelector("input[value='" + opcaoFiltrada + "']");
+                if (radio) {
+                    radio.checked = true;
+                }
+            }
+        }
+
+        marcarRadioButtons(<?php echo json_encode($opcoesFiltradas); ?>);
     </script>
 </body>
 

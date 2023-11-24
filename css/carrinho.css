@@ -224,9 +224,9 @@ a {
   text-decoration: underline;
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1440px) {
   .container {
-      grid-template-rows: 0.2fr 0.3fr 1.6fr 0.8fr;
+      grid-template-rows: 7.3vh 30vh 30vh 20vh !important;
   }
   .foto-ca{
       width: 130px;
@@ -270,8 +270,9 @@ a {
       margin-right: 10px;
   }
   .prod1{
-      width: 350px;
-      height: 150px;
+      width: 550px;
+      height: 350px;
+      padding: 2vh 3vw;
   }
   .ft-prod{
       width: 75px;
@@ -291,7 +292,9 @@ a {
       font-size: 10px;
   }
   .q-prod{
-      width: 20px;
+      font-size: 12px;
+      width: 30px;
+      height: 15px;
   }
   .retirar{
       font-size: 20px;
@@ -300,16 +303,16 @@ a {
       font-size: 10px;
   }
   .escrita-p{
-      top: 245px;
-      left: 60px;
+      top: 40vh;
+      left: 35vw;
   }
   .escrita-v{
-      top: 245px;
-      left: 228px;
+      top: 40vh;
+      left: 45vw;
   }
   .escrita-q{
-      top: 245px;
-      left: 292px;
+      top: 40vh;
+      left: 49.7vw;
   }
   .escrita-t{
       top: 245px;

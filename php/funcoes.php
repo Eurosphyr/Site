@@ -385,20 +385,46 @@ function exibirConteudoComBaseNoPapel()
         <a  href='ec-relatorio.php'><input type = 'button' class='b' value='RELATÓRIO'></a>
         <a  href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
         <a  href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
-      </div>
-      ";
+        <div class='dropdown'>
+        <button class='dropdownbtn'>Filtro</button>
+        <div class='dropdown-content'>
+            <form name='filtro' action='ec-telacompra.php' method='POST'>
+                <input type='checkbox' name='filtro[]' id='Caderneta Preta' value='Caderneta Preta'>
+                <label for='categoria1'>Caderneta Preta</label>
+
+                <input type='checkbox' name='filtro[]' id='Caderneta Branca' value='Caderneta Branca'>
+                <label for='Caderneta Branca'>Caderneta Branca</label>
+
+                <input type='submit' value='Filtrar' class='btn' name='categorias'>
+            </form>
+        </div>
+    </div>
+</div>";
   } else {
 
     echo "
-      <div class='cabecalho'>
-        <a href= 'index.php'><img class='logo' src='../img/Logos.svg' alt='Logo' /></a>
-        <a  href='index.php'><input type = 'button' class='b' value='HOME'></a>
-        <a  href='ec-sobre.php'><input type = 'button' class='b' value='SOBRE'></a>
-        <a  href='ec-telacompra.php'><input type = 'button' class='b' value='COMPRAR'></a>
-        <a  href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
-        <a  href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
-      </div>
-      ";
+<div class='cabecalho'>
+    <a href='index.php'><img class='logo' src='../img/Logos.svg' alt='Logo' /></a>
+    <a href='index.php'><input type='button' class='b' value='HOME'></a>
+    <a href='ec-sobre.php'><input type='button' class='b' value='SOBRE'></a>
+    <a href='ec-telacompra.php'><input type='button' class='b' value='COMPRAR'></a>
+    <a href='ec-carrinho.php'><img class='carrinho' src='../img/cart.png' alt='Carrinho' /></a>
+    <a href='ec-perfil.php'><img class='perfil' src='../img/user.png' alt='Perfil' /></a>
+    <div class='dropdown'>
+        <button class='dropdownbtn'>Filtro</button>
+        <div class='dropdown-content'>
+            <form name='filtro' action='ec-telacompra.php' method='POST'>
+                <input type='checkbox' name='filtro[]' id='Caderneta Preta' value='Caderneta Preta'>
+                <label for='categoria1'>Caderneta Preta</label>
+
+                <input type='checkbox' name='filtro[]' id='Caderneta Branca' value='Caderneta Branca'>
+                <label for='Caderneta Branca'>Caderneta Branca</label>
+
+                <input type='submit' value='Filtrar' class='btn' name='categorias'>
+            </form>
+        </div>
+    </div>
+</div>";
   }
 }
 

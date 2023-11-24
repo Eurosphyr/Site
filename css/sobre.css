@@ -330,6 +330,15 @@ a {
 .setaL {
     z-index: 990;
     width: 150px;
+    position: absolute;
+}
+
+.setaR{
+    right: 2vw;
+}
+
+.setaL{
+    left: 2vw;
 }
 
 .setaR:hover {
@@ -399,15 +408,32 @@ a {
 
 @media screen and (max-width: 1440px) {
     .container {
-        grid-template-areas: "cabecalho cabecalho"
-            "sobre sobre"
-            "rodape rodape";
-        grid-template-rows: 7.8vh 110vh 75vh;
+        grid-template-rows: 7.3vh 130vh 80vh !important;
+    }
+
+    .explic2{
+        top: 98.3%;
+    }
+
+    .prof{
+        left: -15%;
+    }
+
+    .somos{
+        right: 15%;
+    }
+
+    .txt1{
+        font-size: 15px;
+    }
+
+    .txt2{
+        font-size: 14px;
     }
 
     .ft{
-        width: 250px;
-        height: 350px;
+        width: 290px;
+        height: 400px;
     }
 
     .sobreD, .sobreP{
@@ -415,5 +441,3 @@ a {
         height: 180px;
     }
 }
-
-    

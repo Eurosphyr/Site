@@ -53,15 +53,6 @@ p {
   width: 30vw;
 }
 
-@keyframes setaR {
-  from {
-    transform: translateX();
-  }
-
-  to {
-    transform: translateX(20px);
-  }
-}
 
 .pularR {
   opacity: 0;
@@ -75,6 +66,7 @@ p {
 .setaR,
 .setaL {
   width: 150px;
+  z-index: 50;
 }
 
 .pularL {
@@ -82,9 +74,6 @@ p {
   transform: translateX(-450px);
 }
 
-.setaR:hover {
-  animation: setaR 0.3s ease;
-}
 
 .imagem {
   background-color: #14213d;
@@ -94,20 +83,6 @@ p {
   margin-left: 30px;
   width: 40%;
   height: 60%;
-}
-
-@keyframes setaL {
-  from {
-    transform: translateX();
-  }
-
-  to {
-    transform: translateX(-20px);
-  }
-}
-
-.setaL:hover {
-  animation: setaL 0.3s ease;
 }
 
 .text2 {
@@ -217,7 +192,7 @@ p {
   box-shadow: white 1px 1px 15px 15px;
 }
 
-.
+
 @media screen and (max-width: 1080px) {
   .container {
     grid-template-columns: 0.4fr 1.25fr 0.4fr;

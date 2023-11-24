@@ -24,6 +24,9 @@ echo "
       <input type='submit' value='Gerar'>
      </form> ";
 
+echo "<br><br>";
+echo "<a href='index.php'>Voltar</a>";     
+
 if ($_POST) {
   // faz conexao 
   $conn = conectarAoBanco();

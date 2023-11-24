@@ -73,12 +73,31 @@ function aumentarQuantidadeProduto($idProduto, $quantidade, $session_id)
     echo '<script>alert("Erro ao aumentar quantidade do produto!"); window.location.href = "../html/ec-carrinho.php";</script>';
   }
 }
+
+function obterQuantidadeProduto($idProduto, $session_id)
+{
+  global $conn;
+
+  $sql_select_quantidade = "SELECT quantidade 
+                            FROM tbl_carrinho 
+                            WHERE id_produto = :id_produto 
+                            AND id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)";
+
+  $stmt_select_quantidade = $conn->prepare($sql_select_quantidade);
+  $stmt_select_quantidade->bindParam(':id_produto', $idProduto, PDO::PARAM_INT);
+  $stmt_select_quantidade->bindParam(':session_id', $session_id, PDO::PARAM_STR);
+  $stmt_select_quantidade->execute();
+
+  $quantidade = $stmt_select_quantidade->fetchColumn();
+  return $quantidade;
+}
+
 function diminuirQuantidadeProduto($idProduto, $quantidade, $session_id)
 {
   global $conn;
 
   $sql_update = "UPDATE tbl_carrinho 
-                SET quantidade = GREATEST(0, quantidade - :quantidade) 
+                SET quantidade = GREATEST(0, quantidade - :quantidade)
                 WHERE id_produto = :id_produto 
                 AND id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)";
 
@@ -88,7 +107,11 @@ function diminuirQuantidadeProduto($idProduto, $quantidade, $session_id)
   $stmt_update->bindParam(':session_id', $session_id, PDO::PARAM_STR);
 
   if ($stmt_update->execute() === TRUE) {
-    if ($quantidade <= 0) {
+    // Obtenha a nova quantidade após o update
+    $novaQuantidade = obterQuantidadeProduto($idProduto, $session_id);
+
+    // Remover o produto se a quantidade for menor ou igual a zero
+    if ($novaQuantidade <= 0) {
       $sql_delete = "DELETE FROM tbl_carrinho 
                     WHERE id_produto = :id_produto 
                     AND id_compra IN (SELECT id_compra FROM tbl_compratmp WHERE sessao = :session_id)";
@@ -101,7 +124,6 @@ function diminuirQuantidadeProduto($idProduto, $quantidade, $session_id)
     echo '<script>alert("Erro ao diminuir quantidade do produto"); window.location.href = "../html/ec-carrinho.php";</script>';
   }
 }
-
 
 // ...
 
@@ -131,10 +153,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['diminuir_quantidade']
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
   $session_id = session_id();
+  $id_usuario = isset($_GET['id_usuario']) ? intval($_GET['id_usuario']) : null;
 
   $conn->beginTransaction();
 
   try {
+
+    if ($id_usuario !== null) {
+      $stmt_clear_compra = $conn->prepare("DELETE FROM tbl_compra WHERE id_usuario = :id_usuario");
+      $stmt_clear_compra->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+      $stmt_clear_compra->execute();
+    }
     $sql_clear_cart = "DELETE tbl_carrinho 
                        FROM tbl_carrinho 
                        INNER JOIN tbl_compratmp ON tbl_carrinho.id_compra = tbl_compratmp.id_compra
@@ -217,12 +246,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
           $stmt->execute();
           $dados_produto = $stmt->fetch();
 
-          $nome_produto = $dados_produto['nome']; // Supondo que o nome do produto está na coluna 'nome'
-          $vunit = $dados_produto['preco']; // Supondo que o preço do produto está na coluna 'preco'
-          $imagem = $dados_produto['imagem']; // Supondo que o caminho da imagem está na coluna 'imagem'
+          $nome_produto = $dados_produto['nome'];
+          $vunit = $dados_produto['preco'];
+          $imagem = $dados_produto['imagem'];
           $subtotal += $vunit * $quantidade;
           $total += $vunit * $quantidade;
-          // Seção HTML para exibir detalhes do produto no carrinho
+
           echo "<div class='prod1'>
         <div class='desing-p'>
             <div class='ft-prod'><img src='$imagem' alt='imagem_produto' class='ft-prod'></div>
@@ -232,14 +261,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
             <p class='v-prod'>R$" . number_format($vunit, 2) . "</p>
         </div>
         <div class='desing-v'>
-        <form method='post' action=''>
+        <form method='POST' action=''>
             <input type='hidden' name='id_produto' value='$id_produto'>
             <input type='hidden' name='quantidade' value='1'>
             <button type='submit' name='diminuir_quantidade'>-</button>
         </form>
             <input class='q-prod' id='input-$id_produto' type='number' value='$quantidade' readonly data-valor='$vunit' />";
           // Botão para aumentar a quantidade do produto
-          echo "<form method='post' action=''>
+          echo "<form method='POST' action=''>
         <input type='hidden' name='id_produto' value='$id_produto'>
         <input type='hidden' name='quantidade' value='1'>
         <button type='submit' name='aumentar_quantidade'>+</button>
@@ -248,7 +277,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
         <div class='desing-t'>
             <p class='v-prod'>R$" . number_format($vunit * $quantidade, 2) . "</p>
         </div>
-        <a class='retirar' href='#' onclick='removerProduto($id_produto)'>Remover</a>
+        <form method='POST' action=''>
+            <input type='hidden' name='id_produto' value='$id_produto'>
+            <input type='hidden' name='quantidade' value='1'>
+            <button type='submit' name='diminuir_quantidade' class='retirar'>Remover</button>
+        </form>
     </div>";
         }
       } else {
@@ -267,7 +300,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
         <button type="submit" id="btn-submit" style="display: none;"></button>
       </form>
       <button onclick="atualizarEEnviarFormularioPagamento()" class="pagar">Pagar</button>
-      <button onclick="limparCarrinho()" class="limpar">Limpar Carrinho</button>
     </div>
     <div class="rodape">
       <div class="most">
@@ -326,9 +358,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['limpar_carrinho'])) {
       document.getElementById("formulario-pagamento").submit();
     }
 
+
     function limparCarrinho() {
+      var id_usuario = <?php echo isset($_SESSION['userId']) ? $_SESSION['userId'] : 'null'; ?>;
+
       if (confirm('Tem certeza que deseja limpar o carrinho?')) {
-        window.location.href = 'ec-carrinho.php?limpar_carrinho=true';
+        window.location.href = 'ec-carrinho.php?limpar_carrinho=true&id_usuario=' + id_usuario;
       }
     }
   </script>

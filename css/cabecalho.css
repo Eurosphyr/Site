@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0px;
 }
 :root {
@@ -50,7 +50,7 @@
 
 /* Perfil */
 
-.carrinho{
+.carrinho {
   width: 2.5vw;
 }
 .perfil {
@@ -59,35 +59,88 @@
   /* Manter seu estilo existente */
 }
 /* Estilo para a barra de pesquisa */
+/* Restante do seu CSS */
+
+/* Estilo para a barra de pesquisa */
 .barra {
-  display: none; /* A barra de pesquisa inicialmente oculta */
-  background-color: #fff; /* Cor de fundo branca */
-  padding: 10px; /* Espaçamento interno */
-  border: 1px solid #ccc; /* Borda cinza */
-  border-radius: 5px; /* Cantos arredondados */
-  position: absolute; /* Posição absoluta para sobrepor a imagem */
-  top: 50px; /* Distância a partir do topo */
-  left: 0; /* Alinhado à esquerda */
-  width: 200px; /* Largura da barra de pesquisa */
-  z-index: 1; /* Certifica-se de que a barra esteja acima de outros elementos */
+  display: none;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 200px;
+  z-index: 1;
 }
 
 /* Estilo para a imagem */
 .imagem {
-  cursor: pointer; /* Transforma o cursor em um ponteiro quando hover */
+  cursor: pointer;
 }
 
 /* Estilo para a animação da imagem */
 .animacao-rodar {
-  animation: rodar 1s linear; /* Animação de rotação */
+  animation: rodar 1s linear;
 }
 
+/* Adicione o estilo para o botão de filtro */
+.dropdownbtn {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Estilo para esconder o conteúdo do dropdown por padrão */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--main-bg-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Adicione estilo aos itens do dropdown */
+.dropdown-content label {
+  display: block;
+  padding: 10px;
+  color: var(--text-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Adicione estilo ao botão de filtrar no dropdown */
+.dropdown-content input[type="submit"] {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Adicione um estilo para os itens do dropdown ao passar o mouse */
+.dropdown-content label:hover,
+.dropdown-content input[type="submit"]:hover {
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
+}
+
+/* Mostrar o dropdown quando o mouse está sobre o botão de filtro */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Adicione a regra de animação para o dropdown */
 @keyframes rodar {
   0% {
-    transform: rotate(0deg); /* Começa sem rotação */
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg); /* Completa uma rotação de 360 graus */
+    transform: rotate(360deg);
   }
 }
 
