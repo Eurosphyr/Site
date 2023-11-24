@@ -102,7 +102,7 @@
           <p class="sob"><strong>Função: </strong>Gerente de Marketing</p>
         </div>
         <div class="sobreD sobreD3">
-          <p class="sob"><strong>Nome: </strong>Nicole dos Santos Quadroz</p>
+          <p class="sob"><strong>Nome: </strong>Nicole dos Santos Quadros</p>
           <p class="sob"><strong>Função: </strong>Gerente de Qualidade</p>
         </div>
         <div class="sobreD sobreD4">

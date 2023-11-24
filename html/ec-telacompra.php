@@ -182,27 +182,6 @@ if (isset($_POST['id_produto'])) {
             document.getElementById("id_produto_input").value = parseInt(value);
              // Use parseInt para converter para inteiro
         }
-
-        function marcarRadioButtons(opcoesFiltradas) {
-            // Obtenha todos os radio buttons na tela de pagamento
-            var radioButtons = document.getElementsByName('opcao');
-
-            // Desmarque todos os radio buttons
-            for (var i = 0; i < radioButtons.length; i++) {
-                radioButtons[i].checked = false;
-            }
-
-            // Marque os radio buttons com base nas opções filtradas
-            for (var j = 0; j < opcoesFiltradas.length; j++) {
-                var opcaoFiltrada = opcoesFiltradas[j];
-                var radio = document.querySelector("input[value='" + opcaoFiltrada + "']");
-                if (radio) {
-                    radio.checked = true;
-                }
-            }
-        }
-
-        marcarRadioButtons(<?php echo json_encode($opcoesFiltradas); ?>);
     </script>
 </body>
 
