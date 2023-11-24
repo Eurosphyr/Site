@@ -91,7 +91,7 @@
           <a href="ec-sobre.php">
             <p class="vt">Sobre</p>
           </a>
-          <a href="ec-telaproduto.php">
+          <a href="ec-telacompra.php">
             <p class="vt">Comprar</p>
           </a>
           <a href="#topo"><img width="100" src="../img/seta_cima.png"></a>
