@@ -61,7 +61,7 @@ if (isset($_GET['id_usuario'])) {
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" placeholder="Email do usuário" value="<?php echo $email ?>">
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" placeholder="Senha do usuário">
+        <input type="password" id="senha" name="senha" placeholder="Senha do usuário" value="<?php echo $senha ?>">
         <label for="telefone">Telefone:</label>
         <input type="text" id="telefone" name="telefone" placeholder="Telefone do usuário" value="<?php echo $telefone ?>">
         <label for="endereco_rua">Endereço:</label>

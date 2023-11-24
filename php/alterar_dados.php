@@ -34,11 +34,12 @@ include "funcoes.php";
             }
 
             // Atualize os dados do usuário no banco de dados
-            $sql = "UPDATE tbl_usuario SET nome = :novoNome, email = :novoEmail, telefone = :novoTelefone, endereco_rua = :nova_rua, endereco_num = :novo_num, endereco_bairro = :novo_bairro, endereco_cidade = :nova_cidade, endereco_estado = :novo_estado, tipo_usuario = :novo_tipo   WHERE id_usuario = :userId";
+            $sql = "UPDATE tbl_usuario SET nome = :novoNome, email = :novoEmail, senha = :novaSenha, telefone = :novoTelefone, endereco_rua = :nova_rua, endereco_num = :novo_num, endereco_bairro = :novo_bairro, endereco_cidade = :nova_cidade, endereco_estado = :novo_estado, tipo_usuario = :novo_tipo   WHERE id_usuario = :userId";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':novoNome', $novoNome);
             $stmt->bindParam(':novoEmail', $novoEmail);
+            $stmt->bindParam(':novaSenha', $novaSenha);
             $stmt->bindParam(':novoTelefone', $novoTelefone);
             $stmt->bindParam(':nova_rua', $novaRua);
             $stmt->bindParam(':novo_num', $novoNum);
